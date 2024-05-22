@@ -24,7 +24,7 @@ window.transitionToPage = function(href) {
     setTimeout(function() { 
         window.location.href = href
 
-    }, 100);
+    }, 500);
 
  
 }

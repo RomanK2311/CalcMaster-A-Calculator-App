@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         webview.setWebViewClient(new WebViewClientDemo());
         AndroidInterface androidInterface = new AndroidInterface(this);
         webview.addJavascriptInterface(androidInterface, "AndroidInterface");
-        webview.setBackgroundColor(getResources().getColor(R.color.black));
+
         webview.loadUrl("file:///android_asset/index.html");
 
 
@@ -155,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
                         navigationBarColor = 0xFF121318;
                         systemUiVisibilityFlags = 0;
 
-
                     } else if (color.equals("Activitybluelight")) {
                         statusBarColor = 0xFFfaf8ff;
                         navigationBarColor = 0xFFfaf8ff;
@@ -225,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
                         statusBarColor = 0xFFfaf8ff;
                         navigationBarColor = 0xFFfaf8ff;
                         setTheme(R.style.blue_light_scheme);
+                        webview.setBackgroundColor(getResources().getColor(R.color.blue_light));
 
 
                     } else if (color.equals("blue-dark")) {
@@ -232,11 +232,14 @@ public class MainActivity extends AppCompatActivity {
                         navigationBarColor = 0xFF121318;
                         systemUiVisibilityFlags = 0;
                         setTheme(R.style.blue_dark_scheme);
+                        webview.setBackgroundColor(getResources().getColor(R.color.blue_dark));
+
 
                     } else if (color.equals("purple-light")) {
                         statusBarColor = 0xFFfff7fd;
                         navigationBarColor = 0xFFfff7fd;
                         setTheme(R.style.purple_light_scheme);
+                        webview.setBackgroundColor(getResources().getColor(R.color.purple_light));
 
 
                     } else if (color.equals("purple-dark")) {
@@ -244,11 +247,14 @@ public class MainActivity extends AppCompatActivity {
                         navigationBarColor = 0xFF161217;
                         systemUiVisibilityFlags = 0;
                         setTheme(R.style.purple_dark_scheme);
+                        webview.setBackgroundColor(getResources().getColor(R.color.purple_dark));
+
 
                     } else if (color.equals("yellow-light")) {
                         statusBarColor = 0xFFfdf9ec;
                         navigationBarColor = 0xFFfdf9ec;
                         setTheme(R.style.yellow_light_scheme);
+                        webview.setBackgroundColor(getResources().getColor(R.color.yellow_light));
 
 
                     } else if (color.equals("yellow-dark")) {
@@ -256,12 +262,14 @@ public class MainActivity extends AppCompatActivity {
                         navigationBarColor = 0xFF14140c;
                         systemUiVisibilityFlags = 0;
                         setTheme(R.style.yellow_dark_scheme);
+                        webview.setBackgroundColor(getResources().getColor(R.color.yellow_dark));
 
 
                     } else if (color.equals("green-light")) {
                         statusBarColor = 0xFFf8fbf1;
                         navigationBarColor = 0xFFf8fbf1;
                         setTheme(R.style.green_light_scheme);
+                        webview.setBackgroundColor(getResources().getColor(R.color.green_light));
 
 
                     } else if (color.equals("green-dark")) {
@@ -269,12 +277,14 @@ public class MainActivity extends AppCompatActivity {
                         navigationBarColor = 0xFF11140f;
                         systemUiVisibilityFlags = 0;
                         setTheme(R.style.green_dark_scheme);
+                        webview.setBackgroundColor(getResources().getColor(R.color.green_dark));
 
 
                     } else if (color.equals("red-light")) {
                         statusBarColor = 0xFFfff8f6;
                         navigationBarColor = 0xFFfff8f6;
                         setTheme(R.style.red_light_scheme);
+                        webview.setBackgroundColor(getResources().getColor(R.color.red_light));
 
 
                     } else if (color.equals("red-dark")) {
@@ -282,12 +292,14 @@ public class MainActivity extends AppCompatActivity {
                         navigationBarColor = 0xFF1a1110;
                         systemUiVisibilityFlags = 0;
                         setTheme(R.style.red_dark_scheme);
+                        webview.setBackgroundColor(getResources().getColor(R.color.red_dark));
 
 
                     } else if (color.equals("pink-light")) {
                         statusBarColor = 0xFFfff8f8;
                         navigationBarColor = 0xFFfff8f8;
                         setTheme(R.style.pink_light_scheme);
+                        webview.setBackgroundColor(getResources().getColor(R.color.pink_light));
 
 
                     } else if (color.equals("pink-dark")) {
@@ -295,12 +307,14 @@ public class MainActivity extends AppCompatActivity {
                         navigationBarColor = 0xFF191113;
                         systemUiVisibilityFlags = 0;
                         setTheme(R.style.pink_dark_scheme);
+                        webview.setBackgroundColor(getResources().getColor(R.color.pink_dark));
 
 
                     } else if (color.equals("charcol-light")) {
                         statusBarColor = 0xFFf9f9f9;
                         navigationBarColor = 0xFFf9f9f9;
                         setTheme(R.style.charcol_light_scheme);
+                        webview.setBackgroundColor(getResources().getColor(R.color.charcoal_light));
 
 
                     } else if (color.equals("charcol-dark")) {
@@ -308,12 +322,14 @@ public class MainActivity extends AppCompatActivity {
                         navigationBarColor = 0xFF131313;
                         systemUiVisibilityFlags = 0;
                         setTheme(R.style.charcol_dark_scheme);
+                        webview.setBackgroundColor(getResources().getColor(R.color.charcoal_dark));
 
 
                     } else if (color.equals("orange-light")) {
                         statusBarColor = 0xFFfff8f4;
                         navigationBarColor = 0xFFfff8f4;
                         setTheme(R.style.orange_light_scheme);
+                        webview.setBackgroundColor(getResources().getColor(R.color.orange_light));
 
 
                     } else if (color.equals("orange-dark")) {
@@ -321,11 +337,14 @@ public class MainActivity extends AppCompatActivity {
                         navigationBarColor = 0xFF17130d;
                         systemUiVisibilityFlags = 0;
                         setTheme(R.style.orange_dark_scheme);
+                        webview.setBackgroundColor(getResources().getColor(R.color.orange_dark));
+
 
                     } else if (color.equals("blue-bright-light")) {
                         statusBarColor = 0xFFfaf8ff;
                         navigationBarColor = 0xFFfaf8ff;
                         setTheme(R.style.blue_bright_light_scheme);
+                        webview.setBackgroundColor(getResources().getColor(R.color.blue_bright_light));
 
 
                     } else if (color.equals("blue-bright-dark")) {
@@ -333,6 +352,7 @@ public class MainActivity extends AppCompatActivity {
                         navigationBarColor = 0xFF11131a;
                         systemUiVisibilityFlags = 0;
                         setTheme(R.style.blue_bright_dark_scheme);
+                        webview.setBackgroundColor(getResources().getColor(R.color.blue_bright_dark));
 
 
 //                        scroll colors main-window
@@ -901,7 +921,7 @@ public class MainActivity extends AppCompatActivity {
                     url.startsWith("https://fonts.google.com/specimen/Poppins?query=poppins") ||
                     url.startsWith("https://github.com/material-components/material-web") ||
                     url.startsWith("https://app-privacy-policy-generator.nisrulz.com/") ||
-                    url.startsWith("3");
+                    url.startsWith("https://github.com/PranshulGG/CalcMaster_A_Calculator_App");
         }
 
     }

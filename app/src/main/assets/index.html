@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" data-theme="dark" data-color-theme="Material You (Raisin purple 100)">
+<html lang="en" dir="ltr" >
 
 <head>
   <meta charset="UTF-8">
@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="ripple-files/ripple.css">
 </head>
 
-<body class="">
+<body >
   <div id="App">
     <div class="calculator-container" id="calculator-container">
       <div class="display">
@@ -136,6 +136,11 @@
       checkTHEME();
 
     }, 300);
+
+        setTimeout(() => {
+      checkTHEME();
+
+    }, 500);
 
 
     function sendThemeToAndroid(theme) {
