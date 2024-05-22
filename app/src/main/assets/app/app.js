@@ -134,16 +134,6 @@ function appendToDisplay(value) {
         document.getElementById("display").style.paddingRight = "8px";
     }
 
-
-            
-
-
-
-                if(getLastInputSaveSwitch === 'true'){
-                    localStorage.setItem("inputValueDISPLAYBIG", document.getElementById('display').value);
-                } else{
-                    return;
-                }
             
 
 
@@ -173,7 +163,11 @@ function appendToDisplay(value) {
 
 
 
-    
+                    if(getLastInputSaveSwitch === 'true'){
+                        localStorage.setItem("inputValueDISPLAYBIG", document.getElementById('display').value);
+                    } else{
+                        return;
+                    }
 }
 
 if(focusDisplay){
