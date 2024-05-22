@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>angle calculator</title>
+    <link rel="stylesheet" href="../ui-files/ui.css">
+    <link rel="stylesheet" href="../ui-files/font-usage.css">
+    <link rel="stylesheet" href="../ui-files/variables.css">
+    <link rel="stylesheet" href="../components/components.css">
+    <link rel="stylesheet" href="../ripple-files/ripple.css">
+    <link rel="stylesheet" href="../components/modal-ver.css">
+</head>
+<body style="animation: historyItems 0.4s cubic-bezier(0,1,0,1);">
+    <div class="full-activity-header round transparent" style="height: 30px;">
+        <button class="ripple-icon-btn close" ontouchstart="playEffect(this)" ontouchend="playEffect2(this)" onclick="window.history.back()">
+            <span class="ripple-effect-icon"></span>
+            <span icon-outlined>arrow_back</span>
+        </button>
+        <p>Angle</p>
+    </div>
+
+    <div class="container_unit">
+        <div class="input-group">
+          <input type="text" id="inputValue" placeholder="0" inputmode="none" autocomplete="off">
+          <span id="fromValue">deg</span>
+
+        <i icon-outlined class="toIcon">arrow_downward</i>
+
+        </div>
+
+
+        <div class="output-group">
+          <input type="text" id="outputValue" readonly placeholder="0">
+          <span id="toValue">deg</span>
+
+        </div>
+      </div>
+
+      <div class="selection_units" style="padding-left: 10px; padding-right: 10px; width: calc(100% - 20px);">
+
+
+          <md-suggestion-chip label="Degree" id="fromSelectTemp"><md-icon slot="icon" icon-outlined>arrow_forward</md-icon></md-suggestion-chip>
+
+          <!--  -->
+          <md-suggestion-chip label="Degree" id="toSelectTemp"></md-suggestion-chip>
+
+
+      </div>
+
+      <div class="c-keyboard unit-keyboard">
+        <div class="c-keyboard-keys">
+            <button class="ripple_btn v-key" onclick="appendToAmount('1')">1</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('2')">2</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('3')">3</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('4')">4</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('5')">5</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('6')">6</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('7')">7</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('8')">8</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('9')">9</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('0')">0</button>
+        </div>
+        <div class="sidebtn-c-keyboard">
+            <button class="icon-class-filled ripple_btn  v-key" onclick="clearAmountALL()" icon-outlined>clear_all</button>
+            <button class="icon-class-filled ripple_btn  v-key remove-key" onclick="clearOneCharacter()" icon-filled>backspace</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- input-modal-from -->
+<md-dialog id="fromUnitTempDialog" style="width: 100%;">
+    <div slot="headline">Select units</div>
+    <form slot="content" id="tempUnitfrom" method="dialog">
+        <label style="display: flex; align-items: center;" class="ripple_btn_low">
+            <md-radio
+              name="fromUnitTemp"
+              value="deg"
+              aria-label="Degree"
+              touch-target="wrapper"
+              checked></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Degree</span>
+          </label>
+          <label style="display: flex; align-items: center;" class="ripple_btn_low">
+            <md-radio
+              name="fromUnitTemp"
+              value="min"
+              aria-label="Minutes"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Minutes</span>
+          </label>
+          <label style="display: flex; align-items: center;" class="ripple_btn_low">
+            <md-radio
+              name="fromUnitTemp"
+              value="sec"
+              aria-label="Seconds"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Seconds</span>
+          </label>
+          <label style="display: flex; align-items: center;" class="ripple_btn_low">
+            <md-radio
+              name="fromUnitTemp"
+              value="rad"
+              aria-label="Radians"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Radians</span>
+          </label>
+    </form>
+
+    <div slot="actions">
+        <md-text-button form="tempUnitfrom" >Cancel</md-text-button>
+    </div>
+</md-dialog>
+
+<!-- input-modal-to -->
+
+<md-dialog id="toUnitTempDialog" style="width: 100%;">
+    <div slot="headline">Select units</div>
+    <form slot="content" id="tempUnitto" method="dialog">
+        <label style="display: flex; align-items: center;" class="ripple_btn_low">
+            <md-radio
+              name="toUnitTemp"
+              value="deg"
+              aria-label="Degree"
+              touch-target="wrapper"
+              checked></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Degree</span>
+          </label>
+          <label style="display: flex; align-items: center;" class="ripple_btn_low">
+            <md-radio
+              name="toUnitTemp"
+              value="min"
+              aria-label="Minutes"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Minutes</span>
+          </label>
+          <label style="display: flex; align-items: center;" class="ripple_btn_low">
+            <md-radio
+              name="toUnitTemp"
+              value="sec"
+              aria-label="Seconds"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Seconds</span>
+          </label>
+          <label style="display: flex; align-items: center;" class="ripple_btn_low">
+            <md-radio
+              name="toUnitTemp"
+              value="rad"
+              aria-label="Radians"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Radians</span>
+          </label>
+    </form>
+
+    <div slot="actions">
+        <md-text-button form="tempUnitto" >Cancel</md-text-button>
+    </div>
+</md-dialog>
+
+      <script>
+
+
+
+var FromUnitRadiosINputs = document.querySelectorAll('md-radio[name="fromUnitTemp"]');
+FromUnitRadiosINputs.forEach(function(FromUnitRadiosINput) {
+            FromUnitRadiosINput.addEventListener('input', () =>{
+                document.getElementById('fromValue').innerHTML = FromUnitRadiosINput.value;
+                var ariaLabelFromUnit = FromUnitRadiosINput.getAttribute('aria-label');
+                fromSelectTempBtn.setAttribute('label', ariaLabelFromUnit) 
+                fromUnitTempDialog.close()
+            });
+        });
+
+
+        var toUnitRadiosINputs = document.querySelectorAll('md-radio[name="toUnitTemp"]');
+        toUnitRadiosINputs.forEach(function(toUnitRadiosINput) {
+            toUnitRadiosINput.addEventListener('input', () =>{
+                document.getElementById('toValue').innerHTML = toUnitRadiosINput.value;
+                var ariaLabeltoUnit = toUnitRadiosINput.getAttribute('aria-label');
+                toSelectTempBtn.setAttribute('label', ariaLabeltoUnit)
+                toUnitTempDialog.close()
+            });
+        });
+
+        
+function convert() {
+  let inputValue = document.getElementById('inputValue').value;
+  inputValue = inputValue.replace(/,/g, '');
+
+
+
+  const parsedValue = parseFloat(inputValue);
+
+
+  if (isNaN(inputValue)) {
+    return;
+  }
+
+  var radioButtons = document.querySelectorAll('md-radio[name="fromUnitTemp"]');
+  var selectedValue;
+        radioButtons.forEach(function(radioButton) {
+            if (radioButton.checked) {
+                selectedValue = radioButton.value;
+            }
+        });
+
+        var radioButtonsToUnit = document.querySelectorAll('md-radio[name="toUnitTemp"]');
+  var selectedValueToUnit;
+  radioButtonsToUnit.forEach(function(radioButtonToUnit) {
+            if (radioButtonToUnit.checked) {
+                selectedValueToUnit = radioButtonToUnit.value;
+            }
+        });
+
+
+const inputUnit = selectedValue;
+  const outputUnit = selectedValueToUnit;
+  let outputValue;
+
+  switch (inputUnit) {
+    case 'rad':
+      outputValue = convertRadians(inputValue, outputUnit);
+      break;
+    case 'deg':
+      outputValue = convertDegrees(inputValue, outputUnit);
+      break;
+    case 'min':
+      outputValue = convertMinutes(inputValue, outputUnit);
+      break;
+    case 'sec':
+      outputValue = convertSeconds(inputValue, outputUnit);
+      break;
+  }
+
+  if (isNaN(outputValue)) {
+    return;
+  }
+  var formattedOutput;
+
+if (outputValue % 1 === 0) {
+    formattedOutput = outputValue.toFixed(0); 
+} else {
+    formattedOutput = outputValue.toFixed(2); 
+
+};
+
+document.getElementById('outputValue').value = formattedOutput;
+}
+
+
+function convertRadians(value, outputUnit) {
+  switch (outputUnit) {
+    case 'rad':
+      return value;
+    case 'deg':
+      return value * (180 / Math.PI);
+    case 'min':
+      return value * (60 * (180 / Math.PI));
+    case 'sec':
+      return value * (3600 * (180 / Math.PI));
+  }
+}
+
+function convertDegrees(value, outputUnit) {
+  switch (outputUnit) {
+    case 'rad':
+      return value * (Math.PI / 180);
+    case 'deg':
+      return value;
+    case 'min':
+      return value * 60;
+    case 'sec':
+      return value * 3600;
+  }
+}
+
+function convertMinutes(value, outputUnit) {
+  switch (outputUnit) {
+    case 'rad':
+      return value * (Math.PI / (180 * 60));
+    case 'deg':
+      return value / 60;
+    case 'min':
+      return value;
+    case 'sec':
+      return value * 60;
+  }
+}
+
+function convertSeconds(value, outputUnit) {
+  switch (outputUnit) {
+    case 'rad':
+      return value * (Math.PI / (180 * 3600));
+    case 'deg':
+      return value / 3600;
+    case 'min':
+      return value / 60;
+    case 'sec':
+      return value;
+  }
+}
+
+
+
+// keyboard
+
+function appendToAmount(value) {
+    const input = document.getElementById('inputValue');
+    const startPos = input.selectionStart;
+    const endPos = input.selectionEnd;
+    input.focus();
+    let currentValue = input.value;
+
+    if (currentValue.length >= 25) {
+      currentValue = currentValue.substring(0, 25);
+      return
+    }
+
+
+    const beforeCursor = currentValue.substring(0, startPos);
+    const afterCursor = currentValue.substring(endPos);
+
+
+    const newValue = beforeCursor + value + afterCursor;
+
+    const unformattedValue = newValue.replace(/,/g, '');
+    const formattedValue = Number(unformattedValue).toLocaleString();
+
+    input.value = formattedValue;
+
+
+    const lengthDiff = formattedValue.length - currentValue.length;
+
+    input.setSelectionRange(startPos + lengthDiff, startPos + lengthDiff);
+
+    adjustInputFontSize();
+    adjustFontSize();
+    convert();
+  }
+
+
+
+  function clearAmountALL(){
+    var amountInput = document.getElementById("inputValue");
+
+
+    amountInput.value = '';
+    convert();
+    document.getElementById('outputValue').value = '';
+    adjustFontSize();
+    adjustInputFontSize();
+  }
+
+
+  function clearOneCharacter() {
+    const input = document.getElementById('inputValue');
+    const startPos = input.selectionStart;
+    const endPos = input.selectionEnd;
+
+    if (startPos === endPos && startPos > 0) {
+      const currentValue = input.value;
+      const newValue = currentValue.substring(0, startPos - 1) + currentValue.substring(endPos);
+      input.value = newValue;
+    input.focus();
+
+
+        
+
+    convert();
+    adjustInputFontSize();
+    adjustFontSize();
+      input.setSelectionRange(startPos - 1, startPos - 1);
+    }
+  }
+
+
+
+
+
+  function adjustFontSize() {
+    var container = document.getElementById('outputValue');
+    var fontSize = 50;
+    var maxWidth = container.clientWidth;
+
+
+    var tempElement = document.createElement('span');
+    tempElement.style.visibility = 'hidden';
+    tempElement.style.fontSize = fontSize + 'px';
+    tempElement.innerHTML = container.innerHTML;
+
+
+    document.body.appendChild(tempElement);
+
+
+    while (tempElement.offsetWidth > maxWidth && fontSize > 5) {
+      fontSize -= 20;
+      tempElement.style.fontSize = fontSize + 'px';
+    }
+
+
+    container.style.fontSize = fontSize + 'px';
+
+
+    document.body.removeChild(tempElement);
+  }
+
+
+  window.addEventListener('resize', adjustFontSize);
+
+
+
+
+  function adjustInputFontSize() {
+    var inputElement = document.getElementById('inputValue');
+    var fontSize = 50;
+    var maxWidth = inputElement.clientWidth;
+
+
+    var tempElement = document.createElement('span');
+    tempElement.style.visibility = 'hidden';
+    tempElement.style.fontSize = fontSize + 'px';
+    tempElement.innerHTML = inputElement.value;
+
+
+    document.body.appendChild(tempElement);
+
+
+    while (tempElement.offsetWidth > maxWidth && fontSize > 1) {
+      fontSize -= 4;
+      tempElement.style.fontSize = fontSize + 'px';
+    }
+
+
+    inputElement.style.fontSize = fontSize + 'px';
+
+
+    document.body.removeChild(tempElement);
+  }
+
+
+  document.getElementById('inputValue').addEventListener('input', adjustInputFontSize);
+
+
+
+
+  const fromUnitTempDialog = document.getElementById('fromUnitTempDialog');
+  const fromSelectTempBtn = document.getElementById('fromSelectTemp');
+  const toUnitTempDialog = document.getElementById('toUnitTempDialog');
+  const toSelectTempBtn = document.getElementById('toSelectTemp');
+
+  fromSelectTempBtn.addEventListener('click', () =>{
+    dialogcolorFull()
+    fromUnitTempDialog.show()
+  });
+
+    fromUnitTempDialog.addEventListener('close', () =>{
+        checkTHEME();
+    });
+
+    toSelectTempBtn.addEventListener('click', () =>{
+        toUnitTempDialog.show()
+    dialogcolorFull()
+  });
+
+  toUnitTempDialog.addEventListener('close', () =>{
+        checkTHEME();
+    });
+
+
+
+      </script>
+
+
+
+    <script src="../app/page.js"></script>
+    <script src="../components-script.js/components.js"></script>
+    <script src="../ripple-files/icon-ripple.js"></script>
+    <script src="../modules/scroll.js"></script>
+    <script src="../modules/call-themes.js"></script>
+    <script src="../bundle.js"></script>
+    <script type="module" src="../index.js"></script>
+    <script src="../app/app.js"></script>
+    <script src="../app/ripple.js"></script>
+    <script src="../app/vibrate.js"></script>
+    <script src="../app/vibrate.js"></script>
+  </body>
+</html>

@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>area calculator</title>
+    <link rel="stylesheet" href="../ui-files/ui.css">
+    <link rel="stylesheet" href="../ui-files/font-usage.css">
+    <link rel="stylesheet" href="../ui-files/variables.css">
+    <link rel="stylesheet" href="../components/components.css">
+    <link rel="stylesheet" href="../ripple-files/ripple.css">
+    <link rel="stylesheet" href="../components/modal-ver.css">
+</head>
+<body style="animation: historyItems 0.4s cubic-bezier(0,1,0,1);">
+    <div class="full-activity-header round transparent" style="height: 30px;">
+        <button class="ripple-icon-btn close" ontouchstart="playEffect(this)" ontouchend="playEffect2(this)" onclick="window.history.back()">
+            <span class="ripple-effect-icon"></span>
+            <span icon-outlined>arrow_back</span>
+        </button>
+        <p>Area</p>
+    </div>
+
+    <div class="container_unit">
+        <div class="input-group">
+          <input type="text" id="inputValue" placeholder="0" inputmode="none" autocomplete="off">
+          <span id="fromValue">m²</span>
+
+        <i icon-outlined class="toIcon">arrow_downward</i>
+
+        </div>
+
+
+        <div class="output-group">
+          <input type="text" id="outputValue" readonly placeholder="0">
+          <span id="toValue">m²</span>
+
+        </div>
+      </div>
+
+      <div class="selection_units" style="padding-left: 10px; padding-right: 10px; width: calc(100% - 20px);">
+
+
+          <md-suggestion-chip label="Square M" id="fromSelectTemp"><md-icon slot="icon" icon-outlined>arrow_forward</md-icon></md-suggestion-chip>
+
+          <!--  -->
+          <md-suggestion-chip label="Square M" id="toSelectTemp"></md-suggestion-chip>
+
+
+      </div>
+
+      <div class="c-keyboard unit-keyboard">
+        <div class="c-keyboard-keys">
+            <button class="ripple_btn v-key" onclick="appendToAmount('1')">1</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('2')">2</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('3')">3</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('4')">4</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('5')">5</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('6')">6</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('7')">7</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('8')">8</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('9')">9</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('0')">0</button>
+        </div>
+        <div class="sidebtn-c-keyboard">
+            <button class="icon-class-filled ripple_btn  v-key" onclick="clearAmountALL()" icon-outlined>clear_all</button>
+            <button class="icon-class-filled ripple_btn  v-key remove-key" onclick="clearOneCharacter()" icon-filled>backspace</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- input-modal-from -->
+<md-dialog id="fromUnitTempDialog" style="width: 100%;">
+    <div slot="headline">Select units</div>
+    <form slot="content" id="tempUnitfrom" method="dialog">
+        <label style="display: flex; align-items: center;" class="ripple_btn_low">
+            <md-radio
+              name="fromUnitTemp"
+              value="m²"
+              aria-label="Square M"
+              touch-target="wrapper"
+              checked></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">SquareMeters</span>
+          </label>
+          <label style="display: flex; align-items: center;" class="ripple_btn_low">
+            <md-radio
+              name="fromUnitTemp"
+              value="cm²"
+              aria-label="Square Cm"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">SquareCentimeters</span>
+          </label>
+          <label style="display: flex; align-items: center;" class="ripple_btn_low">
+            <md-radio
+              name="fromUnitTemp"
+              value="ft²"
+              aria-label="Square Ft"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">SquareFeet</span>
+          </label>
+          <label style="display: flex; align-items: center;" class="ripple_btn_low">
+            <md-radio
+              name="fromUnitTemp"
+              value="in²"
+              aria-label="Square In"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">SquareInches</span>
+          </label>
+          <label style="display: flex; align-items: center;" class="ripple_btn_low">
+            <md-radio
+              name="fromUnitTemp"
+              value="mm²"
+              aria-label="Square Mm"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">SquareMillimeters</span>
+          </label>
+          <label style="display: flex; align-items: center;" class="ripple_btn_low">
+            <md-radio
+              name="fromUnitTemp"
+              value="km²"
+              aria-label="Square Km"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">SquareKilometers</span>
+          </label>
+          <label style="display: flex; align-items: center;" class="ripple_btn_low">
+            <md-radio
+              name="fromUnitTemp"
+              value="yd²"
+              aria-label="Square Yd"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">SquareYard</span>
+          </label>
+          <label style="display: flex; align-items: center;" class="ripple_btn_low">
+            <md-radio
+              name="fromUnitTemp"
+              value="mi²"
+              aria-label="Square Mi"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">SquareMiles</span>
+          </label>
+          <label style="display: flex; align-items: center;" class="ripple_btn_low">
+            <md-radio
+              name="fromUnitTemp"
+              value="ac"
+              aria-label="Acres"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Acres</span>
+          </label>
+          <label style="display: flex; align-items: center;" class="ripple_btn_low">
+            <md-radio
+              name="fromUnitTemp"
+              value="a"
+              aria-label="Are"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Are</span>
+          </label>
+    </form>
+
+    <div slot="actions">
+        <md-text-button form="tempUnitfrom" >Cancel</md-text-button>
+    </div>
+</md-dialog>
+
+<!-- input-modal-to -->
+
+<md-dialog id="toUnitTempDialog" style="width: 100%;">
+    <div slot="headline">Select units</div>
+    <form slot="content" id="tempUnitto" method="dialog">
+      <label style="display: flex; align-items: center;" class="ripple_btn_low">
+        <md-radio
+          name="toUnitTemp"
+          value="m²"
+          aria-label="Square M"
+          touch-target="wrapper"
+          checked></md-radio>
+        <span aria-hidden="true" style="font-size: 18px;">SquareMeters</span>
+      </label>
+      <label style="display: flex; align-items: center;" class="ripple_btn_low">
+        <md-radio
+          name="toUnitTemp"
+          value="cm²"
+          aria-label="Square Cm"
+          touch-target="wrapper"></md-radio>
+        <span aria-hidden="true" style="font-size: 18px;">SquareCentimeters</span>
+      </label>
+      <label style="display: flex; align-items: center;" class="ripple_btn_low">
+        <md-radio
+          name="toUnitTemp"
+          value="ft²"
+          aria-label="Square Ft"
+          touch-target="wrapper"></md-radio>
+        <span aria-hidden="true" style="font-size: 18px;">SquareFeet</span>
+      </label>
+      <label style="display: flex; align-items: center;" class="ripple_btn_low">
+        <md-radio
+          name="toUnitTemp"
+          value="in²"
+          aria-label="Square In"
+          touch-target="wrapper"></md-radio>
+        <span aria-hidden="true" style="font-size: 18px;">SquareInches</span>
+      </label>
+      <label style="display: flex; align-items: center;" class="ripple_btn_low">
+        <md-radio
+          name="toUnitTemp"
+          value="mm²"
+          aria-label="Square Mm"
+          touch-target="wrapper"></md-radio>
+        <span aria-hidden="true" style="font-size: 18px;">SquareMillimeters</span>
+      </label>
+      <label style="display: flex; align-items: center;" class="ripple_btn_low">
+        <md-radio
+          name="toUnitTemp"
+          value="km²"
+          aria-label="Square Km"
+          touch-target="wrapper"></md-radio>
+        <span aria-hidden="true" style="font-size: 18px;">SquareKilometers</span>
+      </label>
+      <label style="display: flex; align-items: center;" class="ripple_btn_low">
+        <md-radio
+          name="toUnitTemp"
+          value="yd²"
+          aria-label="Square Yd"
+          touch-target="wrapper"></md-radio>
+        <span aria-hidden="true" style="font-size: 18px;">SquareYard</span>
+      </label>
+      <label style="display: flex; align-items: center;" class="ripple_btn_low">
+        <md-radio
+          name="toUnitTemp"
+          value="mi²"
+          aria-label="Square Mi"
+          touch-target="wrapper"></md-radio>
+        <span aria-hidden="true" style="font-size: 18px;">SquareMiles</span>
+      </label>
+      <label style="display: flex; align-items: center;" class="ripple_btn_low">
+        <md-radio
+          name="toUnitTemp"
+          value="ac"
+          aria-label="Acres"
+          touch-target="wrapper"></md-radio>
+        <span aria-hidden="true" style="font-size: 18px;">Acres</span>
+      </label>
+      <label style="display: flex; align-items: center;" class="ripple_btn_low">
+        <md-radio
+          name="toUnitTemp"
+          value="a"
+          aria-label="Are"
+          touch-target="wrapper"></md-radio>
+        <span aria-hidden="true" style="font-size: 18px;">Are</span>
+      </label>
+    </form>
+
+    <div slot="actions">
+        <md-text-button form="tempUnitto" >Cancel</md-text-button>
+    </div>
+</md-dialog>
+
+      <script>
+
+
+
+var FromUnitRadiosINputs = document.querySelectorAll('md-radio[name="fromUnitTemp"]');
+FromUnitRadiosINputs.forEach(function(FromUnitRadiosINput) {
+            FromUnitRadiosINput.addEventListener('input', () =>{
+                document.getElementById('fromValue').innerHTML = FromUnitRadiosINput.value;
+                var ariaLabelFromUnit = FromUnitRadiosINput.getAttribute('aria-label');
+                fromSelectTempBtn.setAttribute('label', ariaLabelFromUnit) 
+                fromUnitTempDialog.close()
+            });
+        });
+
+
+        var toUnitRadiosINputs = document.querySelectorAll('md-radio[name="toUnitTemp"]');
+        toUnitRadiosINputs.forEach(function(toUnitRadiosINput) {
+            toUnitRadiosINput.addEventListener('input', () =>{
+                document.getElementById('toValue').innerHTML = toUnitRadiosINput.value;
+                var ariaLabeltoUnit = toUnitRadiosINput.getAttribute('aria-label');
+                toSelectTempBtn.setAttribute('label', ariaLabeltoUnit)
+                toUnitTempDialog.close()
+            });
+        });
+
+        
+function convert() {
+  let inputValue = document.getElementById('inputValue').value;
+
+  inputValue = inputValue.replace(/,/g, '');
+
+
+
+  const parsedValue = parseFloat(inputValue);
+
+
+  if (isNaN(inputValue)) {
+    return;
+  }
+
+  var radioButtons = document.querySelectorAll('md-radio[name="fromUnitTemp"]');
+  var selectedValue;
+        radioButtons.forEach(function(radioButton) {
+            if (radioButton.checked) {
+                selectedValue = radioButton.value;
+            }
+        });
+
+        var radioButtonsToUnit = document.querySelectorAll('md-radio[name="toUnitTemp"]');
+  var selectedValueToUnit;
+  radioButtonsToUnit.forEach(function(radioButtonToUnit) {
+            if (radioButtonToUnit.checked) {
+                selectedValueToUnit = radioButtonToUnit.value;
+            }
+        });
+
+
+const inputUnit = selectedValue;
+  const outputUnit = selectedValueToUnit;
+  let outputValue;
+
+  switch (inputUnit) {
+    case 'm²':
+      outputValue = convertSquareMeters(inputValue, outputUnit);
+      break;
+    case 'cm²':
+      outputValue = convertSquareCentimeters(inputValue, outputUnit);
+      break;
+    case 'ft²':
+      outputValue = convertSquareFeet(inputValue, outputUnit);
+      break;
+    case 'in²':
+      outputValue = convertSquareInches(inputValue, outputUnit);
+      break;
+    case 'mm²':
+      outputValue = convertSquareMillimeters(inputValue, outputUnit);
+      break;
+    case 'km²':
+      outputValue = convertSquareKilometers(inputValue, outputUnit);
+      break;
+    case 'yd²':
+      outputValue = convertSquareYards(inputValue, outputUnit);
+      break;
+    case 'mi²':
+      outputValue = convertSquareMiles(inputValue, outputUnit);
+      break;
+    case 'ac':
+      outputValue = convertAcres(inputValue, outputUnit);
+      break;
+    case 'a':
+      outputValue = convertAres(inputValue, outputUnit);
+      break;
+  }
+
+
+
+  if (isNaN(outputValue)) {
+    return;
+  }
+  var formattedOutput;
+
+if (outputValue % 1 === 0) {
+    formattedOutput = outputValue.toFixed(0); 
+} else {
+    formattedOutput = outputValue.toFixed(2); 
+
+};
+
+document.getElementById('outputValue').value = formattedOutput;
+}
+
+
+function convertSquareMeters(value, outputUnit) {
+  switch (outputUnit) {
+    case 'm²':
+      return value;
+    case 'cm²':
+      return value * 10000;
+    case 'ft²':
+      return value * 10.7639;
+    case 'in²':
+      return value * 1550;
+    case 'mm²':
+      return value * 1000000;
+    case 'km²':
+      return value * 1e-6;
+    case 'yd²':
+      return value * 1.19599;
+    case 'mi²':
+      return value * 3.861e-7;
+    case 'ac':
+      return value * 0.000247105;
+    case 'a':
+      return value * 0.01;
+  }
+}
+
+function convertSquareCentimeters(value, outputUnit) {
+  switch (outputUnit) {
+    case 'm²':
+      return value * 0.0001;
+    case 'cm²':
+      return value;
+    case 'ft²':
+      return value * 0.00107639;
+    case 'in²':
+      return value * 0.155;
+    case 'mm²':
+      return value * 100;
+    case 'km²':
+      return value * 1e-10;
+    case 'yd²':
+      return value * 0.000119599;
+    case 'mi²':
+      return value * 3.861e-11;
+    case 'ac':
+      return value * 2.47105e-8;
+    case 'a':
+      return value * 1e-6;
+  }
+}
+
+function convertSquareFeet(value, outputUnit) {
+  switch (outputUnit) {
+    case 'm²':
+      return value * 0.092903;
+    case 'cm²':
+      return value * 929.03;
+    case 'ft²':
+      return value;
+    case 'in²':
+      return value * 144;
+    case 'mm²':
+      return value * 92903;
+    case 'km²':
+      return value * 9.2903e-8;
+    case 'yd²':
+      return value * 0.111111;
+    case 'mi²':
+      return value * 3.587e-8;
+    case 'ac':
+      return value * 2.2957e-5;
+    case 'a':
+      return value * 0.00092903;
+  }
+}
+
+function convertSquareInches(value, outputUnit) {
+  switch (outputUnit) {
+    case 'm²':
+      return value * 6.4516e-4;
+    case 'cm²':
+      return value * 6.4516;
+    case 'ft²':
+      return value * 0.00694444;
+    case 'in²':
+      return value;
+    case 'mm²':
+      return value * 645.16;
+    case 'km²':
+      return value * 6.4516e-10;
+    case 'yd²':
+      return value * 0.000771605;
+    case 'mi²':
+      return value * 2.491e-10;
+    case 'ac':
+      return value * 1.5942e-7;
+    case 'a':
+      return value * 6.4516e-6;
+  }
+}
+
+function convertSquareMillimeters(value, outputUnit) {
+  switch (outputUnit) {
+    case 'm²':
+      return value * 1e-6;
+    case 'cm²':
+      return value * 0.01;
+    case 'ft²':
+      return value * 1.07639e-5;
+    case 'in²':
+      return value * 0.00155;
+    case 'mm²':
+      return value;
+    case 'km²':
+      return value * 1e-12;
+    case 'yd²':
+      return value * 1.19599e-6;
+    case 'mi²':
+      return value * 3.861e-13;
+    case 'ac':
+      return value * 2.47105e-10;
+    case 'a':
+      return value * 1e-4;
+  }
+}
+
+function convertSquareKilometers(value, outputUnit) {
+  switch (outputUnit) {
+    case 'm²':
+      return value * 1e6;
+    case 'cm²':
+      return value * 1e10;
+    case 'ft²':
+      return value * 1.076e7;
+    case 'in²':
+      return value * 1.55e9;
+    case 'mm²':
+      return value * 1e12;
+    case 'km²':
+      return value;
+    case 'yd²':
+      return value * 1.196e6;
+    case 'mi²':
+      return value * 0.386102;
+    case 'ac':
+      return value * 247.105;
+    case 'a':
+      return value * 10000;
+  }
+}
+
+function convertSquareYards(value, outputUnit) {
+  switch (outputUnit) {
+    case 'm²':
+      return value * 0.836127;
+    case 'cm²':
+      return value * 8361.27;
+    case 'ft²':
+      return value * 9;
+    case 'in²':
+      return value * 1296;
+    case 'mm²':
+      return value * 836127;
+    case 'km²':
+      return value * 8.3613e-7;
+    case 'yd²':
+      return value;
+    case 'mi²':
+      return value * 3.2283e-7;
+    case 'ac':
+      return value * 0.000206612;
+    case 'a':
+      return value * 8.3613;
+  }
+}
+
+function convertSquareMiles(value, outputUnit) {
+  switch (outputUnit) {
+    case 'm²':
+      return value * 2.59e6;
+    case 'cm²':
+      return value * 2.59e10;
+    case 'ft²':
+      return value * 2.788e7;
+    case 'in²':
+      return value * 4.014e9;
+    case 'mm²':
+      return value * 2.59e12;
+    case 'km²':
+      return value * 2.58999;
+    case 'yd²':
+      return value * 3.098e6;
+    case 'mi²':
+      return value;
+    case 'ac':
+      return value * 640;
+    case 'a':
+      return value * 258.999;
+  }
+}
+
+function convertAcres(value, outputUnit) {
+  switch (outputUnit) {
+    case 'm²':
+      return value * 4046.86;
+    case 'cm²':
+      return value * 40468600;
+    case 'ft²':
+      return value * 43560;
+    case 'in²':
+      return value * 6.273e6;
+    case 'mm²':
+      return value * 4.04686e9;
+    case 'km²':
+      return value * 0.00404686;
+    case 'yd²':
+      return value * 4840;
+    case 'mi²':
+      return value * 0.0015625;
+    case 'ac':
+      return value;
+    case 'a':
+      return value * 40.4686;
+  }
+}
+
+function convertAres(value, outputUnit) {
+  switch (outputUnit) {
+    case 'm²':
+      return value * 100;
+    case 'cm²':
+      return value * 1000000;
+    case 'ft²':
+      return value * 1076.39;
+    case 'in²':
+      return value * 155000;
+    case 'mm²':
+      return value * 100000000;
+    case 'km²':
+      return value * 1e-4;
+    case 'yd²':
+      return value * 119.599;
+    case 'mi²':
+      return value * 3.861e-5;
+    case 'ac':
+      return value * 0.0247105;
+    case 'a':
+      return value;
+  }
+}
+
+
+
+
+
+
+// keyboard
+
+function appendToAmount(value) {
+    const input = document.getElementById('inputValue');
+    const startPos = input.selectionStart;
+    const endPos = input.selectionEnd;
+    input.focus();
+    let currentValue = input.value;
+
+    if (currentValue.length >= 25) {
+      currentValue = currentValue.substring(0, 25);
+      return
+    }
+
+
+    const beforeCursor = currentValue.substring(0, startPos);
+    const afterCursor = currentValue.substring(endPos);
+
+
+    const newValue = beforeCursor + value + afterCursor;
+
+    const unformattedValue = newValue.replace(/,/g, '');
+    const formattedValue = Number(unformattedValue).toLocaleString();
+
+    input.value = formattedValue;
+
+
+    const lengthDiff = formattedValue.length - currentValue.length;
+
+    input.setSelectionRange(startPos + lengthDiff, startPos + lengthDiff);
+
+    adjustInputFontSize();
+    adjustFontSize();
+    convert();
+  }
+
+
+
+  function clearAmountALL(){
+    var amountInput = document.getElementById("inputValue");
+
+
+    amountInput.value = '';
+    convert();
+    document.getElementById('outputValue').value = '';
+    adjustFontSize();
+    adjustInputFontSize();
+  }
+
+
+  function clearOneCharacter() {
+    const input = document.getElementById('inputValue');
+    const startPos = input.selectionStart;
+    const endPos = input.selectionEnd;
+
+    if (startPos === endPos && startPos > 0) {
+      const currentValue = input.value;
+      const newValue = currentValue.substring(0, startPos - 1) + currentValue.substring(endPos);
+      input.value = newValue;
+    input.focus();
+
+
+        
+
+    convert();
+    adjustInputFontSize();
+    adjustFontSize();
+      input.setSelectionRange(startPos - 1, startPos - 1);
+    }
+  }
+
+
+
+
+
+  function adjustFontSize() {
+    var container = document.getElementById('outputValue');
+    var fontSize = 50;
+    var maxWidth = container.clientWidth;
+
+
+    var tempElement = document.createElement('span');
+    tempElement.style.visibility = 'hidden';
+    tempElement.style.fontSize = fontSize + 'px';
+    tempElement.innerHTML = container.innerHTML;
+
+
+    document.body.appendChild(tempElement);
+
+
+    while (tempElement.offsetWidth > maxWidth && fontSize > 5) {
+      fontSize -= 20;
+      tempElement.style.fontSize = fontSize + 'px';
+    }
+
+
+    container.style.fontSize = fontSize + 'px';
+
+
+    document.body.removeChild(tempElement);
+  }
+
+
+  window.addEventListener('resize', adjustFontSize);
+
+
+
+
+  function adjustInputFontSize() {
+    var inputElement = document.getElementById('inputValue');
+    var fontSize = 50;
+    var maxWidth = inputElement.clientWidth;
+
+
+    var tempElement = document.createElement('span');
+    tempElement.style.visibility = 'hidden';
+    tempElement.style.fontSize = fontSize + 'px';
+    tempElement.innerHTML = inputElement.value;
+
+
+    document.body.appendChild(tempElement);
+
+
+    while (tempElement.offsetWidth > maxWidth && fontSize > 1) {
+      fontSize -= 4;
+      tempElement.style.fontSize = fontSize + 'px';
+    }
+
+
+    inputElement.style.fontSize = fontSize + 'px';
+
+
+    document.body.removeChild(tempElement);
+  }
+
+
+  document.getElementById('inputValue').addEventListener('input', adjustInputFontSize);
+
+
+
+
+  const fromUnitTempDialog = document.getElementById('fromUnitTempDialog');
+  const fromSelectTempBtn = document.getElementById('fromSelectTemp');
+  const toUnitTempDialog = document.getElementById('toUnitTempDialog');
+  const toSelectTempBtn = document.getElementById('toSelectTemp');
+
+  fromSelectTempBtn.addEventListener('click', () =>{
+    dialogcolorFull()
+    fromUnitTempDialog.show()
+  });
+
+    fromUnitTempDialog.addEventListener('close', () =>{
+        checkTHEME();
+    });
+
+    toSelectTempBtn.addEventListener('click', () =>{
+        toUnitTempDialog.show()
+    dialogcolorFull()
+  });
+
+  toUnitTempDialog.addEventListener('close', () =>{
+        checkTHEME();
+    });
+
+
+
+      </script>
+
+
+    <script src="../app/page.js"></script>
+    <script src="../components-script.js/components.js"></script>
+    <script src="../ripple-files/icon-ripple.js"></script>
+    <script src="../modules/scroll.js"></script>
+    <script src="../modules/call-themes.js"></script>
+    <script src="../bundle.js"></script>
+    <script type="module" src="../index.js"></script>
+    <script src="../app/app.js"></script>
+    <script src="../app/ripple.js"></script>
+    <script src="../app/vibrate.js"></script>
+  </body>
+</html>

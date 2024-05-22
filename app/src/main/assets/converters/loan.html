@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>loan calculator</title>
+    <link rel="stylesheet" href="../ui-files/ui.css">
+    <link rel="stylesheet" href="../ui-files/font-usage.css">
+    <link rel="stylesheet" href="../ui-files/variables.css">
+    <link rel="stylesheet" href="../components/components.css">
+    <link rel="stylesheet" href="../ripple-files/ripple.css">
+    <link rel="stylesheet" href="../components/modal-ver.css">
+
+    <style>
+                 .all_div_inputs{
+            display: flex;
+            flex-direction: column;
+            padding-left: 20px;
+            background-color: var(--Surface-Container-Low);
+            margin: 10px;
+            border-radius: 10px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 20px;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        .div_input_calc{
+            display: flex;
+            gap: 10px;
+        }
+
+
+        .result_item{
+            display: flex;
+            margin-bottom: 5px;
+            background-color: var(--Surface-Container);
+            padding-bottom: 30px;
+            padding-top: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 6px;
+            position: relative;
+            
+        }
+
+        .result_item:first-child{
+            border-top-left-radius: 15px !important;
+            border-top-right-radius: 15px !important;
+
+        }
+
+        .result_item:last-child{
+            border-bottom-left-radius: 15px !important;
+            border-bottom-right-radius: 15px !important;
+
+        }
+
+        .result_item img{
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            background-color: var(--Surface-Container-High);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .results_tip{
+            padding: 10px;
+            transform: translateX(100%);
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(1,0,0,1);
+        }
+
+        .result_item p{
+            margin: 0;
+            font-size: 24px;
+            padding-left: 10px;
+            font-family: var(--outfit);
+            color: var(--On-Surface-Variant);
+        }
+
+        .result_item span{
+            background-color: var(--Secondary);
+            position: absolute;
+            bottom: 10px;
+            display: flex;
+            padding-left: 10px;
+            border-radius: 50px;
+            padding-bottom: 5px;
+            padding-top: 5px;
+            color: var(--On-Secondary);
+            font-size: 18px;
+            font-family: var(--outfit);
+            padding-right: 10px;
+            right:10px;
+            max-width: calc(100% - 150px);
+            overflow: auto;
+        }
+
+    </style>
+
+</head>
+<body style="animation: historyItems 0.4s cubic-bezier(0,1,0,1);">
+    <div class="full-activity-header round transparent" id="head-3" style="height: 30px;">            
+        <button class="ripple-icon-btn close" ontouchstart="playEffect(this)" ontouchend="playEffect2(this)" onclick="window.history.back()">
+            <span class="ripple-effect-icon"></span>
+            <span icon-outlined>arrow_back</span>
+        </button>                                                
+        <p>Loan</p>
+    </div>
+
+
+    <div class="all_div_inputs">
+      <div class="div_input_calc">
+        <md-outlined-text-field type="number" id="loanAmount" label="Loan"></md-outlined-text-field>
+        <md-outlined-text-field type="number" id="annualRate" label="Rate/Per year"></md-outlined-text-field>
+
+      </div>
+      <md-filled-text-field type="number" id="periodYears" label="Period • Years"></md-filled-text-field>
+
+    </div>
+
+
+    <div class="results_tip">
+        <div class="result_item">
+        <img src="/images/calendar.png" alt="">
+        <p>Monthly pay </p>
+        <span id="monthlyPayment">0</span>
+    </div>
+        <div class="result_item">
+        <img src="/images/money-bag.png" alt="">
+        <p>Total pay</p>
+        <span id="totalPayment">0</span>
+    </div>
+    <div class="result_item">
+        <img src="/images/coin.png" alt="">
+        <p>Interest</p>
+        <span id="totalInterest">0</span>
+    </div>
+    </div>
+
+
+
+    <script>
+        const call1 = document.getElementById('loanAmount');
+    const call2 = document.getElementById('annualRate');
+    const call3 = document.getElementById('periodYears');   
+
+function callBMI(){
+    if (call1.value.trim() !== '' && call2.value.trim() !== '' && call3.value.trim() !== '') {
+        calculateLoan()
+        document.querySelector('.results_tip').style.transform = 'translateX(0)'
+        document.querySelector('.results_tip').style.opacity = '1'
+
+        } else{
+            document.querySelector('.results_tip').style.transform = ''
+        document.querySelector('.results_tip').style.opacity = ''
+        }
+    }
+
+    call1.addEventListener('input', callBMI)
+    call2.addEventListener('input', callBMI)
+    call3.addEventListener('input', callBMI)
+
+    function addCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
+    function calculateLoan() {
+    const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+    const annualRate = parseFloat(document.getElementById('annualRate').value);
+    const periodYears = parseInt(document.getElementById('periodYears').value);
+
+    if (isNaN(loanAmount) || isNaN(annualRate) || isNaN(periodYears) || loanAmount <= 0 || annualRate <= 0 || periodYears <= 0) {
+        alert("Please enter valid values");
+        return;
+    }
+
+    const monthlyRate = annualRate / 100 / 12;
+    const numberOfPayments = periodYears * 12;
+
+    const monthlyPayment = loanAmount * monthlyRate / (1 - Math.pow(1 + monthlyRate, -numberOfPayments));
+    const totalPayment = monthlyPayment * numberOfPayments;
+    const totalInterest = totalPayment - loanAmount;
+
+    document.getElementById('monthlyPayment').textContent = addCommas(monthlyPayment.toFixed(2));
+    document.getElementById('totalPayment').textContent = addCommas(totalPayment.toFixed(2));
+    document.getElementById('totalInterest').textContent = addCommas(totalInterest.toFixed(2));
+}
+
+    </script>
+
+    <script src="../app/page.js"></script>
+    <script src="../components-script.js/components.js"></script>
+    <script src="../ripple-files/icon-ripple.js"></script>
+    <script src="../modules/scroll.js"></script>
+    <script src="../modules/call-themes.js"></script>
+    <script src="../bundle.js"></script>
+    <script type="module" src="../index.js"></script>
+    <script src="../app/app.js"></script>
+    <script src="../app/ripple.js"></script>
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tools selection Page</title>
+    <link rel="stylesheet" href="../ui-files/ui.css">
+    <link rel="stylesheet" href="../ui-files/font-usage.css">
+    <link rel="stylesheet" href="../ui-files/variables.css">
+    <link rel="stylesheet" href="../components/components.css">
+    <link rel="stylesheet" href="../ripple-files/ripple.css">
+    <link rel="stylesheet" href="../components/modal-ver.css">
+
+
+    <style>
+        #no_internet_toast {
+            position: fixed;
+            z-index: 10;
+            bottom: 20px;
+            background-color: var(--Error2, red);
+            color: var(--On-Error2, white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 75%;
+            border-radius: 50px;
+            font-size: 18px;
+            overflow: hidden;
+            white-space: nowrap;
+            animation: no_internet_toast 0.2s ease-out;
+            transition: all 0.2s ease-in;
+        }
+
+        #no_internet_toast i {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+
+        @keyframes no_internet_toast {
+            0% {
+                width: 0;
+                opacity: 0; 
+            }
+
+            100% {
+                width: 75%;
+                opacity: 1; 
+            }
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        .currency_error_icon{
+            position: absolute;
+            top: 10px;
+            color: var(--Error);
+            font-size: 18px;
+            right: 10px;
+        }
+
+
+        .calc_title{
+            font-family: var(--outfit);
+            margin: 0;
+            color: var(--On-Surface-Variant);
+            margin-left: 20px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+        }
+            
+
+        .menu_overlay_extra{
+            position: fixed;
+            z-index: 1;
+            background-color: transparent;
+            width: 100%;
+            height: 100%;
+            display: none;
+            left: 0;
+            bottom:  0;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="activity-large open">
+        <div class="header-activity-large" id="head-3" style="position: relative;">
+            <button class="ripple-icon-btn" ontouchstart="playEffect(this)" ontouchend="playEffect2(this)"
+                onclick="window.history.back()">
+                <span class="ripple-effect-icon"></span>
+                <span icon-outlined>arrow_back</span>
+            </button>
+            <p class="label-hidden-large">Calculation tools</p>
+
+
+        </div>
+        <div class="activity-large-content" id="headUser-3">
+            <p class="label-large-main">Calculation tools</p>
+            <div class="content-parent-large">
+
+                <p class="calc_title ">Unit <i icon-outlined>arrow_drop_down</i></p>
+                <div class="grid_item" id="sortable">
+
+                    <div class="converter_item ripple_btn_low"
+                        onclick="transitionToPage('../converters/temperature.html'); checkTHEME()">
+                        <i icon-outlined>device_thermostat</i>
+                        <p>Temperature</p>
+                    </div>
+
+                    <div class="converter_item ripple_btn_low"
+                        onclick="transitionToPage('../converters/volume.html'); checkTHEME()">
+                        <i icon-outlined>water_drop</i>
+                        <p>Volume</p>
+                    </div>
+                   
+
+                    <div class="converter_item ripple_btn_low"
+                        onclick="transitionToPage('../converters/length.html'); checkTHEME()">
+                        <i icon-outlined>straighten</i>
+                        <p>Length</p>
+                    </div>
+
+                    <div class="converter_item ripple_btn_low"
+                        onclick="transitionToPage('../converters/weight.html'); checkTHEME()">
+                        <i icon-outlined>weight</i>
+                        <p>Weight</p>
+                    </div>
+
+                    <div class="converter_item ripple_btn_low"
+                        onclick="transitionToPage('../converters/time.html'); checkTHEME()">
+                        <i icon-outlined>schedule</i>
+                        <p>Time</p>
+                    </div>
+
+                    <div class="converter_item ripple_btn_low"
+                        onclick="transitionToPage('../converters/data.html'); checkTHEME()">
+                        <i icon-outlined>wifi</i>
+                        <p>Data</p>
+                    </div>
+
+                    <div class="converter_item ripple_btn_low"
+                        onclick="transitionToPage('../converters/power.html'); checkTHEME()">
+                        <i icon-outlined>charger</i>
+                        <p>Power</p>
+                    </div>
+
+                    <div class="converter_item ripple_btn_low"
+                        onclick="transitionToPage('../converters/fuel.html'); checkTHEME()">
+                        <i icon-outlined>oil_barrel</i>
+                        <p>Fuel</p>
+                    </div>
+
+                    <div class="converter_item ripple_btn_low"
+                        onclick="transitionToPage('../converters/speed.html'); checkTHEME()">
+                        <i icon-outlined>run_circle</i>
+                        <p>Speed</p>
+                    </div>
+
+                    <div class="converter_item ripple_btn_low"
+                        onclick="transitionToPage('../converters/pressure.html'); checkTHEME();">
+                        <i icon-outlined>speed</i>
+                        <p>Pressure</p>
+                    </div>
+
+                    <div class="converter_item ripple_btn_low"
+                        onclick="transitionToPage('../converters/area.html'); checkTHEME()">
+                        <i icon-outlined>crop</i>
+                        <p>Area</p>
+                    </div>
+
+                    <div class="converter_item ripple_btn_low"
+                        onclick="transitionToPage('../converters/angle.html'); checkTHEME()">
+                        <i icon-outlined>rotate_90_degrees_cw</i>
+                        <p>Angle</p>
+                    </div>
+                </div>
+
+                <md-divider></md-divider>
+                <p class="calc_title">Finance <i icon-outlined>arrow_drop_down</i></p>
+                <div class="grid_item" id="sortable">
+
+                    <div class="converter_item ripple_btn_low" id="currency_navigation" style="position: relative;">
+                        <i icon-outlined>currency_exchange</i>
+                        <p>Currency</p>
+                        <span class="currency_error_icon" icon-filled hidden>perm_scan_wifi</span>
+                    </div>
+
+                    <div class="converter_item ripple_btn_low"
+                    onclick="transitionToPage('../converters/tip.html'); checkTHEME()">
+                    <i icon-outlined>payments</i>
+                    <p>Tip</p>
+                </div>
+
+                
+                <div class="converter_item ripple_btn_low" id="interest-type-anchor">
+                <i icon-outlined>savings</i>
+                <p>Interest</p>
+            </div>
+
+            <md-menu positioning="popover" id="usage-popover" style="z-index: 3;" anchor="interest-type-anchor" anchor-corner="start-start">
+                <md-menu-item menu-type onclick="transitionToPage('../converters/interest/simpleInt.html'); checkTHEME()" >
+                  <div slot="headline">Simple interest</div>
+                  <md-icon slot="end" icon-outlined>chevron_right</md-icon>
+                </md-menu-item>
+                <md-menu-item menu-type onclick="transitionToPage('../converters/interest/compoundInt.html'); checkTHEME()">
+                  <div slot="headline">Compound interest</div>
+                  <md-icon slot="end" icon-outlined>chevron_right</md-icon>
+                </md-menu-item>
+              </md-menu>
+
+
+
+        <div class="menu_overlay_extra"></div>
+
+
+              
+              <script type="module">
+                const anchorEl = document.body.querySelector('#interest-type-anchor');
+                const menuEl = document.body.querySelector('#usage-popover');
+              
+                anchorEl.addEventListener('click', () => { menuEl.open = !menuEl.open; });
+              </script>
+
+
+            <div class="converter_item ripple_btn_low"
+            onclick="transitionToPage('../converters/sales.html'); checkTHEME()">
+            <i icon-outlined>point_of_sale</i>
+            <p>Sales tax</p>
+        </div>
+
+        <div class="converter_item ripple_btn_low"
+        onclick="transitionToPage('../converters/loan.html'); checkTHEME()">
+        <i icon-outlined>real_estate_agent</i>
+        <p>Loan</p>
+    </div>
+
+                </div>
+
+                <md-divider></md-divider>
+                <p class="calc_title">Miscellaneous <i icon-outlined>arrow_drop_down</i></p>
+                <div class="grid_item" id="sortable">
+
+                    <div class="converter_item ripple_btn_low"
+                    onclick="transitionToPage('../converters/bmi.html'); checkTHEME()">
+                    <i icon-outlined>scale</i>
+                    <p>BMI</p>
+                </div>
+
+                <div class="converter_item ripple_btn_low"
+                    onclick="transitionToPage('../converters/age.html'); checkTHEME()">
+                    <i icon-outlined>event</i>
+                    <p>Age</p>
+                </div>
+
+         
+
+                </div>
+
+                <div id="no_internet_toast" hidden>
+                    <i icon-outlined>signal_wifi_bad</i>
+                    <p>No internet connection</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+ 
+
+    <script>
+
+        document.getElementById('currency_navigation').addEventListener('click', () => {
+
+            if (navigator.onLine) {
+
+                transitionToPage('../converters/currency.html');
+                checkTHEME();
+
+            } else {
+                document.getElementById('no_internet_toast').hidden = false;
+                document.getElementById('currency_navigation').style.pointerEvents = 'none'
+                setTimeout(() => {
+                    document.getElementById('no_internet_toast').style.width = '0';
+                    document.getElementById('no_internet_toast').style.opacity  = '0';
+
+                }, 2770);
+
+                setTimeout(() => {
+                    document.getElementById('no_internet_toast').hidden = true;
+                    document.getElementById('no_internet_toast').style.width = '';
+                document.getElementById('currency_navigation').style.pointerEvents = 'auto'
+                document.getElementById('no_internet_toast').style.opacity  = '';
+
+
+
+                }, 3000);
+            }
+
+        });
+
+
+        setTimeout(() => {
+            checkTHEME()
+
+        }, 100);
+
+        function checkNoInternetIconCurrency(){
+        if(navigator.onLine){
+            document.querySelector('.currency_error_icon').hidden = true;
+
+        } else{
+            document.querySelector('.currency_error_icon').hidden = false;
+
+            setInterval(() =>{
+                checkNoInternetIconCurrency()
+            }, 2000)
+        }
+    }
+
+    checkNoInternetIconCurrency()
+
+
+    const menuMainType = document.getElementById('usage-popover');
+    const extraOverlay = document.querySelector('.menu_overlay_extra')
+
+    menuMainType.addEventListener('opening', () =>{
+        extraOverlay.style.display = 'block';
+    });
+
+    menuMainType.addEventListener('closed', () =>{
+        extraOverlay.style.display = '';
+    });
+
+    </script>
+
+    <script src="../app/page.js"></script>
+    <script src="../components-script.js/components.js"></script>
+    <script src="../ripple-files/icon-ripple.js"></script>
+    <script src="../modules/scroll.js"></script>
+    <script src="../modules/call-themes.js"></script>
+    <script src="../bundle.js"></script>
+    <script type="module" src="../index.js"></script>
+    <script src="../app/app.js"></script>
+    <script src="../app/ripple.js"></script>
+</body>
+
+</html>

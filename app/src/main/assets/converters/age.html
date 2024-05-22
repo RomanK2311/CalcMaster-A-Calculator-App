@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>age calculator</title>
+    <link rel="stylesheet" href="../ui-files/ui.css">
+    <link rel="stylesheet" href="../ui-files/font-usage.css">
+    <link rel="stylesheet" href="../ui-files/variables.css">
+    <link rel="stylesheet" href="../components/components.css">
+    <link rel="stylesheet" href="../ripple-files/ripple.css">
+    <link rel="stylesheet" href="../components/modal-ver.css">
+
+    <style>
+        /* input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+} */
+
+.btn_calculate_age{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+    </style>
+</head>
+<body style="animation: historyItems 0.4s cubic-bezier(0,1,0,1); overflow: auto;">
+    <div class="full-activity-header round transparent" id="head-3" style="height: 30px;">
+        <button class="ripple-icon-btn close" ontouchstart="playEffect(this)" ontouchend="playEffect2(this)" onclick="window.history.back()">
+            <span class="ripple-effect-icon"></span>
+            <span icon-outlined>arrow_back</span>
+        </button>
+        <p>Age</p>
+    </div>
+
+    <div class="container_age_calc">
+        <label class="bobTextHolder ripple_btn_low"for="dob" title="Select date of birth" style="cursor: cell;">
+            <span id="placeholder_dob">Select date
+                <i icon-outlined>add</i>
+            </span>
+            <p id="dobText"></p>
+        </label>
+        <input type="date" id="dob" name="dob" placeholder="cool">
+
+    </div>
+
+
+    <div class="result_age_div">
+        <div class="result_age_item">
+            <span>Your age</span>
+            <p id="age_main">-----</p>
+        </div>
+
+        <div class="result_age_item">
+            <span>Next birthday in</span>
+
+            <div class="next_birthday_div">
+                <i icon-outlined>cake</i>
+            <p id="next_birthday">-----</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="btn_calculate_age">
+    <md-filled-tonal-button onclick="calculateAge()" id="age_calc_btn">Calculate</md-filled-tonal-button>
+</div>
+    
+    <script>
+ document.getElementById('dob').addEventListener('input', () => {
+    const dobValue = document.getElementById('dob').value;
+    if (dobValue.trim() === '') {
+        document.getElementById('placeholder_dob').style.display = 'flex';
+        document.getElementById('dobText').innerHTML = '';
+
+    } else {
+        document.getElementById('dobText').innerHTML = dobValue;
+        document.getElementById('placeholder_dob').style.display = 'none';
+        document.querySelector('.bobTextHolder').classList.remove('error')
+
+    }
+});
+        function calculateAge() {
+
+            const dobValueError = document.getElementById('dob').value;
+
+            if(dobValueError.trim() === ''){
+            document.querySelector('.bobTextHolder').classList.add('error')
+            return;
+        }
+
+
+    var dob = new Date(document.getElementById("dob").value);
+    var now = new Date();
+
+
+    var age = now.getFullYear() - dob.getFullYear();
+    var m = now.getMonth() - dob.getMonth();
+
+    if (m < 0 || (m === 0 && now.getDate() < dob.getDate())) {
+        age--;
+    }
+
+    var nextBirthday = new Date(now.getFullYear() + 1, dob.getMonth(), dob.getDate());
+    var timeLeft = nextBirthday - now;
+
+    var daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+    var hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    var secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+    document.getElementById("age_main").innerHTML = age + ' Years old';
+    document.getElementById("next_birthday").innerHTML =  `${daysLeft}days, ${hoursLeft}hrs, ${minutesLeft}mins`;
+
+}
+
+
+    </script>
+
+    <script src="../app/page.js"></script>
+    <script src="../components-script.js/components.js"></script>
+    <script src="../ripple-files/icon-ripple.js"></script>
+    <script src="../modules/scroll.js"></script>
+    <script src="../modules/call-themes.js"></script>
+    <script src="../bundle.js"></script>
+    <script type="module" src="../index.js"></script>
+    <script src="../app/app.js"></script>
+    <script src="../app/ripple.js"></script>
+</body>
+</html>

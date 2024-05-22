@@ -1,0 +1,440 @@
+<!DOCTYPE html >
+<html lang="en" scalable="false">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formatting Setting Page</title>
+    <link rel="stylesheet" href="../ui-files/ui.css">
+    <link rel="stylesheet" href="../ui-files/font-usage.css">
+    <link rel="stylesheet" href="../ui-files/variables.css">
+    <link rel="stylesheet" href="../components/components.css">
+    <link rel="stylesheet" href="../ripple-files/ripple.css">
+    <link rel="stylesheet" href="../components/modal-ver.css">   
+    <link rel="stylesheet" href="../components/segment-btns.css">     
+    
+    
+    <style>
+        
+.dot {
+  min-width: 80px;
+  height: 3px;
+  border-radius: 50px;
+  display: inline-block;
+  margin: 0 3px;
+  transition: background-color 0.2s ease-in-out;
+  background-color:  var(--Surface-Container-Low);
+  position: relative;
+  overflow: hidden;
+}
+
+.dot div{
+    background-color: var(--Tertiary);
+    position: absolute;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    transition: width 0.4s cubic-bezier(1,0,0,1);
+}
+
+
+
+
+
+
+.scroll-indicators{
+    z-index: 999;
+}
+
+.holder_scroll_indi{
+    position: absolute;
+    top: 7px;
+    right: 20px;
+}
+
+.info_hold_page{
+            position: absolute;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="activity-large open default_open" no-animations>
+        <div class="header-activity-large" id="head-4" style="overflow: hidden;">
+            <button class="ripple-icon-btn regular" ontouchstart="playEffect(this)" ontouchend="playEffect2(this)" title="Go back"
+                onclick="window.history.back()">
+                <span class="ripple-effect-icon"></span>
+                <span icon-outlined>arrow_back</span>
+            </button>
+            <p class="label-hidden-large">Formatting</p>
+
+                        
+            <div class="info_hold_page">
+             
+            <md-icon-button title="Show info" aria-label=""  onclick="ShowSnack('These functions do not work yet, except for the separator option', 3000, 3)" >
+                <md-icon icon-outlined style="font-size: 23px !important;">info</md-icon>
+                
+
+   
+            </md-icon-button>
+            </div>
+        </div>
+        <div class="activity-large-content" id="headUser-4">
+            <p class="label-large-main">Formatting</p>
+            <div class="content-parent-large">
+
+
+
+                <div class="format_preview" style="position: relative;">
+
+                    <div class="holder_scroll_indi">
+            <div class="scroll-indicators" id="scroll-indicators"></div>
+        </div>
+
+
+        <div class="format_preview_scroll">
+                    <div class="preview_1 preview_item">
+                    <p id="preview_1_text" title="Preview 1" style="color: var(--On-Primary-Container); white-space: nowrap;">123,445.45</p>    
+                    </div>
+                    <div class="preview_2 preview_item">
+                     <p title="Preview 2" style="color: var(--On-Primary-Container);">0.01</p>
+                    </div>
+
+                </div>
+
+                </div>
+                <md-list>
+
+                    <md-list-item>
+                        <md-icon icon-filled slot="start">architecture</md-icon>
+                        <div slot="headline" style="margin-bottom: 2px;">Precision</div>
+                        <div slot="supporting-text">Number of decimal places</div>
+                        <div slot="end" id="precision_value">2</div>
+                    </md-list-item>
+                    <div class="slider_precision_div" margin>
+                        <md-slider style="width: 100%; --md-slider-pressed-state-layer-opacity: 0.19;" ticks  step="1" min="1" value="2" max="10" id="precision_value_slider"></md-slider>
+                    </div>
+                    <!-- hhhhh -->
+                    <md-list-item>
+                        <md-icon icon-filled slot="start">123</md-icon>    
+                        <div slot="headline" style="margin-bottom: 2px;">Separator</div>
+                        <div slot="supporting-text">Group separator symbol</div>
+
+                        <div class="radio-div-set-regular" slot="supporting-text" style="margin-top: 15px;">
+                            <div class="radio-option-settings-regular">
+                                <input type="radio" name="separator" id="radio_space" value=" " onclick="updateSeparator(); callseparatorType()">
+                                <label for="radio_space" class="ripple_btn_low">Space</label>
+                            </div>
+                            <div class="radio-option-settings-regular">
+                                <input type="radio" name="separator" id="radio_comma" checked value="," onclick="updateSeparator(); callseparatorType();">  
+                                <label for="radio_comma" class="ripple_btn_low">Comma</label>
+                            </div>
+                        </div>
+                    </md-list-item>
+  
+                    <md-list-item>
+                        <md-icon icon-filled slot="start">functions</md-icon>
+                        <div slot="headline" style="margin-bottom: 2px;">Exponential notation</div>
+                        <div slot="supporting-text">Replace of the number with E</div>
+
+                        <div class="radio-div-set-regular" slot="supporting-text" style="margin-top: 15px;">
+                            <div class="radio-option-settings-regular">
+                                <input type="radio" name="options-2" id="radio_auto" checked value="auto_Exponential_notation">
+                                <label for="radio_auto" class="ripple_btn_low" style="font-size: 15px;">Auto</label>
+                            </div>
+                            <div class="radio-option-settings-regular">
+                                <input type="radio" name="options-2" id="radio_enabled_set"  value="enabled_Exponential_notation">  
+                                <label for="radio_enabled_set" class="ripple_btn_low" style="font-size: 15px;">Enabled</label>
+                            </div>
+                            <div class="radio-option-settings-regular">
+                                <input type="radio" name="options-2" id="radio_disabled_set" value="disabled_Exponential_notation">  
+                                <label for="radio_disabled_set" class="ripple_btn_low" style="font-size: 15px;">Disabled</label>
+                            </div>
+
+                        </div>
+                    </md-list-item>
+
+                </md-list>
+
+
+
+
+
+
+                <p style="margin-top: 170px;"></p>
+            </div>
+        </div>
+    </div>
+
+
+    <script>    
+
+const separatorType2 = localStorage.getItem('separator');
+
+
+    if(separatorType2 === ','){
+        document.getElementById('preview_1_text').innerHTML = '123,445.45';
+
+    } else{
+        document.getElementById('preview_1_text').innerHTML = '123 445.45';
+
+    }
+            const valuePrecisionSlider = document.getElementById('precision_value_slider');
+
+        document.getElementById('precision_value_slider').addEventListener('input', () =>{
+
+            const separatorType = localStorage.getItem('separator');
+
+            document.getElementById('precision_value').innerHTML = document.getElementById('precision_value_slider').value;
+            if(valuePrecisionSlider.value > 9){
+
+
+                document.getElementById('precision_value').innerHTML = document.getElementById('precision_value_slider').value + ' (Max)';
+                if(separatorType === ','){
+                    document.getElementById('preview_1_text').innerHTML = '123,445.4538578916';
+ 
+                } else{
+                    document.getElementById('preview_1_text').innerHTML = '123 445.4538578916';
+
+                }
+                document.getElementById('preview_1_text').scrollLeft = document.getElementById('preview_1_text').scrollWidth;
+
+            }
+
+        });
+
+
+        valuePrecisionSlider.addEventListener('input', () =>{
+const separatorType = localStorage.getItem('separator');
+
+            if(separatorType === ','){
+            if(valuePrecisionSlider.value === 1){
+                document.getElementById('preview_1_text').innerHTML = '123,445.4';
+
+            } else if(valuePrecisionSlider.value === 2){
+                document.getElementById('preview_1_text').innerHTML = '123,445.45';
+            } else if(valuePrecisionSlider.value === 3){
+                document.getElementById('preview_1_text').innerHTML = '123,445.453';
+            } else if(valuePrecisionSlider.value === 4){
+                document.getElementById('preview_1_text').innerHTML = '123,445.4538';
+            }
+        else if(valuePrecisionSlider.value === 5){
+                document.getElementById('preview_1_text').innerHTML = '123,445.45387';
+            }else if(valuePrecisionSlider.value === 6){
+                document.getElementById('preview_1_text').innerHTML = '123,445.453857';
+            }else if(valuePrecisionSlider.value === 7){
+                document.getElementById('preview_1_text').innerHTML = '123,445.4538578';
+
+            }else if(valuePrecisionSlider.value === 8){
+                document.getElementById('preview_1_text').innerHTML = '123,445.45385789';
+                document.getElementById('preview_1_text').scrollLeft = document.getElementById('preview_1_text').scrollWidth;
+
+            }else if(valuePrecisionSlider.value === 9){
+                document.getElementById('preview_1_text').innerHTML = '123,445.453857891';
+                document.getElementById('preview_1_text').scrollLeft = document.getElementById('preview_1_text').scrollWidth;
+
+            }
+        } else{
+            if(valuePrecisionSlider.value === 1){
+        document.getElementById('preview_1_text').innerHTML = '123 445.4';
+        } else if(valuePrecisionSlider.value === 2){
+            document.getElementById('preview_1_text').innerHTML = '123 445.45';
+        }else if(valuePrecisionSlider.value === 3){
+            document.getElementById('preview_1_text').innerHTML = '123 445.453';
+        }
+        else if(valuePrecisionSlider.value === 4){
+            document.getElementById('preview_1_text').innerHTML = '123 445.4538';
+        }else if(valuePrecisionSlider.value === 5){
+            document.getElementById('preview_1_text').innerHTML = '123 445.45387';
+        }else if(valuePrecisionSlider.value === 6){
+            document.getElementById('preview_1_text').innerHTML = '123 445.453857';
+        }else if(valuePrecisionSlider.value === 7){
+            document.getElementById('preview_1_text').innerHTML = '123 445.4538578';
+        }else if(valuePrecisionSlider.value === 8){
+            document.getElementById('preview_1_text').innerHTML = '123 445.45385789';
+            document.getElementById('preview_1_text').scrollLeft = document.getElementById('preview_1_text').scrollWidth;
+
+        }else if(valuePrecisionSlider.value === 9){
+            document.getElementById('preview_1_text').innerHTML = '123 445.453857891';
+            document.getElementById('preview_1_text').scrollLeft = document.getElementById('preview_1_text').scrollWidth;
+
+        }
+        }
+        });
+
+        const radioAuto = document.getElementById('radio_auto');
+const radioEnabled = document.getElementById('radio_enabled_set');
+const radioDisabled = document.getElementById('radio_disabled_set');
+
+function saveRadioValue() {
+    if (radioAuto.checked) {  
+        localStorage.setItem('ExponentialNotation', 'auto');
+    } else if (radioEnabled.checked) {
+        localStorage.setItem('ExponentialNotation', 'enabled');
+    } else if (radioDisabled.checked) {
+        localStorage.setItem('ExponentialNotation', 'disabled');
+    }
+}
+
+function checkRadioOnLoad() {
+    const selectedRadio = localStorage.getItem('ExponentialNotation');
+    if (selectedRadio === 'auto') {
+        radioAuto.checked = true;
+    } else if (selectedRadio === 'enabled') {
+        radioEnabled.checked = true;
+    } else if (selectedRadio === 'disabled') {
+        radioDisabled.checked = true;
+    }
+}
+
+window.onload = checkRadioOnLoad;
+
+radioAuto.addEventListener('change', saveRadioValue);
+radioEnabled.addEventListener('change', saveRadioValue);
+radioDisabled.addEventListener('change', saveRadioValue);
+
+
+
+
+// scroll
+
+
+const scrollView = document.querySelector('.format_preview_scroll');
+
+
+const sections = document.querySelectorAll('.preview_item');
+const scrollIndicators = document.getElementById('scroll-indicators');
+
+
+sections.forEach((section, index) => {
+  const dot = document.createElement('span');
+  const dotValue = document.createElement('div');
+  dot.classList.add('dot');
+  dotValue.classList.add('dotValue')
+  dot.onclick = () => {
+    section.scrollIntoView({ behavior: 'smooth' });
+  };
+  scrollIndicators.appendChild(dot);
+  dot.appendChild(dotValue)
+});
+
+
+const updateActiveIndicator = () => {
+  const scrollPosition = Math.round(scrollView.scrollLeft / scrollView.offsetWidth);
+  const dotsValue = document.querySelectorAll('.dotValue');
+  dotsValue.forEach((dotValue, index) => {
+    if (index === scrollPosition) {
+    //   dot.style.backgroundColor = 'var(--Tertiary)'; 
+    dotValue.style.width = '100%';
+    } else {
+    //   dot.style.backgroundColor = 'var(--Surface-Container-Low)'; 
+    dotValue.style.width = '0';
+
+    }
+  });
+};
+
+
+scrollView.addEventListener('scroll', updateActiveIndicator);
+
+updateActiveIndicator();
+
+function resetValuesDisplaySizeText() {
+    var slider1 = document.getElementById('font_size_display_Settings');
+    var slider2 = document.getElementById('display_size_display_Settings');
+
+    if (slider1 && slider2) {
+        slider1.value = 25;
+        slider2.value = 20; 
+    } else {
+        console.error('Sliders not found!');
+    }
+    var switchElement = document.getElementById('bold_text_display_settings');
+    var switchElement2 = document.getElementById('high_contrast_text_display_settings');
+
+    if (switchElement && switchElement2) {
+        switchElement.selected = false
+        switchElement2.selected = false
+
+    } else {
+        console.error('Switch element not found!');
+    }
+}
+
+
+// separator
+
+
+function callseparatorType(){
+
+    const separatorType = localStorage.getItem('separator');
+
+
+    if(separatorType === ','){
+        if(valuePrecisionSlider.value === 1){
+        document.getElementById('preview_1_text').innerHTML = '123,445.4';
+        } else if(valuePrecisionSlider.value === 2){
+            document.getElementById('preview_1_text').innerHTML = '123,445.45';
+        }else if(valuePrecisionSlider.value === 3){
+            document.getElementById('preview_1_text').innerHTML = '123,445.453';
+        }
+        else if(valuePrecisionSlider.value === 4){
+            document.getElementById('preview_1_text').innerHTML = '123,445.4538';
+        }else if(valuePrecisionSlider.value === 5){
+            document.getElementById('preview_1_text').innerHTML = '123,445.45387';
+        }else if(valuePrecisionSlider.value === 6){
+            document.getElementById('preview_1_text').innerHTML = '123,445.453857';
+        }else if(valuePrecisionSlider.value === 7){
+            document.getElementById('preview_1_text').innerHTML = '123,445.4538578';
+        }else if(valuePrecisionSlider.value === 8){
+            document.getElementById('preview_1_text').innerHTML = '123,445.45385789';
+        }else if(valuePrecisionSlider.value === 9){
+            document.getElementById('preview_1_text').innerHTML = '123,445.453857891';
+        }else if(valuePrecisionSlider.value === 10){
+            document.getElementById('preview_1_text').innerHTML = '123,445.4538578916';
+        }
+    } else{
+        if(valuePrecisionSlider.value === 1){
+        document.getElementById('preview_1_text').innerHTML = '123 445.4';
+        } else if(valuePrecisionSlider.value === 2){
+            document.getElementById('preview_1_text').innerHTML = '123 445.45';
+        }else if(valuePrecisionSlider.value === 3){
+            document.getElementById('preview_1_text').innerHTML = '123 445.453';
+        }
+        else if(valuePrecisionSlider.value === 4){
+            document.getElementById('preview_1_text').innerHTML = '123 445.4538';
+        }else if(valuePrecisionSlider.value === 5){
+            document.getElementById('preview_1_text').innerHTML = '123 445.45387';
+        }else if(valuePrecisionSlider.value === 6){
+            document.getElementById('preview_1_text').innerHTML = '123 445.453857';
+        }else if(valuePrecisionSlider.value === 7){
+            document.getElementById('preview_1_text').innerHTML = '123 445.4538578';
+        }else if(valuePrecisionSlider.value === 8){
+            document.getElementById('preview_1_text').innerHTML = '123 445.45385789';
+        }else if(valuePrecisionSlider.value === 9){
+            document.getElementById('preview_1_text').innerHTML = '123 445.453857891';
+        }else if(valuePrecisionSlider.value === 10){
+            document.getElementById('preview_1_text').innerHTML = '123 445.4538578916';
+        };
+        }
+    }
+
+    callseparatorType()
+
+
+
+
+    </script>
+
+    
+<script src="../app/page.js"></script>
+<script src="../components-script.js/components.js"></script>
+<script src="../ripple-files/icon-ripple.js"></script>
+<script src="../modules/scroll.js"></script>
+<script src="../modules/call-themes.js"></script>
+<script src="../bundle.js"></script>
+<script type="module" src="../index.js"></script>
+<script src="../app/ripple.js"></script>
+<script src="../app/app.js"></script>
+</body>
+
+</html>

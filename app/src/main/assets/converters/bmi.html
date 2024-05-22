@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bmi calculator</title>
+    <link rel="stylesheet" href="../ui-files/ui.css">
+    <link rel="stylesheet" href="../ui-files/font-usage.css">
+    <link rel="stylesheet" href="../ui-files/variables.css">
+    <link rel="stylesheet" href="../components/components.css">
+    <link rel="stylesheet" href="../ripple-files/ripple.css">
+    <link rel="stylesheet" href="../components/modal-ver.css">
+    <link rel="stylesheet" href="../components//segment-btns.css">
+
+
+    <style>
+        .info_hold_page{
+            position: absolute;
+            right: 10px;
+        }
+    </style>
+</head>
+<body style="animation: historyItems 0.4s cubic-bezier(0,1,0,1); overflow: hidden;">
+    <div class="full-activity-header round transparent" id="head-3" style="height: 30px;">
+        <button class="ripple-icon-btn close" ontouchstart="playEffect(this)" ontouchend="playEffect2(this)" onclick="window.history.back()">
+            <span class="ripple-effect-icon"></span>
+            <span icon-outlined>arrow_back</span>
+        </button>
+        <p>BMI</p>
+        <div class="info_hold_page">
+             
+            <md-icon-button title="Show warning" aria-label=""  onclick="showInfoDialog()" >
+                <md-icon icon-outlined style="font-size: 23px !important;">warning</md-icon>
+            </md-icon-button>
+    </div>
+        </div>
+
+
+
+      <div class="tabs_bmi"> 
+        <div id="tab_1" class="tabs_item">
+    <div class="bmi_container_items">
+        <p>Cm / Kg</p>
+        <div class="bmi_inputs">
+            <md-outlined-text-field oninput="callBMI()" label="Height" error-text="Fill the height" id="height" maxlength="10" suffix-text="cm" type="text" inputmode="numeric" title="Enter your height in cm"></md-outlined-text-field>
+        </div>
+
+        <div class="bmi_inputs">
+            <md-outlined-text-field label="Weight"  oninput="callBMI()" error-text="Fill the weight" suffix-text="kg" id="weight" maxlength="10" type="text" inputmode="numeric" title="Enter your weight in kg"></md-outlined-text-field>
+        </div>
+    </div>
+
+
+
+<div id="result_type" class="resut_type_divs">
+    <p id="result_type_comment">Normal weight</p>
+    <span id="result_bmi_value">33.55</span>
+</div>
+
+<div id="result_type_normal_weight" class="resut_type_divs resut_type_divs_2" style="background-color: var(--Secondary-Container); color: var(--On-Secondary-Container);">
+    <p id="result_type_normalWeight_value">6 - 8 kg</p>
+    <span id="" style="font-size: 18px; display: block;">Normal weight for your height</span>
+</div>
+
+
+
+
+
+</div>
+
+   
+</div>
+</div>
+
+
+<md-dialog id="BMIWARNINGDIALOG">
+    <div slot="headline">
+        BMI usage
+      </div>
+    <div slot="content" id="BmiWarning" style="font-family: var(--poppins) !important; ">
+        Please note that the values displayed in the app are intended for entertainment purposes only. They can not replace professional medical advice 
+      </div>
+    <div slot="actions">
+        <md-text-button onclick="window.history.back()">OK</md-text-button>
+    </div>
+</md-dialog>
+
+<script>
+
+
+
+
+
+    // main
+
+    const call1 = document.getElementById('height')
+    const call2 = document.getElementById('weight')
+
+
+    function callBMI(){
+    if (call1.value.trim() !== '' && call2.value.trim() !== '') {
+      
+            calculateBMI();
+        } else{
+            document.querySelector('.resut_type_divs').style.transform = '';
+        document.querySelector('.resut_type_divs').style.opacity = '';
+        document.querySelector('.resut_type_divs_2').style.transform = '';
+        document.querySelector('.resut_type_divs_2').style.opacity = '';
+        }
+    }
+
+    function calculateBMI() {
+        var height = parseFloat(document.getElementById("height").value);
+        var weight = parseFloat(document.getElementById("weight").value);
+
+        if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+            return;
+        }
+
+        document.querySelector('.resut_type_divs').style.transform = 'translateX(0)';
+        document.querySelector('.resut_type_divs').style.opacity = '1';
+        document.querySelector('.resut_type_divs_2').style.transform = 'translateX(0)';
+        document.querySelector('.resut_type_divs_2').style.opacity = '1';
+
+
+        var bmi = weight / ((height / 100) * (height / 100));
+        var bmiFormatted = bmi.toFixed(2);
+
+        var message = numberWithCommas(bmiFormatted);
+        var messageComment = ''
+
+        var normalWeightRange = getNormalWeightRange(height);
+
+      
+
+        document.getElementById('result_type_normalWeight_value').innerHTML = normalWeightRange.min + " - " + normalWeightRange.max + " kg";
+
+        if (weight >= normalWeightRange.min && weight <= normalWeightRange.max) {
+            messageComment += "Within normal";
+            document.getElementById('result_type').style.backgroundColor = 'var(--normal-bmi)';
+                document.getElementById('result_type').style.color = 'var(--On-Surface)';
+
+        } else {
+            if (bmi < 18.5) {
+                messageComment += "Underweight";
+                document.getElementById('result_type').style.backgroundColor = 'var(--Tertiary-Container)';
+                document.getElementById('result_type').style.color = 'var(--On-Tertiary-Container)';
+            } else if (bmi >= 18.5 && bmi < 25) {
+                messageComment += "Normal weight";
+                document.getElementById('result_type').style.backgroundColor = 'var(--normal-bmi)';
+                document.getElementById('result_type').style.color = 'var(--On-Surface)';
+            } else if (bmi >= 25 && bmi < 30) {
+                messageComment += "Overweight";
+                document.getElementById('result_type').style.backgroundColor = 'var(--overweight-bmi)';
+                document.getElementById('result_type').style.color = 'var(--On-Surface)';
+            } else {
+                messageComment += "Obese";
+                document.getElementById('result_type').style.backgroundColor = 'var(--Error-Container)';
+                document.getElementById('result_type').style.color = 'var(--On-Error-Container)';
+
+            }
+
+
+        }
+
+        document.getElementById("result_bmi_value").innerHTML = message;
+        document.getElementById("result_type_comment").innerHTML = messageComment;
+
+    }
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function getNormalWeightRange(height) {
+       
+        var minHeight = 140; 
+       var maxHeight = 300; 
+
+var normalWeightRanges = {
+    140: { min: 32, max: 35 },
+    150: { min: 36, max: 39 },
+    160: { min: 40, max: 44 },
+    170: { min: 45, max: 49 },
+    180: { min: 50, max: 55 },
+    190: { min: 56, max: 61 },
+    200: { min: 62, max: 67 },
+    210: { min: 68, max: 73 },
+    220: { min: 74, max: 79 },
+    230: { min: 80, max: 85 },
+    240: { min: 86, max: 91 },
+    250: { min: 92, max: 97 },
+    260: { min: 98, max: 103 },
+    270: { min: 104, max: 109 },
+    280: { min: 110, max: 115 },
+    290: { min: 116, max: 121 },
+    300: { min: 122, max: 127 }
+};
+
+
+        
+        var closestHeight = Object.keys(normalWeightRanges).reduce(function(prev, curr) {
+            return Math.abs(curr - height) < Math.abs(prev - height) ? curr : prev;
+        });
+
+        return normalWeightRanges[closestHeight];
+    }
+
+
+    const WarningDialog = document.getElementById('BMIWARNINGDIALOG');
+
+
+    function showInfoDialog(){
+        WarningDialog.show();
+        window.history.pushState({dialogOpen: true}, "");
+
+        dialogcolorFull()
+    }
+
+    WarningDialog.addEventListener('close', () =>{
+        checkTHEME();
+    });
+
+    WarningDialog.addEventListener('cancel', () =>{
+            window.history.back();
+
+});
+
+window.addEventListener('popstate', function(event) {
+    WarningDialog.close(); 
+  
+});
+
+
+
+  </script>
+
+    <script src="../app/page.js"></script>
+    <script src="../components-script.js/components.js"></script>
+    <script src="../ripple-files/icon-ripple.js"></script>
+    <script src="../modules/scroll.js"></script>
+    <script src="../modules/call-themes.js"></script>
+    <script src="../bundle.js"></script>
+    <script type="module" src="../index.js"></script>
+    <script src="../app/app.js"></script>
+    <script src="../app/ripple.js"></script>
+</body>
+</html>

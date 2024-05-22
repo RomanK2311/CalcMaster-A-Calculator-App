@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sales calculator</title>
+    <link rel="stylesheet" href="/ui-files/ui.css">
+    <link rel="stylesheet" href="/ui-files/font-usage.css">
+    <link rel="stylesheet" href="/ui-files/variables.css">
+    <link rel="stylesheet" href="/components/components.css">
+    <link rel="stylesheet" href="/ripple-files/ripple.css">
+    <link rel="stylesheet" href="/components/modal-ver.css">
+
+    <style>
+         .all_div_inputs{
+            display: flex;
+            flex-direction: column;
+            padding-left: 20px;
+            background-color: var(--Surface-Container-Low);
+            margin: 10px;
+            border-radius: 10px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 20px;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        .div_input_calc{
+            display: flex;
+            gap: 10px;
+        }
+
+
+        .result_item{
+            display: flex;
+            margin-bottom: 5px;
+            background-color: var(--Surface-Container);
+            padding-bottom: 30px;
+            padding-top: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 6px;
+            position: relative;
+            
+        }
+
+        .result_item:first-child{
+            border-top-left-radius: 15px !important;
+            border-top-right-radius: 15px !important;
+
+        }
+
+        .result_item:last-child{
+            border-bottom-left-radius: 15px !important;
+            border-bottom-right-radius: 15px !important;
+
+        }
+
+        .result_item img{
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            background-color: var(--Surface-Container-High);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .results_tip{
+            padding: 10px;
+            transform: translateX(100%);
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(1,0,0,1);
+        }
+
+        .result_item p{
+            margin: 0;
+            font-size: 24px;
+            padding-left: 10px;
+            font-family: var(--outfit);
+            color: var(--On-Surface-Variant);
+        }
+
+        .result_item span{
+            background-color: var(--Secondary);
+            position: absolute;
+            bottom: 10px;
+            display: flex;
+            padding-left: 10px;
+            border-radius: 50px;
+            padding-bottom: 5px;
+            padding-top: 5px;
+            color: var(--On-Secondary);
+            font-size: 18px;
+            font-family: var(--outfit);
+            padding-right: 10px;
+            right:10px;
+            max-width: calc(100% - 150px);
+            overflow: auto;
+        }
+
+
+
+    </style>
+
+</head>
+<body style="animation: historyItems 0.4s cubic-bezier(0,1,0,1);">
+    <div class="full-activity-header round transparent" style="height: 30px;">            
+        <button class="ripple-icon-btn close" ontouchstart="playEffect(this)" ontouchend="playEffect2(this)" onclick="window.history.back()">
+            <span class="ripple-effect-icon"></span>
+            <span icon-outlined>arrow_back</span>
+        </button>                                                
+        <p>Sales tax</p>
+
+
+    </div>
+
+    <div class="all_div_inputs">
+        <div class="div_input_calc">
+            <md-outlined-text-field id="price" label="Price" type="text" inputmode="numeric"></md-outlined-text-field>
+            <md-outlined-text-field id="tax" label="Tax" type="text" inputmode="numeric" >
+                <i style="font-size: 20px;" slot="trailing-icon" icon-filled>percent</i>
+            </md-outlined-text-field>
+
+        </div>
+
+
+        <md-outlined-select supporting-text="Method" id="method">
+            <md-select-option value="add">
+              <div slot="headline">Add tax</div>
+              <md-icon slot="end" icon-outlined>add</md-icon>
+            </md-select-option>
+            <md-select-option value="subtract" selected>
+              <div slot="headline">Subtract tax</div>
+              <md-icon slot="end" icon-outlined>remove</md-icon>
+            </md-select-option>
+          </md-outlined-select>
+
+
+    </div>
+
+
+
+
+
+    <div class="results_tip">
+        <div class="result_item">
+        <img src="/images/money-bag.png" alt="">
+        <p>Final Price </p>
+        <span id="finalPrice">0</span>
+    </div>
+        <div class="result_item">
+        <img src="/images/coin.png" alt="">
+        <p>Tax Amount</p>
+        <span id="taxAmount">0</span>
+    </div>
+    </div>
+
+
+
+<script>
+
+const call1 = document.getElementById('price');
+    const call2 = document.getElementById('tax');
+    const call3 = document.getElementById('method');
+
+
+function callBMI(){
+    if (call1.value.trim() !== '' && call2.value.trim() !== '' && call3.value.trim() !== '') {
+        calculatePrice()
+        document.querySelector('.results_tip').style.transform = 'translateX(0)'
+        document.querySelector('.results_tip').style.opacity = '1'
+
+        } else{
+            document.querySelector('.results_tip').style.transform = ''
+        document.querySelector('.results_tip').style.opacity = ''
+        }
+    }
+
+    call1.addEventListener('input', callBMI)
+    call2.addEventListener('input', callBMI)
+    call3.addEventListener('input', callBMI)
+
+
+    function addCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
+
+function calculatePrice() {
+    const price = parseFloat(document.getElementById('price').value);
+    const taxPercentage = parseFloat(document.getElementById('tax').value);
+    const method = document.getElementById('method').value;
+
+
+    if (isNaN(price) || isNaN(taxPercentage) || price <= 0 || taxPercentage < 0) {
+        alert("Please enter valid values");
+        return;
+    }
+
+    let finalPrice, taxAmount;
+    if (method === "add") {
+        taxAmount = price * (taxPercentage / 100);
+        finalPrice = price + taxAmount;
+    } else {
+        taxAmount = price * (taxPercentage / 100);
+        finalPrice = price - taxAmount;
+    }
+
+    document.getElementById('finalPrice').textContent = addCommas(finalPrice.toFixed(2));
+    document.getElementById('taxAmount').textContent = addCommas(taxAmount.toFixed(2));
+}
+
+
+</script>
+
+    <script src="/app/page.js"></script>
+    <script src="/components-script.js/components.js"></script>
+    <script src="/ripple-files/icon-ripple.js"></script>
+    <script src="/modules/scroll.js"></script>
+    <script src="/modules/call-themes.js"></script>
+    <script src="/bundle.js"></script>
+    <script type="module" src="/index.js"></script>
+    <script src="/app/app.js"></script>
+    <script src="/app/ripple.js"></script>
+    <script src="../app/vibrate.js"></script>
+</body>
+</html>

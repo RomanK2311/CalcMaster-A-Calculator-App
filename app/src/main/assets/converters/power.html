@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>power calculator</title>
+    <link rel="stylesheet" href="../ui-files/ui.css">
+    <link rel="stylesheet" href="../ui-files/font-usage.css">
+    <link rel="stylesheet" href="../ui-files/variables.css">
+    <link rel="stylesheet" href="../components/components.css">
+    <link rel="stylesheet" href="../ripple-files/ripple.css">
+    <link rel="stylesheet" href="../components/modal-ver.css">
+</head>
+<body style="animation: historyItems 0.4s cubic-bezier(0,1,0,1);">
+    <div class="full-activity-header round transparent" style="height: 30px;">
+        <button class="ripple-icon-btn close" ontouchstart="playEffect(this)" ontouchend="playEffect2(this)" onclick="window.history.back()">
+            <span class="ripple-effect-icon"></span>
+            <span icon-outlined>arrow_back</span>
+        </button>
+        <p>Power</p>
+    </div>
+
+    <div class="container_unit">
+        <div class="input-group">
+          <input type="text" id="inputValue" placeholder="0" inputmode="none">
+          <span id="fromValue">aW</span>
+
+        <i icon-outlined class="toIcon">arrow_downward</i>
+
+        </div>
+
+
+        <div class="output-group">
+          <input type="text" id="outputValue" readonly placeholder="0">
+          <span id="toValue">aW</span>
+
+        </div>
+      </div>
+
+      <div class="selection_units" style="padding-left: 10px; padding-right: 10px; width: calc(100% - 20px);">
+
+
+          <md-suggestion-chip label="Attowatt" id="fromSelectTemp"><md-icon slot="icon" icon-outlined>arrow_forward</md-icon></md-suggestion-chip>
+
+          <!--  -->
+          <md-suggestion-chip label="Attowatt" id="toSelectTemp"></md-suggestion-chip>
+
+
+
+      </div>
+
+      <div class="c-keyboard unit-keyboard">
+        <div class="c-keyboard-keys">
+            <button class="ripple_btn v-key" onclick="appendToAmount('1')">1</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('2')">2</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('3')">3</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('4')">4</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('5')">5</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('6')">6</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('7')">7</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('8')">8</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('9')">9</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('0')">0</button>
+        </div>
+        <div class="sidebtn-c-keyboard">
+            <button class="icon-class-filled ripple_btn  v-key" onclick="clearAmountALL()" icon-outlined>clear_all</button>
+            <button class="icon-class-filled ripple_btn  v-key remove-key" onclick="clearOneCharacter()" icon-filled>backspace</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- input-modal-from -->
+<md-dialog id="fromUnitTempDialog">
+    <div slot="headline">Select units</div>
+    <form slot="content" id="tempUnitfrom" method="dialog">
+        <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitTemp"
+              value="aW"
+              aria-label="Attowatt"
+              touch-target="wrapper"
+              checked></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Attowatt</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitTemp"
+              value="W"
+              aria-label="Watt"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Watt</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitTemp"
+              value="kW"
+              aria-label="Kilowatt"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Kilowatt</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitTemp"
+              value="MG"
+              aria-label="Megawatt"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Megawatt</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitTemp"
+              value="hp"
+              aria-label="Horsepower"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Horsepower</span>
+          </label>
+    </form>
+
+    <div slot="actions">
+        <md-text-button form="tempUnitfrom" >Cancel</md-text-button>
+    </div>
+</md-dialog>
+
+<!-- input-modal-to -->
+
+<md-dialog id="toUnitTempDialog">
+    <div slot="headline">Select units</div>
+    <form slot="content" id="tempUnitto" method="dialog">
+        <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitTemp"
+              value="aW"
+              aria-label="Attowatt"
+              touch-target="wrapper"
+              checked></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Attowatt</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitTemp"
+              value="W"
+              aria-label="Watt"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Watt</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitTemp"
+              value="kW"
+              aria-label="Kilowatt"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Kilowatt</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitTemp"
+              value="MG"
+              aria-label="Megawatt"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Megawatt</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitTemp"
+              value="hp"
+              aria-label="Horsepower"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Horsepower</span>
+          </label>
+    </form>
+
+    <div slot="actions">
+        <md-text-button form="tempUnitto" >Cancel</md-text-button>
+    </div>
+</md-dialog>
+
+      <script>
+
+
+
+var FromUnitRadiosINputs = document.querySelectorAll('md-radio[name="fromUnitTemp"]');
+FromUnitRadiosINputs.forEach(function(FromUnitRadiosINput) {
+            FromUnitRadiosINput.addEventListener('input', () =>{
+                document.getElementById('fromValue').innerHTML = FromUnitRadiosINput.value;
+                var ariaLabelFromUnit = FromUnitRadiosINput.getAttribute('aria-label');
+                fromSelectTempBtn.setAttribute('label', ariaLabelFromUnit) 
+                fromUnitTempDialog.close()
+            });
+        });
+
+
+        var toUnitRadiosINputs = document.querySelectorAll('md-radio[name="toUnitTemp"]');
+        toUnitRadiosINputs.forEach(function(toUnitRadiosINput) {
+            toUnitRadiosINput.addEventListener('input', () =>{
+                document.getElementById('toValue').innerHTML = toUnitRadiosINput.value;
+                var ariaLabeltoUnit = toUnitRadiosINput.getAttribute('aria-label');
+                toSelectTempBtn.setAttribute('label', ariaLabeltoUnit)
+                toUnitTempDialog.close()
+            });
+        });
+
+        
+function convert() {
+  let inputValue = document.getElementById('inputValue').value;
+  inputValue = inputValue.replace(/,/g, '');
+  const parsedValue = parseFloat(inputValue);
+
+  if (isNaN(inputValue)) {
+    return;
+  }
+
+  var radioButtons = document.querySelectorAll('md-radio[name="fromUnitTemp"]');
+  var selectedValue;
+        radioButtons.forEach(function(radioButton) {
+            if (radioButton.checked) {
+                selectedValue = radioButton.value;
+            }
+        });
+
+        var radioButtonsToUnit = document.querySelectorAll('md-radio[name="toUnitTemp"]');
+  var selectedValueToUnit;
+  radioButtonsToUnit.forEach(function(radioButtonToUnit) {
+            if (radioButtonToUnit.checked) {
+                selectedValueToUnit = radioButtonToUnit.value;
+            }
+        });
+
+
+const inputUnit = selectedValue;
+  const outputUnit = selectedValueToUnit;
+  let outputValue;
+
+  switch (inputUnit) {
+    case 'aW':
+      outputValue = convertAttowatt(inputValue, outputUnit);
+      break;
+    case 'W':
+      outputValue = convertWatt(inputValue, outputUnit);
+      break;
+    case 'kW':
+      outputValue = convertKilowatt(inputValue, outputUnit);
+      break;
+    case 'MW':
+      outputValue = convertMegawatt(inputValue, outputUnit);
+      break;
+    case 'hp':
+      outputValue = convertHorsepower(inputValue, outputUnit);
+      break;
+  }
+
+
+  if (isNaN(outputValue)) {
+    return;
+  }
+  var formattedOutput;
+
+if (outputValue % 1 === 0) {
+    formattedOutput = outputValue.toFixed(0); 
+} else {
+    formattedOutput = outputValue.toFixed(2); 
+};
+
+document.getElementById('outputValue').value = formattedOutput;
+}
+
+
+function convertAttowatt(value, outputUnit) {
+  switch (outputUnit) {
+    case 'aW':
+      return value;
+    case 'W':
+      return value / 1e-18;
+    case 'kW':
+      return value / 1e-21;
+    case 'MW':
+      return value / 1e-24;
+    case 'hp':
+      return value / 1.34102e-24;
+  }
+}
+
+function convertWatt(value, outputUnit) {
+  switch (outputUnit) {
+    case 'aW':
+      return value * 1e18;
+    case 'W':
+      return value;
+    case 'kW':
+      return value / 1000;
+    case 'MW':
+      return value / 1e6;
+    case 'hp':
+      return value / 745.7;
+  }
+}
+
+function convertKilowatt(value, outputUnit) {
+  switch (outputUnit) {
+    case 'aW':
+      return value * 1e21;
+    case 'W':
+      return value * 1000;
+    case 'kW':
+      return value;
+    case 'MW':
+      return value / 1000;
+    case 'hp':
+      return value * 1.34102;
+  }
+}
+
+function convertMegawatt(value, outputUnit) {
+  switch (outputUnit) {
+    case 'aW':
+      return value * 1e24;
+    case 'W':
+      return value * 1e6;
+    case 'kW':
+      return value * 1000;
+    case 'MW':
+      return value;
+    case 'hp':
+      return value * 1341.02;
+  }
+}
+
+function convertHorsepower(value, outputUnit) {
+  switch (outputUnit) {
+    case 'aW':
+      return value * 1.34102e24;
+    case 'W':
+      return value * 745.7;
+    case 'kW':
+      return value / 1.34102;
+    case 'MW':
+      return value / 1341.02;
+    case 'hp':
+      return value;
+  }
+}
+
+
+
+
+// keyboard
+
+function appendToAmount(value) {
+    const input = document.getElementById('inputValue');
+    const startPos = input.selectionStart;
+    const endPos = input.selectionEnd;
+    input.focus();
+    let currentValue = input.value;
+
+    if (currentValue.length >= 25) {
+      currentValue = currentValue.substring(0, 25);
+      return
+    }
+
+
+    const beforeCursor = currentValue.substring(0, startPos);
+    const afterCursor = currentValue.substring(endPos);
+
+
+    const newValue = beforeCursor + value + afterCursor;
+
+    const unformattedValue = newValue.replace(/,/g, '');
+    const formattedValue = Number(unformattedValue).toLocaleString();
+
+    input.value = formattedValue;
+
+
+    const lengthDiff = formattedValue.length - currentValue.length;
+
+    input.setSelectionRange(startPos + lengthDiff, startPos + lengthDiff);
+
+    adjustInputFontSize();
+    adjustFontSize();
+    convert();
+  }
+
+
+
+  function clearAmountALL(){
+    var amountInput = document.getElementById("inputValue");
+
+
+    amountInput.value = '';
+    convert();
+    document.getElementById('outputValue').value = '';
+    adjustFontSize();
+    adjustInputFontSize();
+  }
+
+
+  function clearOneCharacter() {
+    const input = document.getElementById('inputValue');
+    const startPos = input.selectionStart;
+    const endPos = input.selectionEnd;
+
+    if (startPos === endPos && startPos > 0) {
+      const currentValue = input.value;
+      const newValue = currentValue.substring(0, startPos - 1) + currentValue.substring(endPos);
+      input.value = newValue;
+    input.focus();
+
+
+        
+
+    convert();
+    adjustInputFontSize();
+    adjustFontSize();
+      input.setSelectionRange(startPos - 1, startPos - 1);
+    }
+  }
+
+
+
+
+
+  function adjustFontSize() {
+    var container = document.getElementById('outputValue');
+    var fontSize = 50;
+    var maxWidth = container.clientWidth;
+
+
+    var tempElement = document.createElement('span');
+    tempElement.style.visibility = 'hidden';
+    tempElement.style.fontSize = fontSize + 'px';
+    tempElement.innerHTML = container.innerHTML;
+
+
+    document.body.appendChild(tempElement);
+
+
+    while (tempElement.offsetWidth > maxWidth && fontSize > 5) {
+      fontSize -= 20;
+      tempElement.style.fontSize = fontSize + 'px';
+    }
+
+
+    container.style.fontSize = fontSize + 'px';
+
+
+    document.body.removeChild(tempElement);
+  }
+
+
+  window.addEventListener('resize', adjustFontSize);
+
+
+
+
+  function adjustInputFontSize() {
+    var inputElement = document.getElementById('inputValue');
+    var fontSize = 50;
+    var maxWidth = inputElement.clientWidth;
+
+
+    var tempElement = document.createElement('span');
+    tempElement.style.visibility = 'hidden';
+    tempElement.style.fontSize = fontSize + 'px';
+    tempElement.innerHTML = inputElement.value;
+
+
+    document.body.appendChild(tempElement);
+
+
+    while (tempElement.offsetWidth > maxWidth && fontSize > 1) {
+      fontSize -= 4;
+      tempElement.style.fontSize = fontSize + 'px';
+    }
+
+
+    inputElement.style.fontSize = fontSize + 'px';
+
+
+    document.body.removeChild(tempElement);
+  }
+
+
+  document.getElementById('inputValue').addEventListener('input', adjustInputFontSize);
+
+
+
+
+  const fromUnitTempDialog = document.getElementById('fromUnitTempDialog');
+  const fromSelectTempBtn = document.getElementById('fromSelectTemp');
+  const toUnitTempDialog = document.getElementById('toUnitTempDialog');
+  const toSelectTempBtn = document.getElementById('toSelectTemp');
+
+  fromSelectTempBtn.addEventListener('click', () =>{
+    fromUnitTempDialog.show()
+    dialogcolorFull()
+  });
+
+    fromUnitTempDialog.addEventListener('close', () =>{
+        checkTHEME();
+    });
+
+    toSelectTempBtn.addEventListener('click', () =>{
+        toUnitTempDialog.show()
+    dialogcolorFull()
+  });
+
+  toUnitTempDialog.addEventListener('close', () =>{
+        checkTHEME();
+    });
+
+
+    
+
+      </script>
+
+
+
+    <script src="../app/page.js"></script>
+    <script src="../components-script.js/components.js"></script>
+    <script src="../ripple-files/icon-ripple.js"></script>
+    <script src="../modules/scroll.js"></script>
+    <script src="../modules/call-themes.js"></script>
+    <script src="../bundle.js"></script>
+    <script type="module" src="../index.js"></script>
+    <script src="../app/app.js"></script>
+    <script src="../app/ripple.js"></script>
+    <script src="../app/vibrate.js"></script>
+  </body>
+</html>

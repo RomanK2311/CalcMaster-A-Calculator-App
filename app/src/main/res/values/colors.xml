@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red">#00f2fa</color>
+<!--    <color name="status_bar_color">#ffdad4</color>-->
+
+    <!-- Color for the navigation bar -->
+<!--    <color name="navigation_bar_color">#fff8f6</color>-->
+    <color name="onscreen">#01223b</color>
+</resources>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" color="all">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History Page</title>
+    <link rel="stylesheet" href="../ui-files/ui.css">
+    <link rel="stylesheet" href="../ui-files/font-usage.css">
+    <link rel="stylesheet" href="../ui-files/variables.css">
+    <link rel="stylesheet" href="../components/components.css">
+    <link rel="stylesheet" href="../ripple-files/ripple.css">
+    <link rel="stylesheet" href="../components/modal-ver.css">
+</head>
+<body>
+    <div class="full-activity open" id="historyContainer" style="z-index: 0;">
+        <div class="full-activity-header-v2 round transparent" id="head-2">
+            <div>
+                <button class="ripple-icon-btn" ontouchstart="playEffect(this)" ontouchend="playEffect2(this)" onclick="window.history.back();" title="Go back">
+                    <span class="ripple-effect-icon"></span>
+                    <span icon-outlined>arrow_back</span>
+                </button>
+            <p>History</p></div>
+
+            <md-icon-button  id="clearHistoryButton" class="icon2" style="--md-icon-button-pressed-state-layer-opacity: 0.12;" title="Show more options">
+                <i icon-outlined style="font-size: 23px !important;">more_vert</i>
+            </md-icon-button>
+
+
+            <md-menu positioning="popover" id="usage-popover" anchor="clearHistoryButton" anchor-corner="start-start" >
+                <md-menu-item onclick="DeleteHistoryConfirm()" menu-type style="--md-menu-item-pressed-state-layer-opacity: 0.12;">
+                  <div slot="headline">Clear history <span style="opacity: 0;">ca</span></div>
+                </md-menu-item>
+              </md-menu>
+              
+              <script type="module">
+                const anchorEl = document.body.querySelector('#clearHistoryButton');
+                const menuEl = document.body.querySelector('#usage-popover');
+              
+                anchorEl.addEventListener('click', () => { menuEl.open = !menuEl.open; });
+              </script>
+
+
+        </div>
+        <div class="full-activity-content" id="historyContent">
+
+
+
+     </div>
+
+
+     </div>
+
+     
+                 <!-- copy modal -->
+<md-dialog type="alert" id="ChooseCopyHistory">
+    <div slot="headline">
+        <span style="flex: 1;">Copy history</span>
+          <button class="ripple-icon-btn regular" ontouchstart="playEffect(this)" form="ChooseCopyHistoryContent" value="" ontouchend="playEffect2(this)" title="Close dialog">
+            <span class="ripple-effect-icon"></span>
+            <span icon-outlined>close</span>
+        </button>
+    </div>
+    <form slot="content" id="ChooseCopyHistoryContent" method="dialog">
+       Do you want to copy the equation or result?
+      </form>
+
+      <div slot="actions">
+        <md-filled-tonal-button form="ChooseCopyHistoryContent" value="copyEquation" id="copyEquation" title="Copy Equation">Equation </md-filled-tonal-button>
+        <div style="flex: 1;"></div>
+
+        <md-filled-button  form="ChooseCopyHistoryContent" value="copyResult" id="copyResult" title="Copy Result">Result</md-filled-button>
+      </div>
+</md-dialog>
+
+<!-- clear-history -->
+
+<md-dialog type="alert" id="confirmDeleteHistory">
+
+    <md-icon slot="icon" icon-filled>delete</md-icon>
+
+    <div slot="headline">Clear history</div>
+
+    <form slot="content" id="confirmDeleteHistoryContent" method="dialog">
+        All expressions from history will be deleted forever. This action can't be undone!
+       </form>
+
+       <div slot="actions">
+        <md-text-button form="confirmDeleteHistoryContent" value="cancel" title="Cancel deleting the history" >Cancel</md-text-button>
+        <md-text-button form="confirmDeleteHistoryContent" value="delete" onclick="clearHistory(); ShowSnack('History was cleared', 2000, 3)" title="Delete all history">Clear</md-text-button>
+       </div>
+ 
+
+</md-dialog>
+
+
+    
+    <script src="../app/page.js"></script>
+    <script src="../app/ripple.js"></script>
+    <script src="../components-script.js/components.js"></script>
+    <script src="../ripple-files/icon-ripple.js"></script>
+    <script src="../modules/scroll.js"></script>
+    <script src="../modules/call-themes.js"></script>
+    <script src="../bundle.js"></script>
+    <script type="module" src="../index.js"></script>
+    <script src="../app/app.js"></script>
+    <script src="../app/ripple.js"></script>
+
+</body>
+</html>

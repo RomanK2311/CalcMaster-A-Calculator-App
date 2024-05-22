@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>time calculator</title>
+    <link rel="stylesheet" href="../ui-files/ui.css">
+    <link rel="stylesheet" href="../ui-files/font-usage.css">
+    <link rel="stylesheet" href="../ui-files/variables.css">
+    <link rel="stylesheet" href="../components/components.css">
+    <link rel="stylesheet" href="../ripple-files/ripple.css">
+    <link rel="stylesheet" href="../components/modal-ver.css">
+</head>
+<body style="animation: historyItems 0.4s cubic-bezier(0,1,0,1);">
+
+    <div class="full-activity-header round transparent" id="head-3" style="height: 30px;">
+           
+        <button class="ripple-icon-btn close" ontouchstart="playEffect(this)" ontouchend="playEffect2(this)" onclick="window.history.back()">
+            <span class="ripple-effect-icon"></span>
+            <span icon-outlined>arrow_back</span>
+        </button>
+
+        <p>Time</p>
+
+
+    </div>
+    <div class="container_unit">
+        <div class="input-group">
+          <input type="text" id="inputValue" placeholder="0" inputmode="none">
+          <span id="fromValue">s</span>
+
+        <i icon-outlined class="toIcon">arrow_downward</i>
+
+        </div>
+
+
+        <div class="output-group">
+          <input type="text" id="outputValue" readonly placeholder="0">
+          <span id="toValue">min</span>
+
+        </div>
+      </div>
+
+      <div class="selection_units" style="padding-left: 10px; padding-right: 10px; width: calc(100% - 20px);">
+
+
+          <md-suggestion-chip label="Seconds" id="fromSelectTime"><md-icon slot="icon" icon-outlined>arrow_forward</md-icon></md-suggestion-chip>
+
+
+          <!--  -->
+          <md-suggestion-chip label="Minute" id="toSelectTime"></md-suggestion-chip>
+
+
+      </div>
+
+      <div class="c-keyboard unit-keyboard">
+        <div class="c-keyboard-keys">
+            <button class="ripple_btn v-key" onclick="appendToAmount('1')">1</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('2')">2</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('3')">3</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('4')">4</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('5')">5</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('6')">6</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('7')">7</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('8')">8</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('9')">9</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('0')">0</button>
+        </div>
+        <div class="sidebtn-c-keyboard">
+            <button class="icon-class-filled ripple_btn  v-key" onclick="clearAmountALL()" icon-outlined>clear_all</button>
+            <button class="icon-class-filled ripple_btn  v-key remove-key" onclick="clearOneCharacter()" icon-filled>backspace</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- input-modal-from -->
+<md-dialog id="fromUnitTimeDialog">
+    <div slot="headline">Select units</div>
+    <form slot="content" id="TimeUnitfrom" method="dialog">
+        <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitTime"
+              value="ms"
+              aria-label="Millisecond"
+              touch-target="wrapper"
+              checked></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Millisecond</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitTime"
+              value="s"
+              aria-label="Seconds"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Seconds</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitTime"
+              value="min"
+              aria-label="Minute"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Minute</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitTime"
+              value="hour"
+              aria-label="Hour"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Hour</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitTime"
+              value="days"
+              aria-label="Day"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Day</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitTime"
+              value="week"
+              aria-label="Week"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Week</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitTime"
+              value="year"
+              aria-label="Year"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Year</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitTime"
+              value="decade"
+              aria-label="Decade"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Decade</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitTime"
+              value="century"
+              aria-label="Century"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Century</span>
+          </label>
+    </form>
+
+    <div slot="actions">
+        <md-text-button form="TimeUnitfrom" >Cancel</md-text-button>
+    </div>
+</md-dialog>
+
+<!-- input-modal-to -->
+
+<md-dialog id="toUnitTimeDialog">
+    <div slot="headline">Select units</div>
+    <form slot="content" id="timeUnitto" method="dialog">
+        <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitTime"
+              value="ms"
+              aria-label="Millisecond"
+              touch-target="wrapper"
+              checked></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Millisecond</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitTime"
+              value="s"
+              aria-label="Seconds"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Seconds</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitTime"
+              value="min"
+              aria-label="Minute"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Minute</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitTime"
+              value="hour"
+              aria-label="Hour"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Hour</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitTime"
+              value="days"
+              aria-label="Day"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Day</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitTime"
+              value="week"
+              aria-label="Week"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Week</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitTime"
+              value="year"
+              aria-label="Year"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Year</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitTime"
+              value="decade"
+              aria-label="Decade"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Decade</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitTime"
+              value="century"
+              aria-label="Century"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Century</span>
+          </label>
+    </form>
+
+    <div slot="actions">
+        <md-text-button form="timeUnitto" >Cancel</md-text-button>
+    </div>
+</md-dialog>
+
+      <script>
+
+
+
+var FromUnitRadiosINputs = document.querySelectorAll('md-radio[name="fromUnitTime"]');
+FromUnitRadiosINputs.forEach(function(FromUnitRadiosINput) {
+            FromUnitRadiosINput.addEventListener('input', () =>{
+                document.getElementById('fromValue').innerHTML = FromUnitRadiosINput.value;
+                var ariaLabelFromUnit = FromUnitRadiosINput.getAttribute('aria-label');
+                fromSelectTimeBtn.setAttribute('label', ariaLabelFromUnit)
+                fromUnitTimeDialog.close()
+            });
+        });
+
+
+        var toUnitRadiosINputs = document.querySelectorAll('md-radio[name="toUnitTime"]');
+        toUnitRadiosINputs.forEach(function(toUnitRadiosINput) {
+            toUnitRadiosINput.addEventListener('input', () =>{
+                document.getElementById('toValue').innerHTML = toUnitRadiosINput.value;
+                var ariaLabeltoUnit = toUnitRadiosINput.getAttribute('aria-label');
+                toSelectTimeBtn.setAttribute('label', ariaLabeltoUnit)
+                toUnitTimeDialog.close()
+            });
+        });
+
+        
+function convert() {
+  let inputValue = document.getElementById('inputValue').value;
+  inputValue = inputValue.replace(/,/g, '');
+  const parsedValue = parseFloat(inputValue);
+
+  if (isNaN(inputValue)) {
+    return;
+  }
+
+  var radioButtons = document.querySelectorAll('md-radio[name="fromUnitTime"]');
+  var selectedValue;
+        radioButtons.forEach(function(radioButton) {
+            if (radioButton.checked) {
+                selectedValue = radioButton.value;
+            }
+        });
+
+        var radioButtonsToUnit = document.querySelectorAll('md-radio[name="toUnitTime"]');
+  var selectedValueToUnit;
+  radioButtonsToUnit.forEach(function(radioButtonToUnit) {
+            if (radioButtonToUnit.checked) {
+                selectedValueToUnit = radioButtonToUnit.value;
+            }
+        });
+
+
+const inputUnit = selectedValue;
+  const outputUnit = selectedValueToUnit;
+  let outputValue;
+
+  switch (inputUnit) {
+    case 'ms':
+      outputValue = convertMillisecond(inputValue, outputUnit);
+      break;
+    case 's':
+      outputValue = convertSecond(inputValue, outputUnit);
+      break;
+    case 'min':
+      outputValue = convertMinute(inputValue, outputUnit);
+      break;
+    case 'hour':
+      outputValue = convertHour(inputValue, outputUnit);
+      break;
+    case 'days':
+      outputValue = convertDay(inputValue, outputUnit);
+      break;
+    case 'week':
+      outputValue = convertWeek(inputValue, outputUnit);
+      break;
+    case 'year':
+      outputValue = convertYear(inputValue, outputUnit);
+      break;
+    case 'decade':
+      outputValue = convertDecade(inputValue, outputUnit);
+      break;
+    case 'century':
+      outputValue = convertCentury(inputValue, outputUnit);
+      break;
+  }
+
+  if (isNaN(outputValue)) {
+    return;
+  }
+  var formattedOutput;
+
+if (outputValue % 1 === 0) {
+    formattedOutput = outputValue.toFixed(0); 
+} else {
+    formattedOutput = outputValue.toFixed(2); 
+};
+
+document.getElementById('outputValue').value = formattedOutput;
+}
+
+
+
+function convertMillisecond(value, outputUnit) {
+  switch (outputUnit) {
+    case 'ms':
+      return value;
+    case 's':
+      return value / 1000;
+    case 'min':
+      return value / (1000 * 60);
+    case 'hour':
+      return value / (1000 * 60 * 60);
+    case 'days':
+      return value / (1000 * 60 * 60 * 24);
+    case 'week':
+      return value / (1000 * 60 * 60 * 24 * 7);
+    case 'year':
+      return value / (1000 * 60 * 60 * 24 * 365.25);
+    case 'decade':
+      return value / (1000 * 60 * 60 * 24 * 365.25 * 10);
+    case 'century':
+      return value / (1000 * 60 * 60 * 24 * 365.25 * 100);
+  }
+}
+
+function convertSecond(value, outputUnit) {
+  switch (outputUnit) {
+    case 'ms':
+      return value * 1000;
+    case 's':
+      return value;
+    case 'min':
+      return value / 60;
+    case 'hour':
+      return value / (60 * 60);
+    case 'days':
+      return value / (60 * 60 * 24);
+    case 'week':
+      return value / (60 * 60 * 24 * 7);
+    case 'year':
+      return value / (60 * 60 * 24 * 365.25);
+    case 'decade':
+      return value / (60 * 60 * 24 * 365.25 * 10);
+    case 'century':
+      return value / (60 * 60 * 24 * 365.25 * 100);
+  }
+}
+
+function convertMinute(value, outputUnit) {
+  switch (outputUnit) {
+    case 'ms':
+      return value * 1000 * 60;
+    case 's':
+      return value * 60;
+    case 'min':
+      return value;
+    case 'hour':
+      return value / 60;
+    case 'days':
+      return value / (60 * 24);
+    case 'week':
+      return value / (60 * 24 * 7);
+    case 'year':
+      return value / (60 * 24 * 365.25);
+    case 'decade':
+      return value / (60 * 24 * 365.25 * 10);
+    case 'century':
+      return value / (60 * 24 * 365.25 * 100);
+  }
+}
+
+function convertHour(value, outputUnit) {
+  switch (outputUnit) {
+    case 'ms':
+      return value * 1000 * 60 * 60;
+    case 's':
+      return value * 60 * 60;
+    case 'min':
+      return value * 60;
+    case 'hour':
+      return value;
+    case 'days':
+      return value / 24;
+    case 'week':
+      return value / (24 * 7);
+    case 'year':
+      return value / (24 * 365.25);
+    case 'decade':
+      return value / (24 * 365.25 * 10);
+    case 'century':
+      return value / (24 * 365.25 * 100);
+  }
+}
+
+function convertDay(value, outputUnit) {
+  switch (outputUnit) {
+    case 'ms':
+      return value * 1000 * 60 * 60 * 24;
+    case 's':
+      return value * 60 * 60 * 24;
+    case 'min':
+      return value * 60 * 24;
+    case 'hour':
+      return value * 24;
+    case 'days':
+      return value;
+    case 'week':
+      return value / 7;
+    case 'year':
+      return value / 365.25;
+    case 'decade':
+      return value / (365.25 * 10);
+    case 'century':
+      return value / (365.25 * 100);
+  }
+}
+
+function convertWeek(value, outputUnit) {
+  switch (outputUnit) {
+    case 'ms':
+      return value * 1000 * 60 * 60 * 24 * 7;
+    case 's':
+      return value * 60 * 60 * 24 * 7;
+    case 'min':
+      return value * 60 * 24 * 7;
+    case 'hour':
+      return value * 24 * 7;
+    case 'days':
+      return value * 7;
+    case 'week':
+      return value;
+    case 'year':
+      return value / 52.1786; // Approximate value
+    case 'decade':
+      return value / (52.1786 * 10);
+    case 'century':
+      return value / (52.1786 * 100);
+  }
+}
+
+function convertYear(value, outputUnit) {
+  switch (outputUnit) {
+    case 'ms':
+      return value * 1000 * 60 * 60 * 24 * 365.25;
+    case 's':
+      return value * 60 * 60 * 24 * 365.25;
+    case 'min':
+      return value * 60 * 24 * 365.25;
+    case 'hour':
+      return value * 24 * 365.25;
+    case 'days':
+      return value * 365.25;
+    case 'week':
+      return value * 52.1786; // Approximate value
+    case 'year':
+      return value;
+    case 'decade':
+      return value / 10;
+    case 'century':
+      return value / 100;
+  }
+}
+
+function convertDecade(value, outputUnit) {
+  switch (outputUnit) {
+    case 'ms':
+      return value * 1000 * 60 * 60 * 24 * 365.25 * 10;
+    case 's':
+      return value * 60 * 60 * 24 * 365.25 * 10;
+    case 'min':
+      return value * 60 * 24 * 365.25 * 10;
+    case 'hour':
+      return value * 24 * 365.25 * 10;
+    case 'days':
+      return value * 365.25 * 10;
+    case 'week':
+      return value * 52.1786 * 10; // Approximate value
+    case 'year':
+      return value * 10;
+    case 'decade':
+      return value;
+    case 'century':
+      return value / 10;
+  }
+}
+
+function convertCentury(value, outputUnit) {
+  switch (outputUnit) {
+    case 'ms':
+      return value * 1000 * 60 * 60 * 24 * 365.25 * 100;
+    case 's':
+      return value * 60 * 60 * 24 * 365.25 * 100;
+    case 'min':
+      return value * 60 * 24 * 365.25 * 100;
+    case 'hour':
+      return value * 24 * 365.25 * 100;
+    case 'days':
+      return value * 365.25 * 100;
+    case 'week':
+      return value * 52.1786 * 100; // Approximate value
+    case 'year':
+      return value * 100;
+    case 'decade':
+      return value * 10;
+    case 'century':
+      return value;
+  }
+}
+
+
+
+
+// keyboard
+
+function appendToAmount(value) {
+    const input = document.getElementById('inputValue');
+    const startPos = input.selectionStart;
+    const endPos = input.selectionEnd;
+    input.focus();
+    let currentValue = input.value;
+
+    if (currentValue.length >= 25) {
+      currentValue = currentValue.substring(0, 25);
+      return
+    }
+
+
+    const beforeCursor = currentValue.substring(0, startPos);
+    const afterCursor = currentValue.substring(endPos);
+
+
+    const newValue = beforeCursor + value + afterCursor;
+
+    const unformattedValue = newValue.replace(/,/g, '');
+    const formattedValue = Number(unformattedValue).toLocaleString();
+
+    input.value = formattedValue;
+
+
+    const lengthDiff = formattedValue.length - currentValue.length;
+
+    input.setSelectionRange(startPos + lengthDiff, startPos + lengthDiff);
+
+    adjustInputFontSize();
+    adjustFontSize();
+    convert();
+  }
+
+
+
+  function clearAmountALL(){
+    var amountInput = document.getElementById("inputValue");
+
+
+    amountInput.value = '';
+    convert();
+    document.getElementById('outputValue').value = '';
+    adjustFontSize();
+    adjustInputFontSize();
+  }
+
+
+  function clearOneCharacter() {
+    const input = document.getElementById('inputValue');
+    const startPos = input.selectionStart;
+    const endPos = input.selectionEnd;
+
+    if (startPos === endPos && startPos > 0) {
+      const currentValue = input.value;
+      const newValue = currentValue.substring(0, startPos - 1) + currentValue.substring(endPos);
+      input.value = newValue;
+    input.focus();
+
+
+        
+
+    convert();
+    adjustInputFontSize();
+    adjustFontSize();
+      input.setSelectionRange(startPos - 1, startPos - 1);
+    }
+  }
+
+
+
+
+
+  function adjustFontSize() {
+    var container = document.getElementById('outputValue');
+    var fontSize = 50;
+    var maxWidth = container.clientWidth;
+
+
+    var tempElement = document.createElement('span');
+    tempElement.style.visibility = 'hidden';
+    tempElement.style.fontSize = fontSize + 'px';
+    tempElement.innerHTML = container.innerHTML;
+
+
+    document.body.appendChild(tempElement);
+
+
+    while (tempElement.offsetWidth > maxWidth && fontSize > 5) {
+      fontSize -= 20;
+      tempElement.style.fontSize = fontSize + 'px';
+    }
+
+
+    container.style.fontSize = fontSize + 'px';
+
+
+    document.body.removeChild(tempElement);
+  }
+
+
+  window.addEventListener('resize', adjustFontSize);
+
+
+
+
+  function adjustInputFontSize() {
+    var inputElement = document.getElementById('inputValue');
+    var fontSize = 50;
+    var maxWidth = inputElement.clientWidth;
+
+
+    var tempElement = document.createElement('span');
+    tempElement.style.visibility = 'hidden';
+    tempElement.style.fontSize = fontSize + 'px';
+    tempElement.innerHTML = inputElement.value;
+
+
+    document.body.appendChild(tempElement);
+
+
+    while (tempElement.offsetWidth > maxWidth && fontSize > 1) {
+      fontSize -= 4;
+      tempElement.style.fontSize = fontSize + 'px';
+    }
+
+
+    inputElement.style.fontSize = fontSize + 'px';
+
+
+    document.body.removeChild(tempElement);
+  }
+
+
+  document.getElementById('inputValue').addEventListener('input', adjustInputFontSize);
+
+
+
+
+  const fromUnitTimeDialog = document.getElementById('fromUnitTimeDialog');
+  const fromSelectTimeBtn = document.getElementById('fromSelectTime');
+  const toUnitTimeDialog = document.getElementById('toUnitTimeDialog');
+  const toSelectTimeBtn = document.getElementById('toSelectTime');
+
+  fromSelectTimeBtn.addEventListener('click', () =>{
+    fromUnitTimeDialog.show()
+    dialogcolorFull()
+  });
+
+  fromUnitTimeDialog.addEventListener('close', () =>{
+        checkTHEME();
+    });
+
+    toSelectTimeBtn.addEventListener('click', () =>{
+        toUnitTimeDialog.show()
+    dialogcolorFull()
+  });
+
+  toUnitTimeDialog.addEventListener('close', () =>{
+        checkTHEME();
+    });
+
+
+    
+
+    </script>
+
+    <script src="../app/page.js"></script>
+    <script src="../components-script.js/components.js"></script>
+    <script src="../ripple-files/icon-ripple.js"></script>
+    <script src="../modules/scroll.js"></script>
+    <script src="../modules/call-themes.js"></script>
+    <script src="../bundle.js"></script>
+    <script type="module" src="../index.js"></script>
+    <script src="../app/app.js"></script>
+    <script src="../app/ripple.js"></script>
+    <script src="../app/vibrate.js"></script>
+  </body>
+
+</html>

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>volume calculator</title>
+    <link rel="stylesheet" href="../ui-files/ui.css">
+    <link rel="stylesheet" href="../ui-files/font-usage.css">
+    <link rel="stylesheet" href="../ui-files/variables.css">
+    <link rel="stylesheet" href="../components/components.css">
+    <link rel="stylesheet" href="../ripple-files/ripple.css">
+    <link rel="stylesheet" href="../components/modal-ver.css">
+</head>
+<body style="animation: historyItems 0.4s cubic-bezier(0,1,0,1);">
+
+    <div class="full-activity-header round transparent" id="head-3" style="height: 30px;">
+           
+        <button class="ripple-icon-btn close" ontouchstart="playEffect(this)" ontouchend="playEffect2(this)" onclick="window.history.back()">
+            <span class="ripple-effect-icon"></span>
+            <span icon-outlined>arrow_back</span>
+        </button>
+
+        <p>Volume</p>
+
+
+    </div>
+    <div class="container_unit">
+        <div class="input-group">
+          <input type="text" id="inputValue" placeholder="0" inputmode="none">
+          <span id="fromValue">l</span>
+
+          <i icon-outlined class="toIcon">arrow_downward</i>
+        </div>
+
+        <div class="output-group">
+          <input type="text" id="outputValue" readonly placeholder="0">
+          <span id="toValue">ml</span>
+
+        </div>
+      </div>
+
+      <div class="selection_units" style="padding-left: 10px; padding-right: 10px; width: calc(100% - 20px);">
+
+
+        <md-suggestion-chip label="Liter" id="fromSelectTemp"><md-icon slot="icon" icon-outlined>arrow_forward</md-icon></md-suggestion-chip>
+
+        <!--  -->
+        <md-suggestion-chip label="Liter" id="toSelectTemp"></md-suggestion-chip>
+
+
+    </div>
+
+      <div class="c-keyboard unit-keyboard">
+        <div class="c-keyboard-keys">
+            <button class="ripple_btn v-key" onclick="appendToAmount('1')">1</button>
+            <button class="ripple_btn v-key"onclick="appendToAmount('2')">2</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('3')">3</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('4')">4</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('5')">5</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('6')">6</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('7')">7</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('8')">8</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('9')">9</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('0')">0</button>
+        </div>
+        <div class="sidebtn-c-keyboard">
+            <button class="icon-class-filled ripple_btn  v-key" onclick="clearAmountALL()" icon-outlined>clear_all</button>
+            <button class="icon-class-filled ripple_btn  v-key remove-key" onclick="clearOneCharacter()" icon-filled>backspace</button>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- input-modal-from -->
+<md-dialog id="fromUnitTempDialog">
+  <div slot="headline">Select units</div>
+  <form slot="content" id="tempUnitfrom" method="dialog">
+      <label style="display: flex; align-items: center;" class="">
+          <md-radio
+            name="fromUnitTemp"
+            value="l"
+            aria-label="Liter"
+            touch-target="wrapper"
+            checked></md-radio>
+          <span aria-hidden="true" style="font-size: 18px;">Liter</span>
+        </label>
+        <label style="display: flex; align-items: center;" class="">
+          <md-radio
+            name="fromUnitTemp"
+            value="ml"
+            aria-label="Milliliter"
+            touch-target="wrapper"></md-radio>
+          <span aria-hidden="true" style="font-size: 18px;">Milliliter</span>
+        </label>
+        <label style="display: flex; align-items: center;" class="">
+          <md-radio
+            name="fromUnitTemp"
+            value="gal"
+            aria-label="Gallon"
+            touch-target="wrapper"></md-radio>
+          <span aria-hidden="true" style="font-size: 18px;">Gallon</span>
+        </label>
+        <label style="display: flex; align-items: center;" class="">
+          <md-radio
+            name="fromUnitTemp"
+            value="m3"
+            aria-label="Cubic meter"
+            touch-target="wrapper"></md-radio>
+          <span aria-hidden="true" style="font-size: 18px;">Cubic meter</span>
+        </label>
+        <label style="display: flex; align-items: center;" class="">
+          <md-radio
+            name="fromUnitTemp"
+            value="ft3"
+            aria-label="Cubic feet"
+            touch-target="wrapper"></md-radio>
+          <span aria-hidden="true" style="font-size: 18px;">Cubic feet</span>
+        </label>
+        <label style="display: flex; align-items: center;" class="">
+          <md-radio
+            name="fromUnitTemp"
+            value="in3"
+            aria-label="Cubic inches"
+            touch-target="wrapper"></md-radio>
+          <span aria-hidden="true" style="font-size: 18px;">Cubic inches</span>
+        </label>
+  </form>
+
+  <div slot="actions">
+      <md-text-button form="tempUnitfrom" >Cancel</md-text-button>
+  </div>
+</md-dialog>
+
+<!-- input-modal-to -->
+
+<md-dialog id="toUnitTempDialog">
+  <div slot="headline">Select units</div>
+  <form slot="content" id="tempUnitto" method="dialog">
+    <label style="display: flex; align-items: center;" class="">
+      <md-radio
+        name="toUnitTemp"
+        value="l"
+        aria-label="Liter"
+        touch-target="wrapper"
+        checked></md-radio>
+      <span aria-hidden="true" style="font-size: 18px;">Liter</span>
+    </label>
+    <label style="display: flex; align-items: center;" class="">
+      <md-radio
+        name="toUnitTemp"
+        value="ml"
+        aria-label="Milliliter"
+        touch-target="wrapper"></md-radio>
+      <span aria-hidden="true" style="font-size: 18px;">Milliliter</span>
+    </label>
+    <label style="display: flex; align-items: center;" class="">
+      <md-radio
+        name="toUnitTemp"
+        value="gal"
+        aria-label="Gallon"
+        touch-target="wrapper"></md-radio>
+      <span aria-hidden="true" style="font-size: 18px;">Gallon</span>
+    </label>
+    <label style="display: flex; align-items: center;" class="">
+      <md-radio
+        name="toUnitTemp"
+        value="m3"
+        aria-label="Cubic meter"
+        touch-target="wrapper"></md-radio>
+      <span aria-hidden="true" style="font-size: 18px;">Cubic meter</span>
+    </label>
+    <label style="display: flex; align-items: center;" class="">
+      <md-radio
+        name="toUnitTemp"
+        value="ft3"
+        aria-label="Cubic feet"
+        touch-target="wrapper"></md-radio>
+      <span aria-hidden="true" style="font-size: 18px;">Cubic feet</span>
+    </label>
+    <label style="display: flex; align-items: center;" class="">
+      <md-radio
+        name="toUnitTemp"
+        value="in3"
+        aria-label="Cubic inches"
+        touch-target="wrapper"></md-radio>
+      <span aria-hidden="true" style="font-size: 18px;">Cubic inches</span>
+    </label>
+  </form>
+
+  <div slot="actions">
+      <md-text-button form="tempUnitto" >Cancel</md-text-button>
+  </div>
+</md-dialog>
+
+      <script>
+
+
+var FromUnitRadiosINputs = document.querySelectorAll('md-radio[name="fromUnitTemp"]');
+FromUnitRadiosINputs.forEach(function(FromUnitRadiosINput) {
+            FromUnitRadiosINput.addEventListener('input', () =>{
+                document.getElementById('fromValue').innerHTML = FromUnitRadiosINput.value;
+                var ariaLabelFromUnit = FromUnitRadiosINput.getAttribute('aria-label');
+                fromSelectTempBtn.setAttribute('label', ariaLabelFromUnit) 
+                fromUnitTempDialog.close()
+            });
+        });
+
+
+        var toUnitRadiosINputs = document.querySelectorAll('md-radio[name="toUnitTemp"]');
+        toUnitRadiosINputs.forEach(function(toUnitRadiosINput) {
+            toUnitRadiosINput.addEventListener('input', () =>{
+                document.getElementById('toValue').innerHTML = toUnitRadiosINput.value;
+                var ariaLabeltoUnit = toUnitRadiosINput.getAttribute('aria-label');
+                toSelectTempBtn.setAttribute('label', ariaLabeltoUnit)
+                toUnitTempDialog.close()
+
+            });
+        });
+        
+        
+function convert() {
+  let inputValue = document.getElementById('inputValue').value;
+  inputValue = inputValue.replace(/,/g, '');
+  const parsedValue = parseFloat(inputValue);
+
+  if (isNaN(inputValue)) {
+    return;
+  }
+  var radioButtons = document.querySelectorAll('md-radio[name="fromUnitTemp"]');
+  var selectedValue;
+        radioButtons.forEach(function(radioButton) {
+            if (radioButton.checked) {
+                selectedValue = radioButton.value;
+            }
+        });
+
+        var radioButtonsToUnit = document.querySelectorAll('md-radio[name="toUnitTemp"]');
+  var selectedValueToUnit;
+  radioButtonsToUnit.forEach(function(radioButtonToUnit) {
+            if (radioButtonToUnit.checked) {
+                selectedValueToUnit = radioButtonToUnit.value;
+            }
+        });
+
+
+const inputUnit = selectedValue;
+  const outputUnit = selectedValueToUnit;
+  let outputValue;
+
+
+  switch (inputUnit) {
+    case 'l':
+      outputValue = convertLiter(inputValue, outputUnit);
+      break;
+    case 'ml':
+      outputValue = convertMilliliter(inputValue, outputUnit);
+      break;
+    case 'gal':
+      outputValue = convertGallon(inputValue, outputUnit);
+      break;
+    case 'm3':
+      outputValue = convertCubicMeter(inputValue, outputUnit);
+      break;
+    case 'ft3':
+      outputValue = convertCubicFoot(inputValue, outputUnit);
+      break;
+    case 'in3':
+      outputValue = convertCubicInch(inputValue, outputUnit);
+      break;
+  }
+
+  if (isNaN(outputValue)) {
+    return;
+  }
+  var formattedOutput;
+
+if (outputValue % 1 === 0) {
+    formattedOutput = outputValue.toFixed(0); 
+} else {
+    formattedOutput = outputValue.toFixed(2); 
+};
+
+document.getElementById('outputValue').value = formattedOutput;
+
+}
+
+function convertLiter(value, outputUnit) {
+  switch (outputUnit) {
+    case 'l':
+      return value;
+    case 'ml':
+      return value * 1000;
+    case 'gal':
+      return value * 0.264172;
+    case 'm3':
+      return value * 0.001;
+    case 'ft3':
+      return value * 0.0353147;
+    case 'in3':
+      return value * 61.0237;
+  }
+}
+
+function convertMilliliter(value, outputUnit) {
+  switch (outputUnit) {
+    case 'l':
+      return value / 1000;
+    case 'ml':
+      return value;
+    case 'gal':
+      return value * 0.000264172;
+    case 'm3':
+      return value * 0.000001;
+    case 'ft3':
+      return value * 0.0000353147;
+    case 'in3':
+      return value * 0.0610237;
+  }
+}
+
+function convertGallon(value, outputUnit) {
+  switch (outputUnit) {
+    case 'l':
+      return value * 3.78541;
+    case 'ml':
+      return value * 3785.41;
+    case 'gal':
+      return value;
+    case 'm3':
+      return value * 0.00378541;
+    case 'ft3':
+      return value * 0.133681;
+    case 'in3':
+      return value * 231;
+  }
+}
+
+function convertCubicMeter(value, outputUnit) {
+  switch (outputUnit) {
+    case 'l':
+      return value * 1000;
+    case 'ml':
+      return value * 1000000;
+    case 'gal':
+      return value * 264.172;
+    case 'm3':
+      return value;
+    case 'ft3':
+      return value * 35.3147;
+    case 'in3':
+      return value * 61023.7;
+  }
+}
+
+function convertCubicFoot(value, outputUnit) {
+  switch (outputUnit) {
+    case 'l':
+      return value * 28.3168;
+    case 'ml':
+      return value * 28316.8;
+    case 'gal':
+      return value * 7.48052;
+    case 'm3':
+      return value * 0.0283168;
+    case 'ft3':
+      return value;
+    case 'in3':
+      return value * 1728;
+  }
+}
+
+function convertCubicInch(value, outputUnit) {
+  switch (outputUnit) {
+    case 'l':
+      return value * 0.0163871;
+    case 'ml':
+      return value * 16.3871;
+    case 'gal':
+      return value * 0.004329;
+    case 'm3':
+      return value * 0.0000163871;
+    case 'ft3':
+      return value * 0.000578704;
+    case 'in3':
+      return value;
+  }
+}
+
+
+
+// keyboard
+
+function appendToAmount(value) {
+    const input = document.getElementById('inputValue');
+    const startPos = input.selectionStart;
+    const endPos = input.selectionEnd;
+    input.focus();
+    let currentValue = input.value;
+
+    if (currentValue.length >= 25) {
+      currentValue = currentValue.substring(0, 25);
+      return
+    }
+
+
+    const beforeCursor = currentValue.substring(0, startPos);
+    const afterCursor = currentValue.substring(endPos);
+
+
+    const newValue = beforeCursor + value + afterCursor;
+
+    const unformattedValue = newValue.replace(/,/g, '');
+    const formattedValue = Number(unformattedValue).toLocaleString();
+
+    input.value = formattedValue;
+
+
+    const lengthDiff = formattedValue.length - currentValue.length;
+
+    input.setSelectionRange(startPos + lengthDiff, startPos + lengthDiff);
+
+    adjustInputFontSize();
+    adjustFontSize();
+    convert();
+  }
+
+
+
+  function clearAmountALL(){
+    var amountInput = document.getElementById("inputValue");
+
+
+    amountInput.value = '';
+    convert();
+
+    adjustFontSize();
+    adjustInputFontSize();
+  }
+
+
+  function clearOneCharacter() {
+    const input = document.getElementById('inputValue');
+    const startPos = input.selectionStart;
+    const endPos = input.selectionEnd;
+
+    if (startPos === endPos && startPos > 0) {
+      const currentValue = input.value;
+      const newValue = currentValue.substring(0, startPos - 1) + currentValue.substring(endPos);
+      input.value = newValue;
+    input.focus();
+
+
+    convert();
+    adjustInputFontSize();
+    adjustFontSize();
+      input.setSelectionRange(startPos - 1, startPos - 1);
+    }
+  }
+
+
+
+
+
+  function adjustFontSize() {
+    var container = document.getElementById('outputValue');
+    var fontSize = 50;
+    var maxWidth = container.clientWidth;
+
+
+    var tempElement = document.createElement('span');
+    tempElement.style.visibility = 'hidden';
+    tempElement.style.fontSize = fontSize + 'px';
+    tempElement.innerHTML = container.innerHTML;
+
+
+    document.body.appendChild(tempElement);
+
+
+    while (tempElement.offsetWidth > maxWidth && fontSize > 5) {
+      fontSize -= 20;
+      tempElement.style.fontSize = fontSize + 'px';
+    }
+
+
+    container.style.fontSize = fontSize + 'px';
+
+
+    document.body.removeChild(tempElement);
+  }
+
+
+  window.addEventListener('resize', adjustFontSize);
+
+
+
+
+  function adjustInputFontSize() {
+    var inputElement = document.getElementById('inputValue');
+    var fontSize = 50;
+    var maxWidth = inputElement.clientWidth;
+
+
+    var tempElement = document.createElement('span');
+    tempElement.style.visibility = 'hidden';
+    tempElement.style.fontSize = fontSize + 'px';
+    tempElement.innerHTML = inputElement.value;
+
+
+    document.body.appendChild(tempElement);
+
+
+    while (tempElement.offsetWidth > maxWidth && fontSize > 1) {
+      fontSize -= 4;
+      tempElement.style.fontSize = fontSize + 'px';
+    }
+
+
+    inputElement.style.fontSize = fontSize + 'px';
+
+
+    document.body.removeChild(tempElement);
+  }
+
+
+  document.getElementById('inputValue').addEventListener('input', adjustInputFontSize);
+
+
+
+  const fromUnitTempDialog = document.getElementById('fromUnitTempDialog');
+  const fromSelectTempBtn = document.getElementById('fromSelectTemp');
+  const toUnitTempDialog = document.getElementById('toUnitTempDialog');
+  const toSelectTempBtn = document.getElementById('toSelectTemp');
+
+  fromSelectTempBtn.addEventListener('click', () =>{
+    fromUnitTempDialog.show()
+    dialogcolorFull()
+  });
+
+    fromUnitTempDialog.addEventListener('close', () =>{
+        checkTHEME();
+    });
+
+    toSelectTempBtn.addEventListener('click', () =>{
+        toUnitTempDialog.show()
+    dialogcolorFull()
+  });
+
+  toUnitTempDialog.addEventListener('close', () =>{
+        checkTHEME();
+    });
+
+
+  </script>
+    
+
+    <script src="../app/page.js"></script>
+    <script src="../components-script.js/components.js"></script>
+    <script src="../ripple-files/icon-ripple.js"></script>
+    <script src="../modules/scroll.js"></script>
+    <script src="../modules/call-themes.js"></script>
+    <script src="../bundle.js"></script>
+    <script type="module" src="../index.js"></script>
+    <script src="../app/app.js"></script>
+    <script src="../app/ripple.js"></script>
+    <script src="../app/vibrate.js"></script>
+  </body>
+</html>

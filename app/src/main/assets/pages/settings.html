@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Page</title>
+    <link rel="stylesheet" href="../ui-files/ui.css">
+    <link rel="stylesheet" href="../ui-files/font-usage.css">
+    <link rel="stylesheet" href="../ui-files/variables.css">
+    <link rel="stylesheet" href="../components/components.css">
+    <link rel="stylesheet" href="../ripple-files/ripple.css">
+    <link rel="stylesheet" href="../components/modal-ver.css">  
+    <link rel="stylesheet" href="../components/segment-btns.css">   
+
+
+    <style>
+        .vibration_type{
+            transition: all 0.5s cubic-bezier(1,0,0,1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="activity-large open">
+        <div class="header-activity-large" id="head-1">
+            <button class="ripple-icon-btn regular" ontouchstart="playEffect(this)" ontouchend="playEffect2(this)" title="Go back"
+                onclick="window.history.back()">
+                <span class="ripple-effect-icon"></span>
+                <span icon-outlined>arrow_back</span>
+            </button>
+            <p class="label-hidden-large" contenteditable="true" style="white-space: nowrap;">Settings</p>
+        </div>
+        <div class="activity-large-content" id="headUser-1">
+            <p class="label-large-main">Settings</p>
+            <div class="content-parent-large">
+
+
+                <p class="title">General</p>    
+              
+
+            
+                <md-list>
+
+                    <md-list-item role="switch">
+                        <md-icon icon-filled slot="start">dark_mode</md-icon>
+                        <div slot="headline" style="margin-bottom: 2px;">Dark theme</div>
+                        <div slot="supporting-text">Dark theme style for the app</div>
+                        <md-switch icons slot="end" id="toggledark" aria-label="dark mode"></md-switch>
+                        
+                    </md-list-item>
+
+
+                    <div class="app_color_theme_selection">
+
+                        <div class="wrap_color_option ripple_btn" style="--border-selected-wrap: #2196f3;">
+                            <input type="radio" name="colorTheme" id="theme_1"  checked>
+                            <label class="color_item " id="blue_style" style="background-color: #2196f3; " for="theme_1" 
+                            >
+                            </label>
+                        </div>
+                            <div class="wrap_color_option ripple_btn" style="--border-selected-wrap: #673ab7;">
+                            <input type="radio" name="colorTheme" id="theme_2" >
+                            <label class="color_item "  id="purple_style" style="background-color: #673ab7; "  for="theme_2"
+                                >
+                            </label>
+                        </div>
+                            <div class="wrap_color_option ripple_btn" style="--border-selected-wrap: #ffeb3b;">
+                                <input type="radio" name="colorTheme" id="theme_3" >
+                                <label class="color_item " id="yellow_style" style="background-color: #ffeb3b; "  for="theme_3"
+                                    >
+                                </label>
+                            </div>
+                                <div class="wrap_color_option ripple_btn" style="--border-selected-wrap: #4caf50;">
+                                <input type="radio" name="colorTheme" id="theme_4" >
+                                <label class="color_item " id="green_style" style="background-color: #4caf50; "  for="theme_4"
+                                    >
+                                </label>
+                            </div>
+                      
+                            <div class="wrap_color_option ripple_btn" style="--border-selected-wrap: #f44336;">
+                                <input type="radio" name="colorTheme" id="theme_5" >
+                                <label class="color_item " id="red_style" style="background-color: #f44336; "  for="theme_5"
+                                    >
+                                </label>
+                            </div>
+
+                            <div class="wrap_color_option ripple_btn" style="--border-selected-wrap: #e91e63;">
+                                <input type="radio" name="colorTheme" id="theme_6" >
+                                <label class="color_item " id="pink_style" style="background-color: #e91e63; "  for="theme_6"
+                                    >
+                                </label>
+                            </div>
+
+                            <div class="wrap_color_option ripple_btn" style="--border-selected-wrap: #ff5722;">
+                                <input type="radio" name="colorTheme" id="theme_7" >
+                                <label class="color_item " id="orange_style" style="background-color: #ff5722; "  for="theme_7"
+                                    >
+                                </label>
+                            </div>
+
+                            <div class="wrap_color_option ripple_btn" style="--border-selected-wrap: #607d8b;">
+                                <input type="radio" name="colorTheme" id="theme_8" >
+                                <label class="color_item " id="charcol_style" style="background-color: #607d8b; "  for="theme_8"
+                                    >
+                                </label>
+                            </div>
+
+                            <div class="wrap_color_option ripple_btn" style="--border-selected-wrap: #3f51b5;">
+                                <input type="radio" name="colorTheme" id="theme_9" >
+                                <label class="color_item " id="blue_bright_style" style="background-color: #3f51b5; "  for="theme_9"
+                                    >
+                                </label>
+                            </div>
+
+                            </div>
+
+
+                            <md-list-item margin style="display: none;">
+                                <md-icon icon-filled slot="start">palette</md-icon>
+                                <div slot="headline" style="margin-bottom: 2px;">Dynamic colors</div>
+                                <div slot="supporting-text">Cycle through all themes randomly</div>
+                                <md-switch icons slot="end" id="togglecolor" aria-label="dynamic colors"></md-switch>
+                            </md-list-item>
+
+                            <md-list-item margin>
+                                <md-icon icon-filled slot="start">aod</md-icon>
+                                <div slot="headline" style="margin-bottom: 2px;">Always on</div>
+                                <div slot="supporting-text">Prevent the device from sleeping</div>
+                                <md-switch icons slot="end" id="always-on" aria-label="always on"
+                                    onchange="handleCheckboxChangeSleep()"></md-switch>
+                            </md-list-item>
+
+                            
+                            <md-list-item>
+                                <md-icon icon-filled slot="start">vibration</md-icon>
+                                <div slot="headline" style="margin-bottom: 2px;">Vibrations</div>
+                                <div slot="supporting-text">Haptic feedback when clicking keyboard buttons</div>
+                                <md-switch icons slot="end" id="vibrateSwitch" aria-label="Vibrations" onchange="VibrationKeys()" ></md-switch>
+                            </md-list-item>
+                            
+                            <div class="vibration_type" style="overflow: hidden; height: 0;" margin>
+                                <md-list-item>
+                                    <md-icon slot="start"></md-icon>
+                                
+                                    <div class="radio-div-set-regular" slot="headline">
+                                        <div class="radio-option-settings-regular">
+                                            <input type="radio" name="vibrationType" id="vibration-1" value="1-vibrate" onchange="changeVibrationType()">
+                                            <label for="vibration-1" class="ripple_btn_low">Low</label>
+                                        </div>
+                                        <div class="radio-option-settings-regular">
+                                            <input type="radio" name="vibrationType" id="vibration-2"  value="2-vibrate" onchange="changeVibrationType()">  
+                                            <label for="vibration-2" class="ripple_btn_low">Medium</label>
+                                        </div>
+                                        <div class="radio-option-settings-regular">
+                                            <input type="radio" name="vibrationType" id="vibration-3"  value="3-vibrate" onchange="changeVibrationType()">  
+                                            <label for="vibration-3" class="ripple_btn_low">High</label>
+                                        </div>
+                                    </div>
+
+                               
+                                </md-list-item>
+                            </div>
+
+                            <md-list-item margin>
+                                <md-icon icon-filled slot="start">switches</md-icon>
+                                <div slot="headline" style="margin-bottom: 2px;">Switch icons</div>
+                                <div slot="supporting-text">Show icons on the switches</div>
+                                <md-checkbox slot="end" id="toggle_switch_icons" onchange="toggleIconsSwitches()" aria-label="show/hide switch icons"
+                                    data-set-checkbox="true" style="margin-right: 5px;"></md-checkbox>
+                            </md-list-item>
+
+
+                            <md-list-item type="button" onclick="transitionToPage('pageAnimationSetting.html'); checkTHEME();">
+                                <md-icon icon-filled slot="start">animation</md-icon>
+                                <div slot="headline">Page animation</div>
+                                <div slot="supporting-text">Choose transition effect for page navigation</div>
+                                <md-icon icon-filled slot="end">chevron_right</md-icon>
+                            </md-list-item> 
+
+
+                </md-list>
+
+
+                <p class="title" style="margin-top: 5px;">Calculations</p>
+                <md-list>
+
+                    <md-list-item margin>
+                        <md-icon icon-filled slot="start">exposure_zero</md-icon>
+                        <div slot="headline" style="margin-bottom: 2px;">Zero in the middle</div>
+                        <div slot="supporting-text">Swap zero and decimal buttons</div>
+                        <md-switch icons slot="end" id="swapZeroSwitch" aria-label="Zero in the middle"
+                        onchange="swapButtons()"></md-switch>
+                    </md-list-item>
+
+                    <md-list-item type="button" onclick="transitionToPage('formattingSetting.html'); checkTHEME();" margin>
+                        <md-icon icon-filled slot="start">123</md-icon>
+                        <div slot="headline">Formatting</div>
+                        <div slot="supporting-text">Precision and numbers appearance</div>
+                        <md-icon icon-filled slot="end">chevron_right</md-icon>
+                    </md-list-item> 
+
+                    <md-list-item>
+                        <md-icon icon-filled slot="start">save</md-icon>
+                        <div slot="headline">Save last input</div>
+                        <div slot="supporting-text">Load your last expression on start</div>
+                        <md-switch slot="end" id="last_input_save" onchange="lastInputSave()" aria-label="Save last input" selected></md-switch>
+                    </md-list-item>
+
+                </md-list>
+
+                <p class="title" style="margin-top: 5px;">Additional</p>
+                <md-list>
+
+                    <md-list-item margin>
+                        <md-icon icon-filled slot="start">format_paint</md-icon>
+                        <div slot="headline" style="margin-bottom: 2px;">Theme name</div>
+                        <div slot="supporting-text" id="themeName"></div>
+                    </md-list-item>
+
+                    <md-list-item margin onclick="transitionToPage('AboutPage.html'); checkTHEME();" type="button">
+                        <md-icon icon-filled slot="start">info</md-icon>
+                        <div slot="headline" style="margin-bottom: 2px;">About CalcMaster</div>
+                        <div slot="supporting-text">Learn about the app</div>
+                        <md-icon icon-outlined slot="end">chevron_right</md-icon>
+                    </md-list-item>
+
+                </md-list>
+
+                                   
+                
+      
+            </div>
+        </div>
+    </div>
+
+
+
+<!-- theme-overlay -->
+<div class="theme_overlay" hidden>
+    <md-circular-progress id="theme_loader"></md-circular-progress>
+</div>
+
+
+<script>
+
+    const KeyVibrationSwitch = document.getElementById('vibrateSwitch');
+
+        function VibrationKeys(){
+            localStorage.setItem('KeyboardVibration', KeyVibrationSwitch.selected);
+        }
+
+        const getVibrateSetting = localStorage.getItem('KeyboardVibration');
+
+        if(getVibrateSetting === 'true'){
+            KeyVibrationSwitch.selected = true;
+        } else{
+            KeyVibrationSwitch.selected = false;
+        }
+
+// stay on
+
+function notDone() {
+    sendThemeToAndroid("keepitoff");
+
+
+  }
+function done() {
+  sendThemeToAndroid("keepiton");
+
+
+}
+
+  function showToastOn(){
+  sendThemeToAndroid("itsOn");
+  }
+
+
+  function showToastoff(){
+    sendThemeToAndroid("ItsOff");
+  }
+
+  function handleCheckboxChangeSleep() {
+    var alwaysOnSwitch = document.getElementById("always-on");
+
+    if (alwaysOnSwitch.selected) {
+      done();
+      showToastOn();
+    } else {
+      notDone();
+      showToastoff();
+    }
+
+
+    localStorage.setItem("AlwaysOnState", alwaysOnSwitch.selected);
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    var alwaysOnSwitch = document.getElementById("always-on");
+    var storedCheckboxState = localStorage.getItem("AlwaysOnState");
+
+    if (storedCheckboxState === "true") {
+        alwaysOnSwitch.selected = true;
+      done();
+    } else {
+        alwaysOnSwitch.selected = false;
+      notDone();
+    }
+  });
+
+
+</script>
+
+    <script src="../app/page.js"></script>
+    <script src="../components-script.js/components.js"></script>
+    <script src="../ripple-files/icon-ripple.js"></script>
+    <script src="../modules/scroll.js"></script>
+    <script src="../modules/call-themes.js"></script>
+    <script type="module" src="../modules/themes.js" defer></script>
+    <script src="../bundle.js"></script>
+    <script type="module" src="../index.js"></script>
+    <script src="../app/ripple.js"></script>
+    <script src="../app/app.js"></script>
+    <script src="../app/vibrate.js"></script>
+</body>
+
+</html>

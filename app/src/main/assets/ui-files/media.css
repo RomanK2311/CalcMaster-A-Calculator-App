@@ -1,0 +1,6 @@
+@media screen and (max-height:750px) {
+    .calculator .main_calc_btn{
+        width: 80px;
+        height: 75px;
+      }
+}

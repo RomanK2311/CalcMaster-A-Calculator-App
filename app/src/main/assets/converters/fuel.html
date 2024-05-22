@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fuel calculator</title>
+    <link rel="stylesheet" href="../ui-files/ui.css">
+    <link rel="stylesheet" href="../ui-files/font-usage.css">
+    <link rel="stylesheet" href="../ui-files/variables.css">
+    <link rel="stylesheet" href="../components/components.css">
+    <link rel="stylesheet" href="../ripple-files/ripple.css">
+    <link rel="stylesheet" href="../components/modal-ver.css">
+</head>
+<body style="animation: historyItems 0.4s cubic-bezier(0,1,0,1);">
+    <div class="full-activity-header round transparent" id="head-3" style="height: 30px;">
+        <button class="ripple-icon-btn close" ontouchstart="playEffect(this)" ontouchend="playEffect2(this)" onclick="window.history.back()">
+            <span class="ripple-effect-icon"></span>
+            <span icon-outlined>arrow_back</span>
+        </button>
+        <p>Fuel</p>
+    </div>
+
+    <div class="container_unit">
+        <div class="input-group">
+          <input type="text" id="inputValue" placeholder="0" inputmode="none">
+          <span id="fromValue">Km/li</span>
+
+        <i icon-outlined class="toIcon">arrow_downward</i>
+
+        </div>
+
+
+        <div class="output-group">
+          <input type="text" id="outputValue" readonly placeholder="0">
+          <span id="toValue">Km/li</span>
+
+        </div>
+      </div>
+
+      <div class="selection_units" style="padding-left: 10px; padding-right: 10px; width: calc(100% - 20px);">
+
+
+          <md-suggestion-chip label="Km/li" id="fromSelectPower"><md-icon slot="icon" icon-outlined>arrow_forward</md-icon></md-suggestion-chip>
+
+
+          <!--  -->
+          <md-suggestion-chip label="Km/li" id="toSelectPower"></md-suggestion-chip>
+
+
+
+      </div>
+
+      <div class="c-keyboard unit-keyboard">
+        <div class="c-keyboard-keys">
+            <button class="ripple_btn v-key" onclick="appendToAmount('1')">1</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('2')">2</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('3')">3</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('4')">4</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('5')">5</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('6')">6</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('7')">7</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('8')">8</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('9')">9</button>
+            <button class="ripple_btn v-key" onclick="appendToAmount('0')">0</button>
+        </div>
+        <div class="sidebtn-c-keyboard">
+            <button class="icon-class-filled ripple_btn  v-key" onclick="clearAmountALL()" icon-outlined>clear_all</button>
+            <button class="icon-class-filled ripple_btn  v-key remove-key" onclick="clearOneCharacter()" icon-filled>backspace</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- input-modal-from -->
+<md-dialog id="fromUnitPowerDialog">
+    <div slot="headline">Select units</div>
+    <form slot="content" id="PowerUnitfrom" method="dialog">
+        <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitPower"
+              value="km/l"
+              aria-label="Km/li"
+              touch-target="wrapper"
+              checked></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Kilometer/liter</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitPower"
+              value="l/km"
+              aria-label="Li/km"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Liter/kilometer</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitPower"
+              value="l/100km"
+              aria-label="L/100km"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Liter/100 kilometer</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitPower"
+              value="mi/gal"
+              aria-label="Mi/gal"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Mile/gallon</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitPower"
+              value="mi/l"
+              aria-label="Mi/li"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Mile/liter</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitPower"
+              value="gal/mi"
+              aria-label="Gal/mi"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Gallon/mile</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="fromUnitPower"
+              value="gal/100mi"
+              aria-label="Gal/100mi"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Gallon/100 mile</span>
+          </label>
+
+    </form>
+
+    <div slot="actions">
+        <md-text-button form="PowerUnitfrom" >Cancel</md-text-button>
+    </div>
+</md-dialog>
+
+<!-- input-modal-to -->
+
+<md-dialog id="toUnitPowerDialog">
+    <div slot="headline">Select units</div>
+    <form slot="content" id="PowerUnitto" method="dialog">
+        <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitPower"
+              value="km/l"
+              aria-label="Km/li"
+              touch-target="wrapper"
+              checked></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Kilometer/liter</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitPower"
+              value="l/km"
+              aria-label="Li/km"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Liter/kilometer</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitPower"
+              value="l/100km"
+              aria-label="L/100km"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Liter/100 kilometer</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitPower"
+              value="mi/gal"
+              aria-label="Mi/gal"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Mile/gallon</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitPower"
+              value="mi/l"
+              aria-label="Mi/li"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Mile/liter</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitPower"
+              value="gal/mi"
+              aria-label="Gal/mi"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Gallon/mile</span>
+          </label>
+          <label style="display: flex; align-items: center;">
+            <md-radio
+              name="toUnitPower"
+              value="gal/100mi"
+              aria-label="Gal/100mi"
+              touch-target="wrapper"></md-radio>
+            <span aria-hidden="true" style="font-size: 18px;">Gallon/100 mile</span>
+          </label>
+    </form>
+
+    <div slot="actions">
+        <md-text-button form="PowerUnitto" >Cancel</md-text-button>
+    </div>
+</md-dialog>
+
+      <script>
+
+
+
+var FromUnitRadiosINputs = document.querySelectorAll('md-radio[name="fromUnitPower"]');
+FromUnitRadiosINputs.forEach(function(FromUnitRadiosINput) {
+            FromUnitRadiosINput.addEventListener('input', () =>{
+                document.getElementById('fromValue').innerHTML = FromUnitRadiosINput.value;
+                var ariaLabelFromUnit = FromUnitRadiosINput.getAttribute('aria-label');
+                fromSelectPowerBtn.setAttribute('label', ariaLabelFromUnit)
+                fromUnitPowerDialog.close()
+            });
+        });
+
+
+        var toUnitRadiosINputs = document.querySelectorAll('md-radio[name="toUnitPower"]');
+        toUnitRadiosINputs.forEach(function(toUnitRadiosINput) {
+            toUnitRadiosINput.addEventListener('input', () =>{
+                document.getElementById('toValue').innerHTML = toUnitRadiosINput.value;
+                var ariaLabeltoUnit = toUnitRadiosINput.getAttribute('aria-label');
+                toSelectPowerBtn.innerHTML = ariaLabeltoUnit
+                toSelectPowerBtn.setAttribute('label', ariaLabeltoUnit)
+                toUnitPowerDialog.close()
+            });
+        });
+
+        
+function convert() {
+  let inputValue = document.getElementById('inputValue').value;
+  inputValue = inputValue.replace(/,/g, '');
+  const parsedValue = parseFloat(inputValue);
+
+  if (isNaN(inputValue)) {
+    return;
+  }
+
+  var radioButtons = document.querySelectorAll('md-radio[name="fromUnitPower"]');
+  var selectedValue;
+        radioButtons.forEach(function(radioButton) {
+            if (radioButton.checked) {
+                selectedValue = radioButton.value;
+            }
+        });
+
+        var radioButtonsToUnit = document.querySelectorAll('md-radio[name="toUnitPower"]');
+  var selectedValueToUnit;
+  radioButtonsToUnit.forEach(function(radioButtonToUnit) {
+            if (radioButtonToUnit.checked) {
+                selectedValueToUnit = radioButtonToUnit.value;
+            }
+        });
+
+
+const inputUnit = selectedValue;
+  const outputUnit = selectedValueToUnit;
+  let outputValue;
+
+  switch (inputUnit) {
+    case 'km/l':
+      outputValue = convertKmPerLiter(inputValue, outputUnit);
+      break;
+    case 'l/km':
+      outputValue = convertLiterPerKm(inputValue, outputUnit);
+      break;
+    case 'l/100km':
+      outputValue = convertLiterPer100Km(inputValue, outputUnit);
+      break;
+    case 'mi/gal':
+      outputValue = convertMiPerGal(inputValue, outputUnit);
+      break;
+    case 'mi/l':
+      outputValue = convertMiPerLiter(inputValue, outputUnit);
+      break;
+    case 'gal/mi':
+      outputValue = convertGalPerMi(inputValue, outputUnit);
+      break;
+    case 'gal/100mi':
+      outputValue = convertGalPer100Mi(inputValue, outputUnit);
+      break;
+  }
+
+
+  if (isNaN(outputValue)) {
+    return;
+  }
+  var formattedOutput;
+
+if (outputValue % 1 === 0) {
+    formattedOutput = outputValue.toFixed(0); 
+} else {
+    formattedOutput = outputValue.toFixed(2); 
+};
+
+document.getElementById('outputValue').value = formattedOutput;
+}
+
+function convertKmPerLiter(value, outputUnit) {
+  switch (outputUnit) {
+    case 'km/l':
+      return value;
+    case 'l/km':
+      return 1 / value;
+    case 'l/100km':
+      return 100 / value;
+    case 'mi/gal':
+      return value * 2.35215;
+    case 'mi/l':
+      return value * 0.621371;
+    case 'gal/mi':
+      return value * 0.425144;
+    case 'gal/100mi':
+      return value * 42.5144;
+  }
+}
+
+function convertLiterPerKm(value, outputUnit) {
+  switch (outputUnit) {
+    case 'km/l':
+      return 1 / value;
+    case 'l/km':
+      return value;
+    case 'l/100km':
+      return 100 / value;
+    case 'mi/gal':
+      return 2.35215 / value;
+    case 'mi/l':
+      return 0.621371 / value;
+    case 'gal/mi':
+      return 0.425144 / value;
+    case 'gal/100mi':
+      return 42.5144 / value;
+  }
+}
+
+function convertLiterPer100Km(value, outputUnit) {
+  switch (outputUnit) {
+    case 'km/l':
+      return 100 / value;
+    case 'l/km':
+      return 1 / (100 / value);
+    case 'l/100km':
+      return value;
+    case 'mi/gal':
+      return (100 * 2.35215) / value;
+    case 'mi/l':
+      return (100 * 0.621371) / value;
+    case 'gal/mi':
+      return (100 * 0.425144) / value;
+    case 'gal/100mi':
+      return 100 / value;
+  }
+}
+
+function convertMiPerGal(value, outputUnit) {
+  switch (outputUnit) {
+    case 'km/l':
+      return value * 0.425144;
+    case 'l/km':
+      return 2.35215 / value;
+    case 'l/100km':
+      return (100 * 2.35215) / value;
+    case 'mi/gal':
+      return value;
+    case 'mi/l':
+      return 0.621371 / value;
+    case 'gal/mi':
+      return 1 / value;
+    case 'gal/100mi':
+      return 100 / value;
+  }
+}
+
+function convertMiPerLiter(value, outputUnit) {
+  switch (outputUnit) {
+    case 'km/l':
+      return value * 0.621371;
+    case 'l/km':
+      return 1 / (value * 0.621371);
+    case 'l/100km':
+      return 100 / (value * 0.621371);
+    case 'mi/gal':
+      return 1 / value;
+    case 'mi/l':
+      return value;
+    case 'gal/mi':
+      return value * 0.264172;
+    case 'gal/100mi':
+      return value * 26.4172;
+  }
+}
+
+function convertGalPerMi(value, outputUnit) {
+  switch (outputUnit) {
+    case 'km/l':
+      return value * 2.35215;
+    case 'l/km':
+      return 1 / (value * 0.425144);
+    case 'l/100km':
+      return 100 / (value * 0.425144);
+    case 'mi/gal':
+      return value;
+    case 'mi/l':
+      return 0.621371 / value;
+    case 'gal/mi':
+      return value;
+    case 'gal/100mi':
+      return 100 / value;
+  }
+}
+
+function convertGalPer100Mi(value, outputUnit) {
+  switch (outputUnit) {
+    case 'km/l':
+      return value * 0.0425144;
+    case 'l/km':
+      return 1 / (value * 0.0425144);
+    case 'l/100km':
+      return 100 / (value * 0.0425144);
+    case 'mi/gal':
+      return 1 / (value * 0.425144);
+    case 'mi/l':
+      return 0.621371 / (value * 0.425144);
+    case 'gal/mi':
+      return 1 / value;
+    case 'gal/100mi':
+      return value;
+  }
+}
+
+
+// keyboard
+
+function appendToAmount(value) {
+    const input = document.getElementById('inputValue');
+    const startPos = input.selectionStart;
+    const endPos = input.selectionEnd;
+    input.focus();
+    let currentValue = input.value;
+
+    if (currentValue.length >= 25) {
+      currentValue = currentValue.substring(0, 25);
+      return
+    }
+
+
+    const beforeCursor = currentValue.substring(0, startPos);
+    const afterCursor = currentValue.substring(endPos);
+
+
+    const newValue = beforeCursor + value + afterCursor;
+
+    const unformattedValue = newValue.replace(/,/g, '');
+    const formattedValue = Number(unformattedValue).toLocaleString();
+
+    input.value = formattedValue;
+
+
+    const lengthDiff = formattedValue.length - currentValue.length;
+
+    input.setSelectionRange(startPos + lengthDiff, startPos + lengthDiff);
+
+    adjustInputFontSize();
+    adjustFontSize();
+    convert();
+  }
+
+
+
+  function clearAmountALL(){
+    var amountInput = document.getElementById("inputValue");
+
+
+    amountInput.value = '';
+    convert();
+    document.getElementById('outputValue').value = '';
+    adjustFontSize();
+    adjustInputFontSize();
+  }
+
+
+  function clearOneCharacter() {
+    const input = document.getElementById('inputValue');
+    const startPos = input.selectionStart;
+    const endPos = input.selectionEnd;
+
+    if (startPos === endPos && startPos > 0) {
+      const currentValue = input.value;
+      const newValue = currentValue.substring(0, startPos - 1) + currentValue.substring(endPos);
+      input.value = newValue;
+    input.focus();
+
+
+        
+
+    convert();
+    adjustInputFontSize();
+    adjustFontSize();
+      input.setSelectionRange(startPos - 1, startPos - 1);
+    }
+  }
+
+
+
+
+
+  function adjustFontSize() {
+    var container = document.getElementById('outputValue');
+    var fontSize = 50;
+    var maxWidth = container.clientWidth;
+
+
+    var tempElement = document.createElement('span');
+    tempElement.style.visibility = 'hidden';
+    tempElement.style.fontSize = fontSize + 'px';
+    tempElement.innerHTML = container.innerHTML;
+
+
+    document.body.appendChild(tempElement);
+
+
+    while (tempElement.offsetWidth > maxWidth && fontSize > 5) {
+      fontSize -= 20;
+      tempElement.style.fontSize = fontSize + 'px';
+    }
+
+
+    container.style.fontSize = fontSize + 'px';
+
+
+    document.body.removeChild(tempElement);
+  }
+
+
+  window.addEventListener('resize', adjustFontSize);
+
+
+
+
+  function adjustInputFontSize() {
+    var inputElement = document.getElementById('inputValue');
+    var fontSize = 50;
+    var maxWidth = inputElement.clientWidth;
+
+
+    var tempElement = document.createElement('span');
+    tempElement.style.visibility = 'hidden';
+    tempElement.style.fontSize = fontSize + 'px';
+    tempElement.innerHTML = inputElement.value;
+
+
+    document.body.appendChild(tempElement);
+
+
+    while (tempElement.offsetWidth > maxWidth && fontSize > 1) {
+      fontSize -= 4;
+      tempElement.style.fontSize = fontSize + 'px';
+    }
+
+
+    inputElement.style.fontSize = fontSize + 'px';
+
+
+    document.body.removeChild(tempElement);
+  }
+
+
+  document.getElementById('inputValue').addEventListener('input', adjustInputFontSize);
+
+
+
+
+  const fromUnitPowerDialog = document.getElementById('fromUnitPowerDialog');
+  const fromSelectPowerBtn = document.getElementById('fromSelectPower');
+  const toUnitPowerDialog = document.getElementById('toUnitPowerDialog');
+  const toSelectPowerBtn = document.getElementById('toSelectPower');
+
+  fromSelectPowerBtn.addEventListener('click', () =>{
+    fromUnitPowerDialog.show()
+    dialogcolorFull()
+  });
+
+    fromUnitPowerDialog.addEventListener('close', () =>{
+        checkTHEME();
+    });
+
+    toSelectPowerBtn.addEventListener('click', () =>{
+        toUnitPowerDialog.show()
+    dialogcolorFull()
+  });
+
+  toUnitPowerDialog.addEventListener('close', () =>{
+        checkTHEME();
+    });
+
+
+    
+
+      </script>
+
+    
+    
+
+    <script src="../app/page.js"></script>
+    <script src="../components-script.js/components.js"></script>
+    <script src="../ripple-files/icon-ripple.js"></script>
+    <script src="../modules/scroll.js"></script>
+    <script src="../modules/call-themes.js"></script>
+    <script src="../bundle.js"></script>
+    <script type="module" src="../index.js"></script>
+    <script src="../app/app.js"></script>
+    <script src="../app/ripple.js"></script>
+    <script src="../app/vibrate.js"></script>
+  </body>
+</html>

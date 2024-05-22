@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>about Page</title>
+    <link rel="stylesheet" href="../ui-files/ui.css">
+    <link rel="stylesheet" href="../ui-files/font-usage.css">
+    <link rel="stylesheet" href="../ui-files/variables.css">
+    <link rel="stylesheet" href="../components/components.css">
+    <link rel="stylesheet" href="../ripple-files/ripple.css">
+    <link rel="stylesheet" href="../components/md-buttons.css">
+
+</head>
+
+<body style="--md-list-item-label-text-size: 1.15rem; --md-list-item-pressed-state-layer-opacity: 0.15;">
+
+    <div class="activity-large open">
+        <div class="header-activity-large" id="head-6">
+            <button class="ripple-icon-btn regular" ontouchstart="playEffect(this)" ontouchend="playEffect2(this)" title="Go back"
+                onclick="window.history.back()">
+                <span class="ripple-effect-icon"></span>
+                <span icon-outlined>arrow_back</span>
+            </button>
+            <p class="label-hidden-large">About CalcMaster</p>
+        </div>
+        <div class="activity-large-content" id="headUser-6">
+            <p class="label-large-main">About CalcMaster</p>
+            <div class="content-parent-large">
+
+                <md-list>
+
+                    <md-list-item type="button" onclick="showWrongCurrencyDialog()">
+                        <md-icon slot="start" icon-filled>help</md-icon>
+                        <div slot="headline">Wrong currency rates?</div>
+                    </md-list-item>
+
+                    <md-list-item type="button" onclick="transitionToPage('aboutPages/TermsConditions.html');">
+                        <md-icon slot="start" icon-filled>privacy_tip</md-icon>
+                        <div slot="headline">Terms and Conditions</div>
+                    </md-list-item>
+
+                    <md-list-item type="button" onclick="transitionToPage('aboutPages/PrivacyPolicy.html');">
+                        <md-icon slot="start" icon-filled>policy</md-icon>
+                        <div slot="headline">Privacy Policy</div>
+                    </md-list-item>
+
+                    <md-list-item type="button">
+                        <md-icon slot="start" icon-filled>code</md-icon>
+                        <div slot="headline">View source code</div>
+                    </md-list-item>
+
+                    <md-list-item type="button" onclick="transitionToPage('aboutPages/licenses.html');">
+                        <md-icon slot="start" icon-filled>copyright</md-icon>
+                        <div slot="headline">Third party licenses</div>
+                    </md-list-item>
+
+
+                    <md-list-item type="button" id="show_time_toast">
+                        <md-icon slot="start" icon-filled>info</md-icon>
+                        <div slot="headline" style="margin-bottom: 2px;">Version</div>
+                        <div slot="supporting-text">1.1.0 (P)</div>
+                    </md-list-item>
+
+                </md-list>
+
+                
+
+
+
+                <div id="show_time_toast_div">Hello :)</div>
+
+
+
+
+
+                <!-- dialog -->
+
+                <md-dialog id="NoteDialog">
+                    <div slot="headline">
+                        Note
+                    </div>
+                    <div slot="content" style="font-family: var(--outfit); font-size: 15px;" method="dialog">
+                        Currency rates are updated daily. There's no real-time market monitoring in the app
+                    </div>
+
+                    <div slot="actions">
+                        <md-text-button onclick="window.history.back()">OK</md-text-button>
+                    </div>
+                </md-dialog>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script>
+
+
+
+
+
+        const NoteDialog = document.getElementById('NoteDialog');
+
+        function showWrongCurrencyDialog(){
+            NoteDialog.show();
+            dialogcolorFull();
+        }
+
+        NoteDialog.addEventListener('open', () =>{
+            window.history.pushState({dialogOpen: true}, "");
+            console.log('Opened')
+
+        });
+
+        NoteDialog.addEventListener('close', () =>{
+
+            checkTHEME();
+        });
+
+        NoteDialog.addEventListener('cancel', () =>{
+            window.history.back();
+
+            console.log('BACKED')
+});
+
+        window.addEventListener('popstate', function(event) {
+    
+        NoteDialog.close(); 
+});
+
+    
+
+setTimeout(()  =>{
+
+checkTHEME();
+}, 100);
+
+
+
+let clickCount = 0;
+let lastClickTime = 0;
+
+const myButton = document.getElementById('show_time_toast');
+const toast = document.getElementById('show_time_toast_div');
+
+myButton.addEventListener('click', () => {
+  const currentTime = new Date().getTime();
+
+  if (currentTime - lastClickTime < 2000) {
+    clickCount++;
+
+    if (clickCount === 5) {
+      showToast();
+    }
+  } else {
+    clickCount = 1;
+  }
+
+  lastClickTime = currentTime;
+});
+
+function showToast() {
+  toast.textContent = 'Hello :)';
+  toast.style.display = 'flex';
+  myButton.disabled = true;
+
+
+  setTimeout(() =>{
+    toast.style.bottom = '0';
+    toast.style.opacity = '0';
+
+  }, 3000);
+
+  setTimeout(() => {
+    toast.style.display = 'none';
+    toast.style.bottom = '';
+    toast.style.opacity = '';
+
+    myButton.disabled = false;
+    clickCount = 0;
+  }, 3200);
+}
+
+
+
+
+
+
+    </script>
+
+
+    <script src="../app/page.js"></script>
+    <script src="../components-script.js/components.js"></script>
+    <script src="../ripple-files/icon-ripple.js"></script>
+    <script src="../modules/scroll.js"></script>
+    <script src="../modules/call-themes.js"></script>
+    <script src="../bundle.js"></script>
+    <script type="module" src="../index.js"></script>
+    <script src="../app/ripple.js"></script>
+    <script src="../ripple-files/ripples.js"></script>
+    <script src="../app/app.js"></script>
+</body>
+
+</html>
