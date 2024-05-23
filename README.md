@@ -6,7 +6,7 @@ CalcMaster is a versatile and highly customizable calculator application develop
 
 # 👁️ Preview
 
-<div style="display:flex;">
+<div >
 <img alt="App image" src="previewed/image1.jpeg" width="30%">
 <img alt="App image" src="previewed/image2.jpeg" width="30%">
 <img alt="App image" src="previewed/image3.jpeg" width="30%">
