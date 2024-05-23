@@ -16,6 +16,12 @@ CalcMaster is a versatile and highly customizable calculator application develop
 </div>
 
 
+# 📲 Download
+
+<p align="middle">
+    <a href="https://github.com/PranshulGG/CalcMaster_A_Calculator_App/releases/tag/calculator"><img alt="GitHub" src="previewed/github.svg" height="60"/></a>
+</p>
+
 
 # ✨ Features:
 
@@ -47,16 +53,6 @@ CalcMaster is a versatile and highly customizable calculator application develop
 
 > [!NOTE]
 > The app is designed to run on Android devices and does not support web browsers. Attempting to open the app in a browser will not work.
-
-
-<br>
-
-
-# 📲 Download
-
-<p align="middle">
-    <a href="https://github.com/PranshulGG/CalcMaster_A_Calculator_App/releases/tag/calculator"><img alt="GitHub" src="previewed/github.svg" height="60"/></a>
-</p>
 
 <br>
 
