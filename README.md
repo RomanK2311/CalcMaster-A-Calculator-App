@@ -65,7 +65,7 @@ For any questions or feedback, feel free to open an issue on GitHub or contact u
 <br>
 
 # License
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License. See the `LICENSE` file for details.
 
 
 
