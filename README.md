@@ -4,9 +4,10 @@
 
 <img src="https://github.com/PranshulGG/CalcMaster_A_Calculator_App/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" alt="" width="100px">
 
-This project is a clone of the settings app found on Google Pixel devices. It's built using Java for the backend logic and HTML, CSS, and JavaScript for the frontend interface. The app closely mimics the look and feel of the original Google Pixel settings app and includes functionality similar to the original, with some settings fully operational.
+CalcMaster is a versatile and highly customizable calculator application developed with pure HTML, CSS, JavaScript, and Java. Designed to mimic the look and feel of a native Android app, CalcMaster leverages Material Web Components to provide a sleek and modern user interface.
 
-Features:
+
+# Features:
 
 Responsive and user-friendly interface resembling the Google Pixel settings app.
 Implemented backend logic in Java for handling various settings configurations.
