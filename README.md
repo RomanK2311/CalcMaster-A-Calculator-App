@@ -30,7 +30,7 @@ This project is a clone and is not affiliated with or endorsed by Google or the 
 
 
 <p>👌App is legit fr fr ✨</p>
-<p>You can install the app on your device if you want to try it <a href='https://github.com/PranshulGG/CalcMaster_A_Calculator_App/releases/tag/calculator'>Here</a></p>
+<p>You can install the app on your device <a href='https://github.com/PranshulGG/CalcMaster_A_Calculator_App/releases/tag/calculator'>Here</a></p>
 
 
 
