@@ -2,7 +2,17 @@
 
 const themeType = localStorage.getItem('theme') || 'light';
 
+if (!localStorage.getItem('theme')) {
+    localStorage.setItem('theme', 'light');
+
+}
+
 const themeColorVariation = localStorage.getItem('color-theme') || 'Material You (pop_blue_default)';
+
+if (!localStorage.getItem('color-theme')) {
+    localStorage.setItem('color-theme', 'Material You (pop_blue_default)');
+
+}
 
 
 document.documentElement.setAttribute('data-theme', themeType);
@@ -756,7 +766,7 @@ function recallSwapSwitches(){
  function retrieveToggleIconsState() {
      const state = localStorage.getItem('toggleIconsState');
      if (state === null) {
-         toggleIconsCheckboxElement.checked = true;
+         toggleIconsCheckboxElement.checked = false;
      } else if (state === 'true') {
         if(toggleIconsCheckboxElement){ 
          toggleIconsCheckboxElement.checked = true;}
@@ -774,5 +784,6 @@ function recallSwapSwitches(){
 
 
  document.documentElement.setAttribute('roundBTN', 'true');
+
 
 

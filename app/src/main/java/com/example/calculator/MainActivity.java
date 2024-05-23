@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         webview.setWebViewClient(new WebViewClientDemo());
         AndroidInterface androidInterface = new AndroidInterface(this);
         webview.addJavascriptInterface(androidInterface, "AndroidInterface");
+        webview.setBackgroundColor(getResources().getColor(R.color.black));
 
         webview.loadUrl("file:///android_asset/index.html");
 
