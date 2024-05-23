@@ -7,31 +7,39 @@
 CalcMaster is a versatile and highly customizable calculator application developed with pure HTML, CSS, JavaScript, and Java. Designed to mimic the look and feel of a native Android app, CalcMaster leverages Material Web Components to provide a sleek and modern user interface.
 
 
-# Features:
+# ✨ Features:
 
-Responsive and user-friendly interface resembling the Google Pixel settings app.
-Implemented backend logic in Java for handling various settings configurations.
-Utilized HTML, CSS, and JavaScript for creating interactive frontend elements.
-Some settings fully functional to provide a realistic experience.
-Usage:
+ - <strong>Native Android Experience: </stronge>Enjoy a user interface and interaction that closely resemble a native Android calculator app, making it intuitive for Android users.
+   
+ - <strong>Material Design: </stronge>The app is built using Material Web Components, ensuring a clean, consistent, and visually appealing design.
 
-Clone the repository to your local machine.
-Open the project in your preferred IDE.
-Ensure you have Java installed to run the backend logic.
-Contributing:
-Contributions to improve the project are welcome! If you have any ideas for additional features, improvements, or bug fixes, feel free to open an issue or submit a pull request.
-
-Credits:
-This project was created by Pranshul.
+ - <strong>Customization Options: </stronge>Tailor your calculator experience with a variety of customization options. Change themes, button layouts, and more to suit your personal preferences.
+   
+ - <strong>Responsive Design: </stronge>CalcMaster is fully responsive, providing a seamless experience across different devices and screen sizes.
+   
+ - <strong>Basic and Scientific Calculations: </stronge>Perform simple arithmetic as well as basic scientific calculations with ease and accuracy.
+   
+ - <strong>User-Friendly Interface: </stronge>The app's interface is designed to be straightforward and user-friendly, making it accessible to users of all skill levels.
 
 
-Disclaimer:
-This project is a clone and is not affiliated with or endorsed by Google or the Google Pixel brand. It's intended for educational and demonstration purposes only.
-* Don't run the HTML files directly in your browser as it won't function properly. 
+# 🛠️ Built With:
 
+ - <strong>HTML & CSS: </stronge> For the basic structure and styling of the app.
+   
+ - <strong>JavaScript: </stronge>To handle the app's logic and interactivity.
 
-<p>👌App is legit fr fr ✨</p>
-<p>You can install the app on your device <a href='https://github.com/PranshulGG/CalcMaster_A_Calculator_App/releases/tag/calculator'>Here</a></p>
+ - <strong>Java: </stronge>Mainly used for JavaScript interface and permissions, allowing the app to run on Android devices.
+   
+ - <strong>Material Web Components: </stronge>Utilized to create a consistent and attractive Material Design look and feel.
+   
+<br>
+<br>
+
+# ⚠️ Disclaimer
+The app is designed to run on Android devices and does not support web browsers. Attempting to open the app in a browser will not work.
+
+<br>
+
 
 # 📲 Download
 
@@ -41,7 +49,7 @@ This project is a clone and is not affiliated with or endorsed by Google or the 
 
 <br>
 <br>
-<br>
+
 
 
 
