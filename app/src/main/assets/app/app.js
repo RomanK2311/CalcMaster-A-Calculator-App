@@ -41,8 +41,11 @@ if(lastInputSaveSwitch){
     } 
 }
 
+if(getLastInputSaveSwitch === 'true'){
+} else{
+    localStorage.removeItem('inputValueDISPLAYBIG')
 
-
+}
 
 // main
 
