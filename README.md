@@ -60,7 +60,7 @@ CalcMaster is a versatile and highly customizable calculator application develop
 
 
 # Contact
-For any questions or feedback, feel free to open an issue on GitHub or contact us at your pranshul.devmain@gmail.com
+For any questions or feedback, feel free to open an issue on GitHub or contact pranshul.devmain@gmail.com
 
 <br>
 
