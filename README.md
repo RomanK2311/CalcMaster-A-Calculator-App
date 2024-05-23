@@ -22,7 +22,7 @@ CalcMaster is a versatile and highly customizable calculator application develop
 # 📲 Download
 
 <p align="left">
-    <a href="https://github.com/PranshulGG/CalcMaster_A_Calculator_App/releases/tag/calculator"><img alt="GitHub" src="previewed/badge_github.png" height="120"/></a>
+    <a href="https://github.com/PranshulGG/CalcMaster-A-Calculator-App/releases"><img alt="GitHub" src="previewed/badge_github.png" height="120"/></a>
 </p>
 
 
