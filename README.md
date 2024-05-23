@@ -62,6 +62,11 @@ CalcMaster is a versatile and highly customizable calculator application develop
 # Contact
 For any questions or feedback, feel free to open an issue on GitHub or contact us at your pranshul.devmain@gmail.com
 
+<br>
+
+# License
+This project is licensed under the MIT License. See the LICENSE file for details.
+
 
 
 
