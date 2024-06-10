@@ -54,7 +54,7 @@ CalcMaster is a versatile and highly customizable calculator application develop
 <br>
 <br>
 
-> [!NOTE]
+> [!WARNING]
 > The app is designed to run on Android devices and does not support web browsers. Attempting to open the app in a browser will not work.
 
 <br>
