@@ -171,12 +171,19 @@
                             </md-list-item>
 
 
-                            <md-list-item type="button" onclick="transitionToPage('pageAnimationSetting.html'); checkTHEME();">
+                            <md-list-item type="button" onclick="transitionToPage('pageAnimationSetting.html'); checkTHEME();" id="pageAnimationSetting">
                                 <md-icon icon-filled slot="start">animation</md-icon>
                                 <div slot="headline">Page animation</div>
                                 <div slot="supporting-text">Choose transition effect for page navigation</div>
                                 <md-icon icon-filled slot="end">chevron_right</md-icon>
-                            </md-list-item> 
+                            </md-list-item>
+
+                    <md-list-item>
+                        <md-icon slot="start" icon-filled>motion_photos_paused</md-icon>
+                        <div slot="headline">No animations</div>
+                        <div slot="supporting-text">Animations are disabled enhance performance</div>
+                        <md-switch slot="end" id="noAnimtionSwitch"></md-switch>
+                    </md-list-item>
 
 
                 </md-list>
@@ -309,7 +316,20 @@ function done() {
   });
 
 
+function applyNoAnimations(){
+  if(localStorage.getItem('noAnimtionSwitch') === 'true'){
+    document.body.style.transition = 'none';
+    document.getElementById('pageAnimationSetting').disabled = true;
+    document.getElementById('pageAnimationSetting').style.pointerEvents = 'none';
 
+
+} else{
+      document.body.style.transition = '';
+    document.getElementById('pageAnimationSetting').disabled = false;
+    document.getElementById('pageAnimationSetting').style.pointerEvents = '';
+
+}
+}
 
 </script>
 

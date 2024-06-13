@@ -48,3 +48,20 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 });
 
+
+if(localStorage.getItem('noAnimtionSwitch') === 'true'){
+    document.body.style.transition = 'none';
+    if(document.getElementById('clearClipboardAfter')){
+    document.getElementById('pageAnimationSetting').disabled = true;
+    document.getElementById('pageAnimationSetting').style.pointerEvents = 'none';
+    }
+
+    if(document.querySelector('.mainMenuHome')){
+    document.querySelector('.mainMenuHome').setAttribute('quick', '')
+    }
+
+
+    if(document.querySelector('.historyDeleteMenu')){
+        document.querySelector('.historyDeleteMenu').setAttribute('quick', '')
+        }
+}
