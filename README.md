@@ -50,7 +50,13 @@ CalcMaster is a versatile and highly customizable calculator application develop
  - <strong>Java: </stronge>Mainly used for JavaScript interface and permissions, allowing the app to run on Android devices.
    
  - <strong>Material Web Components: </stronge>Utilized to create a consistent and attractive Material Design look and feel.
-   
+
+# ✅ Todos:
+  - [ ] Make it lightweight
+  - [ ] Add landscape mode 
+  - [ ] Add scientific mode
+
+
 <br>
 <br>
 
