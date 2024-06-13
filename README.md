@@ -8,11 +8,11 @@ CalcMaster is a versatile and highly customizable calculator application develop
 # 👁️ Preview
 
 <div >
-<img alt="App image" src="previewed/image1.jpeg" width="30%">
-<img alt="App image" src="previewed/image2.jpeg" width="30%">
-<img alt="App image" src="previewed/image3.jpeg" width="30%">
-<img alt="App image" src="previewed/image4.jpeg" width="30%">
-<img alt="App image" src="previewed/image5.jpeg" width="30%">
+<img alt="App image" src="previewed/image1.png" width="30%">
+<img alt="App image" src="previewed/image2.png" width="30%">
+<img alt="App image" src="previewed/image3.png" width="30%">
+<img alt="App image" src="previewed/image4.png" width="30%">
+<img alt="App image" src="previewed/image5.png" width="30%">
   
 </div>
 
