@@ -316,6 +316,25 @@ function done() {
   });
 
 
+
+const noAnimtionSwitch = document.getElementById('noAnimtionSwitch');
+
+noAnimtionSwitch.addEventListener('change', () =>{
+  localStorage.setItem('noAnimtionSwitch', noAnimtionSwitch.selected);
+
+  applyNoAnimations()
+});
+
+if(localStorage.getItem('noAnimtionSwitch') === 'true'){
+  noAnimtionSwitch.selected = true;
+  document.getElementById('pageAnimationSetting').disabled = true;
+  document.getElementById('pageAnimationSetting').style.pointerEvents = 'none';
+} else{
+  noAnimtionSwitch.selected = false;
+  document.getElementById('pageAnimationSetting').disabled = false;
+  document.getElementById('pageAnimationSetting').style.pointerEvents = '';
+}
+
 function applyNoAnimations(){
   if(localStorage.getItem('noAnimtionSwitch') === 'true'){
     document.body.style.transition = 'none';
