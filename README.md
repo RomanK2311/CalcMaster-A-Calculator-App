@@ -2,7 +2,7 @@
  
 <img src="https://github.com/PranshulGG/CalcMaster_A_Calculator_App/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" alt="" width="150px">
 
-CalcMaster is a versatile and highly customizable calculator application developed with pure HTML, CSS, JavaScript, and Java. Designed to mimic the look and feel of a native Android app, CalcMaster leverages Material Web Components to provide a sleek and modern user interface.
+CalcMaster highly customizable calculator application developed with pure HTML, CSS, JavaScript, and Java. Designed to mimic the look and feel of a native Android app.
 
 
 # 👁️ Preview
