@@ -28,7 +28,7 @@ CalcMaster highly customizable calculator application developed with pure HTML, 
 
 # ✨ Features:
 
- - <strong>Native Android Experience: </stronge>Enjoy a user interface and interaction that closely resemble a native Android calculator app, making it intuitive for Android users.
+ - <strong>Native Android Experience: </stronge>Enjoy a user interface and interaction that closely resemble a native Android calculator app.
    
  - <strong>Material Design: </stronge>The app is built using Material Web Components, ensuring a clean, consistent, and visually appealing design.
 
