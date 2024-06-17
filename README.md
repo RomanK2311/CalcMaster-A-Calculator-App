@@ -2,17 +2,17 @@
  
 <img src="https://github.com/PranshulGG/CalcMaster_A_Calculator_App/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" alt="" width="150px">
 
-CalcMaster is a versatile and highly customizable calculator application developed with pure HTML, CSS, JavaScript, and Java. Designed to mimic the look and feel of a native Android app, CalcMaster leverages Material Web Components to provide a sleek and modern user interface.
+CalcMaster highly customizable calculator application developed with pure HTML, CSS, JavaScript, and Java. Designed to mimic the look and feel of a native Android app.
 
 
 # 👁️ Preview
 
 <div >
-<img alt="App image" src="previewed/image1.jpeg" width="30%">
-<img alt="App image" src="previewed/image2.jpeg" width="30%">
-<img alt="App image" src="previewed/image3.jpeg" width="30%">
-<img alt="App image" src="previewed/image4.jpeg" width="30%">
-<img alt="App image" src="previewed/image5.jpeg" width="30%">
+<img alt="App image" src="previewed/image1.png" width="30%">
+<img alt="App image" src="previewed/image2.png" width="30%">
+<img alt="App image" src="previewed/image3.png" width="30%">
+<img alt="App image" src="previewed/image4.png" width="30%">
+<img alt="App image" src="previewed/image5.png" width="30%">
   
 </div>
 
@@ -28,7 +28,7 @@ CalcMaster is a versatile and highly customizable calculator application develop
 
 # ✨ Features:
 
- - <strong>Native Android Experience: </stronge>Enjoy a user interface and interaction that closely resemble a native Android calculator app, making it intuitive for Android users.
+ - <strong>Native Android Experience: </stronge>Enjoy a user interface and interaction that closely resemble a native Android calculator app.
    
  - <strong>Material Design: </stronge>The app is built using Material Web Components, ensuring a clean, consistent, and visually appealing design.
 
@@ -50,7 +50,13 @@ CalcMaster is a versatile and highly customizable calculator application develop
  - <strong>Java: </stronge>Mainly used for JavaScript interface and permissions, allowing the app to run on Android devices.
    
  - <strong>Material Web Components: </stronge>Utilized to create a consistent and attractive Material Design look and feel.
-   
+
+# ✅ Todos:
+  - [ ] Make it lightweight
+  - [ ] Add landscape mode 
+  - [ ] Add scientific mode
+
+
 <br>
 <br>
 
