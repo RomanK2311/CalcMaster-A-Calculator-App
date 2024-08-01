@@ -138,6 +138,13 @@
 
 }
 
+      [disabled]{
+        pointer-events: none;
+        opacity: 0.4;
+            transition: opacity 0.2s ease-in;
+
+      }
+
 
 
 [data-theme="light"][data-color-theme="Material You (Berry pop blue 44)"] {

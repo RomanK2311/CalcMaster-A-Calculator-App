@@ -451,11 +451,10 @@ function appendToAmount(value) {
       input.value = newValue;
     input.focus();
 
-    if (currentValue.indexOf('.') === -1) {
-      setTimeout(()=>{
+    if (newValue.indexOf('.') === -1) {
         decimalBtn.disabled = false;
-      }, 200);
     }
+
         
 
     convert();

@@ -1,4 +1,4 @@
-@media screen and (max-height:710px) {
+@media screen and (max-height:700px) {
     .calculator .main_calc_btn{
         width: 80px;
         height: 75px;
@@ -18,7 +18,7 @@
 
 }
 
-@media screen and (max-height:690px) {
+@media screen and (max-height:670px) {
   .calculator .main_calc_btn{
       width: 80px;
             height: 70px;
