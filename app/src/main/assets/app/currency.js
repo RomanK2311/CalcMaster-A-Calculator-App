@@ -15,8 +15,9 @@ async function convertCurrency() {
         if (data.result === "success") {
             const conversionRate = data.conversion_rates[toCurrency];
             if (conversionRate) {
-                const convertedAmount = (amount * conversionRate).toFixed(2);
-                document.getElementById("result").innerHTML = `${convertedAmount} <p style="font-size: 24px;">${toCurrency}</p>`;
+              const convertedAmount = (amount * conversionRate).toFixed(2);
+              const formattedAmount = parseFloat(convertedAmount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                document.getElementById("result").innerHTML = `${formattedAmount} <p style="font-size: 24px;">${toCurrency}</p>`;
              document.querySelector('.linear-progresscurrency_loader').hidden = true;
 
             } else  {

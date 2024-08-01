@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>data calculator</title>
     <link rel="stylesheet" href="../ui-files/ui.css">
     <link rel="stylesheet" href="../ui-files/font-usage.css">
@@ -39,7 +39,7 @@
         <md-suggestion-chip label="Byte" id="fromSelectTemp"><md-icon slot="icon" icon-outlined>arrow_forward</md-icon></md-suggestion-chip>
 
         <!--  -->
-        <md-suggestion-chip label="Byte" id="toSelectTemp"></md-suggestion-chip>
+        <md-suggestion-chip label="Kilobyte" id="toSelectTemp"></md-suggestion-chip>
 
 
     </div>
@@ -58,7 +58,7 @@
             <button class="ripple_btn v-key" onclick="appendToAmount('0')">0</button>
         </div>
         <div class="sidebtn-c-keyboard">
-            <button class="icon-class-filled ripple_btn  v-key" onclick="clearAmountALL()" icon-outlined>clear_all</button>
+          <button class="icon-class-filled ripple_btn  v-key" id="decimalBtn" onclick="appendToAmount('.')" icon-filled style="font-size: 10px;">circle</button>
             <button class="icon-class-filled ripple_btn  v-key remove-key" onclick="clearOneCharacter()" icon-filled>backspace</button>
         </div>
     </div>
@@ -129,7 +129,7 @@
         value="B"
         aria-label="Byte"
         touch-target="wrapper"
-        checked></md-radio>
+        ></md-radio>
       <span aria-hidden="true" style="font-size: 18px;">Byte</span>
     </label>
     <label style="display: flex; align-items: center;" class="">
@@ -137,7 +137,7 @@
         name="toUnitTemp"
         value="KB"
         aria-label="Kilobyte"
-        touch-target="wrapper"></md-radio>
+        touch-target="wrapper" checked></md-radio>
       <span aria-hidden="true" style="font-size: 18px;">Kilobyte</span>
     </label>
     <label style="display: flex; align-items: center;" class="">
@@ -182,6 +182,7 @@ FromUnitRadiosINputs.forEach(function(FromUnitRadiosINput) {
                 var ariaLabelFromUnit = FromUnitRadiosINput.getAttribute('aria-label');
                 fromSelectTempBtn.setAttribute('label', ariaLabelFromUnit) 
                 fromUnitTempDialog.close()
+                convert()
             });
         });
 
@@ -193,6 +194,7 @@ FromUnitRadiosINputs.forEach(function(FromUnitRadiosINput) {
                 var ariaLabeltoUnit = toUnitRadiosINput.getAttribute('aria-label');
                 toSelectTempBtn.setAttribute('label', ariaLabeltoUnit)
                 toUnitTempDialog.close()
+                convert()
 
             });
         });
@@ -249,15 +251,14 @@ const inputUnit = selectedValue;
   if (isNaN(outputValue)) {
     return;
   }
-  var formattedOutput;
+  let formattedOutput;
+    if (outputValue % 1 === 0) {
+        formattedOutput = outputValue.toLocaleString('en-US', { minimumFractionDigits: 0 });
+    } else {
+        formattedOutput = outputValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
 
-if (outputValue % 1 === 0) {
-    formattedOutput = outputValue.toFixed(0); 
-} else {
-    formattedOutput = outputValue.toFixed(2); 
-};
-
-document.getElementById('outputValue').value = formattedOutput;
+    document.getElementById('outputValue').value = formattedOutput;
 
 }
 
@@ -342,54 +343,55 @@ function convertTerabyte(value, outputUnit) {
 
 function appendToAmount(value) {
     const input = document.getElementById('inputValue');
+    const decimalBtn = document.getElementById('decimalBtn');
     const startPos = input.selectionStart;
     const endPos = input.selectionEnd;
     input.focus();
     let currentValue = input.value;
 
     if (currentValue.length >= 25) {
-      currentValue = currentValue.substring(0, 25);
-      return
+        currentValue = currentValue.substring(0, 25);
+        return;
     }
 
+    if (value === '.') {
+        if (currentValue.indexOf('.') === -1) {
+            const beforeCursor = currentValue.substring(0, startPos);
+            const afterCursor = currentValue.substring(endPos);
+            const newValue = beforeCursor + value + afterCursor;
 
-    const beforeCursor = currentValue.substring(0, startPos);
-    const afterCursor = currentValue.substring(endPos);
+            input.value = newValue;
 
+            setTimeout(()=>{
+        decimalBtn.disabled = true;
+      }, 200);
 
-    const newValue = beforeCursor + value + afterCursor;
+            const lengthDiff = newValue.length - currentValue.length;
+            input.setSelectionRange(startPos + lengthDiff, startPos + lengthDiff);
+        }
+    } else {
+        const beforeCursor = currentValue.substring(0, startPos);
+        const afterCursor = currentValue.substring(endPos);
+        const newValue = beforeCursor + value + afterCursor;
 
-    const unformattedValue = newValue.replace(/,/g, '');
-    const formattedValue = Number(unformattedValue).toLocaleString();
+        const unformattedValue = newValue.replace(/,/g, '');
+        input.value = Number(unformattedValue).toLocaleString();
 
-    input.value = formattedValue;
-
-
-    const lengthDiff = formattedValue.length - currentValue.length;
-
-    input.setSelectionRange(startPos + lengthDiff, startPos + lengthDiff);
+        const lengthDiff = input.value.length - currentValue.length;
+        input.setSelectionRange(startPos + lengthDiff, startPos + lengthDiff);
+    }
 
     adjustInputFontSize();
     adjustFontSize();
     convert();
-  }
+}
 
-
-
-  function clearAmountALL(){
-    var amountInput = document.getElementById("inputValue");
-
-
-    amountInput.value = '';
-    convert();
-
-    adjustFontSize();
-    adjustInputFontSize();
-  }
 
 
   function clearOneCharacter() {
     const input = document.getElementById('inputValue');
+    const decimalBtn = document.getElementById('decimalBtn');
+
     const startPos = input.selectionStart;
     const endPos = input.selectionEnd;
 
@@ -399,6 +401,12 @@ function appendToAmount(value) {
       input.value = newValue;
     input.focus();
 
+    if (currentValue.indexOf('.') === -1) {
+      setTimeout(()=>{
+        decimalBtn.disabled = false;
+      }, 200);
+    }
+        
 
     convert();
     adjustInputFontSize();
@@ -406,6 +414,7 @@ function appendToAmount(value) {
       input.setSelectionRange(startPos - 1, startPos - 1);
     }
   }
+
 
 
 

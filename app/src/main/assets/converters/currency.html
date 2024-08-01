@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>currency calculator</title>
     <link rel="stylesheet" href="../ui-files/ui.css">
     <link rel="stylesheet" href="../ui-files/font-usage.css">
@@ -33,114 +33,119 @@
     </style>
 </head>
 <body style="animation: historyItems 0.4s cubic-bezier(0,1,0,1);">
-  <div class="currency_loader_error_long">
-  <md-linear-progress indeterminate style="margin: 0px 10px; border-radius: 50px; --md-sys-color-primary: red;" class="linear-progresscurrency_loader" hidden></md-linear-progress></div>
+<div class="currency_loader_error_long">
+    <md-linear-progress indeterminate style="margin: 0px 10px; border-radius: 50px; --md-sys-color-primary: red;" class="linear-progresscurrency_loader" hidden></md-linear-progress></div>
 
-    <div class="full-activity-header round transparent" style="height: 30px;">
-        <button class="ripple-icon-btn close" ontouchstart="playEffect(this)" ontouchend="playEffect2(this)" onclick="window.history.back()">
-            <span class="ripple-effect-icon"></span>
-            <span icon-outlined>arrow_back</span>
-        </button>
-        <p>Currency</p>
+<div class="full-activity-header round transparent" style="height: 30px;">
+    <button class="ripple-icon-btn close" ontouchstart="playEffect(this)" ontouchend="playEffect2(this)" onclick="window.history.back()">
+        <span class="ripple-effect-icon"></span>
+        <span icon-outlined>arrow_back</span>
+    </button>
+    <p>Currency</p>
+</div>
+
+<div class="container_currency">
+
+    <div class="from">
+        <md-outlined-select id="from" style="--md-outlined-field-bottom-space: 10px;--md-outlined-field-top-space: 10px;">
+
+        </md-outlined-select>
+
+        <input type="text" id="amount" placeholder="00" inputmode="none">
+
     </div>
+    <div class="to">
+        <md-outlined-select id="to" style="--md-outlined-field-bottom-space: 10px;--md-outlined-field-top-space: 10px;">
 
-    <div class="container_currency">
+        </md-outlined-select>
 
-        <div class="from">
-          <md-outlined-select id="from">
 
-          </md-outlined-select>
 
-          <input type="text" id="amount" placeholder="00" inputmode="none">
-
-        </div>
-        <div class="to">
-          <md-outlined-select id="to">
-
-          </md-outlined-select>
 
         <span type="text" id="result" placeholder="00" readonly >00</span>
 
-        </div>
-        <div>
-        </div>
-      </div>
-
-
-
-      <div class="c-keyboard unit-keyboard">
-        <div class="c-keyboard-keys">
-            <button class="ripple_btn v-key" onclick="appendToAmount('1')">1</button>
-            <button class="ripple_btn v-key" onclick="appendToAmount('2')">2</button>
-            <button class="ripple_btn v-key" onclick="appendToAmount('3')">3</button>
-            <button class="ripple_btn v-key" onclick="appendToAmount('4')">4</button>
-            <button class="ripple_btn v-key" onclick="appendToAmount('5')">5</button>
-            <button class="ripple_btn v-key" onclick="appendToAmount('6')">6</button>
-            <button class="ripple_btn v-key" onclick="appendToAmount('7')">7</button>
-            <button class="ripple_btn v-key" onclick="appendToAmount('8')">8</button>
-            <button class="ripple_btn v-key" onclick="appendToAmount('9')">9</button>
-            <button class="ripple_btn v-key" onclick="appendToAmount('0')">0</button>
-        </div>
-        <div class="sidebtn-c-keyboard">
-            <button class="icon-class-filled ripple_btn  v-key" onclick="clearAmountALL()" icon-outlined>clear_all</button>
-            <button class="icon-class-filled ripple_btn  v-key remove-key" onclick="clearOneCharacter()" icon-filled>backspace</button>
-        </div>
+    </div>
+    <div>
     </div>
 </div>
 
 
- <script>
+
+<div class="c-keyboard unit-keyboard">
+    <div class="c-keyboard-keys">
+        <button class="ripple_btn v-key" onclick="appendToAmount('1')">1</button>
+        <button class="ripple_btn v-key" onclick="appendToAmount('2')">2</button>
+        <button class="ripple_btn v-key" onclick="appendToAmount('3')">3</button>
+        <button class="ripple_btn v-key" onclick="appendToAmount('4')">4</button>
+        <button class="ripple_btn v-key" onclick="appendToAmount('5')">5</button>
+        <button class="ripple_btn v-key" onclick="appendToAmount('6')">6</button>
+        <button class="ripple_btn v-key" onclick="appendToAmount('7')">7</button>
+        <button class="ripple_btn v-key" onclick="appendToAmount('8')">8</button>
+        <button class="ripple_btn v-key" onclick="appendToAmount('9')">9</button>
+        <button class="ripple_btn v-key" onclick="appendToAmount('0')">0</button>
+    </div>
+    <div class="sidebtn-c-keyboard">
+        <button class="icon-class-filled ripple_btn  v-key" id="decimalBtn" onclick="appendToAmount('.')" icon-filled style="font-size: 10px;">circle</button>
+        <button class="icon-class-filled ripple_btn  v-key remove-key" onclick="clearOneCharacter()" icon-filled>backspace</button>
+    </div>
+</div>
+</div>
+
+
+<script>
     // keyboard
 
-function appendToAmount(value) {
+    function appendToAmount(value) {
     const input = document.getElementById('amount');
+    const decimalBtn = document.getElementById('decimalBtn');
     const startPos = input.selectionStart;
     const endPos = input.selectionEnd;
     input.focus();
     let currentValue = input.value;
 
     if (currentValue.length >= 25) {
-      currentValue = currentValue.substring(0, 25);
-      return
+        currentValue = currentValue.substring(0, 25);
+        return;
     }
 
+    if (value === '.') {
+        if (currentValue.indexOf('.') === -1) {
+            const beforeCursor = currentValue.substring(0, startPos);
+            const afterCursor = currentValue.substring(endPos);
+            const newValue = beforeCursor + value + afterCursor;
 
-    const beforeCursor = currentValue.substring(0, startPos);
-    const afterCursor = currentValue.substring(endPos);
+            input.value = newValue;
 
+            setTimeout(()=>{
+        decimalBtn.disabled = true;
+      }, 200);
 
-    const newValue = beforeCursor + value + afterCursor;
+            const lengthDiff = newValue.length - currentValue.length;
+            input.setSelectionRange(startPos + lengthDiff, startPos + lengthDiff);
+        }
+    } else {
+        const beforeCursor = currentValue.substring(0, startPos);
+        const afterCursor = currentValue.substring(endPos);
+        const newValue = beforeCursor + value + afterCursor;
 
-    const unformattedValue = newValue.replace(/,/g, '');
-    const formattedValue = Number(unformattedValue).toLocaleString();
+        const unformattedValue = newValue.replace(/,/g, '');
+        input.value = Number(unformattedValue).toLocaleString();
 
-    input.value = formattedValue;
-
-
-    const lengthDiff = formattedValue.length - currentValue.length;
-
-    input.setSelectionRange(startPos + lengthDiff, startPos + lengthDiff);
+        const lengthDiff = input.value.length - currentValue.length;
+        input.setSelectionRange(startPos + lengthDiff, startPos + lengthDiff);
+    }
 
     adjustInputFontSize();
     // adjustFontSize();
-    convertCurrency()
-  }
+    convertCurrency();
+}
 
-
-
-  function clearAmountALL(){
-    var amountInput = document.getElementById("amount");
-
-
-    amountInput.value = '';
-    convertCurrency()
-    // adjustFontSize();
-    adjustInputFontSize();
-  }
 
 
   function clearOneCharacter() {
     const input = document.getElementById('amount');
+    const decimalBtn = document.getElementById('decimalBtn');
+
     const startPos = input.selectionStart;
     const endPos = input.selectionEnd;
 
@@ -150,12 +155,20 @@ function appendToAmount(value) {
       input.value = newValue;
     input.focus();
 
-    convertCurrency()
+    if (currentValue.indexOf('.') === -1) {
+      setTimeout(()=>{
+        decimalBtn.disabled = false;
+      }, 200);
+    }
+
+
+    convertCurrency();
     adjustInputFontSize();
     // adjustFontSize();
       input.setSelectionRange(startPos - 1, startPos - 1);
     }
   }
+
 
 
 
@@ -225,19 +238,19 @@ function appendToAmount(value) {
 
   document.getElementById('amount').addEventListener('input', adjustInputFontSize);
  </script>
- 
- 
 
-    <script src="../app/page.js"></script>
-    <script src="../components-script.js/components.js"></script>
-    <script src="../ripple-files/icon-ripple.js"></script>
-    <script src="../modules/scroll.js"></script>
-    <script src="../modules/call-themes.js"></script>
-    <script src="../bundle.js"></script>
-    <script type="module" src="../index.js"></script>
-    <script src="../app/app.js"></script>
-    <script src="../app/ripple.js"></script>
-    <script src="../app/currency.js"></script>
-    <script src="../app/vibrate.js"></script>
-  </body>
+
+
+<script src="../app/page.js"></script>
+<script src="../components-script.js/components.js"></script>
+<script src="../ripple-files/icon-ripple.js"></script>
+<script src="../modules/scroll.js"></script>
+<script src="../modules/call-themes.js"></script>
+<script src="../bundle.js"></script>
+<script type="module" src="../index.js"></script>
+<script src="../app/app.js"></script>
+<script src="../app/ripple.js"></script>
+<script src="../app/currency.js"></script>
+<script src="../app/vibrate.js"></script>
+</body>
 </html>

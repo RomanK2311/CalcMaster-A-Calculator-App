@@ -21,7 +21,8 @@
 @media screen and (max-height:690px) {
   .calculator .main_calc_btn{
       width: 80px;
-      height: 72px;
+            height: 70px;
+
     }
 
     .calculator{

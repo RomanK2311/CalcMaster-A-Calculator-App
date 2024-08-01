@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>time calculator</title>
     <link rel="stylesheet" href="../ui-files/ui.css">
     <link rel="stylesheet" href="../ui-files/font-usage.css">
@@ -67,7 +67,7 @@
             <button class="ripple_btn v-key" onclick="appendToAmount('0')">0</button>
         </div>
         <div class="sidebtn-c-keyboard">
-            <button class="icon-class-filled ripple_btn  v-key" onclick="clearAmountALL()" icon-outlined>clear_all</button>
+          <button class="icon-class-filled ripple_btn  v-key" id="decimalBtn" onclick="appendToAmount('.')" icon-filled style="font-size: 10px;">circle</button>
             <button class="icon-class-filled ripple_btn  v-key remove-key" onclick="clearOneCharacter()" icon-filled>backspace</button>
         </div>
     </div>
@@ -84,7 +84,7 @@
               value="ms"
               aria-label="Millisecond"
               touch-target="wrapper"
-              checked></md-radio>
+              ></md-radio>
             <span aria-hidden="true" style="font-size: 18px;">Millisecond</span>
           </label>
           <label style="display: flex; align-items: center;">
@@ -92,7 +92,7 @@
               name="fromUnitTime"
               value="s"
               aria-label="Seconds"
-              touch-target="wrapper"></md-radio>
+              touch-target="wrapper" checked></md-radio>
             <span aria-hidden="true" style="font-size: 18px;">Seconds</span>
           </label>
           <label style="display: flex; align-items: center;">
@@ -169,7 +169,7 @@
               value="ms"
               aria-label="Millisecond"
               touch-target="wrapper"
-              checked></md-radio>
+              ></md-radio>
             <span aria-hidden="true" style="font-size: 18px;">Millisecond</span>
           </label>
           <label style="display: flex; align-items: center;">
@@ -185,7 +185,7 @@
               name="toUnitTime"
               value="min"
               aria-label="Minute"
-              touch-target="wrapper"></md-radio>
+              touch-target="wrapper" checked></md-radio>
             <span aria-hidden="true" style="font-size: 18px;">Minute</span>
           </label>
           <label style="display: flex; align-items: center;">
@@ -254,6 +254,7 @@ FromUnitRadiosINputs.forEach(function(FromUnitRadiosINput) {
                 var ariaLabelFromUnit = FromUnitRadiosINput.getAttribute('aria-label');
                 fromSelectTimeBtn.setAttribute('label', ariaLabelFromUnit)
                 fromUnitTimeDialog.close()
+                convert()
             });
         });
 
@@ -265,6 +266,7 @@ FromUnitRadiosINputs.forEach(function(FromUnitRadiosINput) {
                 var ariaLabeltoUnit = toUnitRadiosINput.getAttribute('aria-label');
                 toSelectTimeBtn.setAttribute('label', ariaLabeltoUnit)
                 toUnitTimeDialog.close()
+                convert()
             });
         });
 
@@ -332,15 +334,14 @@ const inputUnit = selectedValue;
   if (isNaN(outputValue)) {
     return;
   }
-  var formattedOutput;
+  let formattedOutput;
+    if (outputValue % 1 === 0) {
+        formattedOutput = outputValue.toLocaleString('en-US', { minimumFractionDigits: 0 });
+    } else {
+        formattedOutput = outputValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
 
-if (outputValue % 1 === 0) {
-    formattedOutput = outputValue.toFixed(0); 
-} else {
-    formattedOutput = outputValue.toFixed(2); 
-};
-
-document.getElementById('outputValue').value = formattedOutput;
+    document.getElementById('outputValue').value = formattedOutput;
 }
 
 
@@ -559,54 +560,55 @@ function convertCentury(value, outputUnit) {
 
 function appendToAmount(value) {
     const input = document.getElementById('inputValue');
+    const decimalBtn = document.getElementById('decimalBtn');
     const startPos = input.selectionStart;
     const endPos = input.selectionEnd;
     input.focus();
     let currentValue = input.value;
 
     if (currentValue.length >= 25) {
-      currentValue = currentValue.substring(0, 25);
-      return
+        currentValue = currentValue.substring(0, 25);
+        return;
     }
 
+    if (value === '.') {
+        if (currentValue.indexOf('.') === -1) {
+            const beforeCursor = currentValue.substring(0, startPos);
+            const afterCursor = currentValue.substring(endPos);
+            const newValue = beforeCursor + value + afterCursor;
 
-    const beforeCursor = currentValue.substring(0, startPos);
-    const afterCursor = currentValue.substring(endPos);
+            input.value = newValue;
 
+            setTimeout(()=>{
+        decimalBtn.disabled = true;
+      }, 200);
 
-    const newValue = beforeCursor + value + afterCursor;
+            const lengthDiff = newValue.length - currentValue.length;
+            input.setSelectionRange(startPos + lengthDiff, startPos + lengthDiff);
+        }
+    } else {
+        const beforeCursor = currentValue.substring(0, startPos);
+        const afterCursor = currentValue.substring(endPos);
+        const newValue = beforeCursor + value + afterCursor;
 
-    const unformattedValue = newValue.replace(/,/g, '');
-    const formattedValue = Number(unformattedValue).toLocaleString();
+        const unformattedValue = newValue.replace(/,/g, '');
+        input.value = Number(unformattedValue).toLocaleString();
 
-    input.value = formattedValue;
-
-
-    const lengthDiff = formattedValue.length - currentValue.length;
-
-    input.setSelectionRange(startPos + lengthDiff, startPos + lengthDiff);
+        const lengthDiff = input.value.length - currentValue.length;
+        input.setSelectionRange(startPos + lengthDiff, startPos + lengthDiff);
+    }
 
     adjustInputFontSize();
     adjustFontSize();
     convert();
-  }
+}
 
-
-
-  function clearAmountALL(){
-    var amountInput = document.getElementById("inputValue");
-
-
-    amountInput.value = '';
-    convert();
-    document.getElementById('outputValue').value = '';
-    adjustFontSize();
-    adjustInputFontSize();
-  }
 
 
   function clearOneCharacter() {
     const input = document.getElementById('inputValue');
+    const decimalBtn = document.getElementById('decimalBtn');
+
     const startPos = input.selectionStart;
     const endPos = input.selectionEnd;
 
@@ -616,7 +618,11 @@ function appendToAmount(value) {
       input.value = newValue;
     input.focus();
 
-
+    if (currentValue.indexOf('.') === -1) {
+      setTimeout(()=>{
+        decimalBtn.disabled = false;
+      }, 200);
+    }
         
 
     convert();
