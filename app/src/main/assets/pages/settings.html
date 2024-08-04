@@ -17,6 +17,19 @@
         .vibration_type{
             transition: all 0.5s cubic-bezier(1,0,0,1);
         }
+                .activity-large-content::before {
+            position: fixed;
+            bottom: 0;
+            content: '';
+            width: 100%;
+            background: linear-gradient(0deg, var(--Surface) 10%, rgba(255, 0, 0, 0));
+            height: 30px;
+            z-index: 1;
+        }
+
+                *{
+            font-family: var(--outfit);
+        }
     </style>
 </head>
 
@@ -33,7 +46,7 @@
         </div>
         <div class="activity-large-content" id="headUser-1">
             <p class="label-large-main">Settings</p>
-            <div class="content-parent-large">
+            <div class="content-parent-large" style="padding-bottom: 32px;">
 
 
                 <p class="title">General</p>    

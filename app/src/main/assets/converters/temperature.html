@@ -236,6 +236,7 @@ const inputUnit = selectedValue;
     }
 
     document.getElementById('outputValue').value = formattedOutput;
+    document.getElementById('outputValue').scrollLeft = document.getElementById('outputValue').scrollWidth
 }
 function convertCelsius(value, outputUnit) {
   switch (outputUnit) {

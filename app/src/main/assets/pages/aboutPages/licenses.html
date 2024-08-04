@@ -14,7 +14,15 @@
 
 
     <style>
-
+        .activity-large-content::before {
+            position: fixed;
+            bottom: 0;
+            content: '';
+            width: 100%;
+            background: linear-gradient(0deg, var(--Surface) 10%, rgba(255, 0, 0, 0));
+            height: 30px;
+            z-index: 1;
+        }
     </style>
 
 </head>
@@ -33,7 +41,7 @@
         </div>
         <div class="activity-large-content" id="headUser-7" onscroll="">
             <p class="label-large-main">Third party licenses</p>
-            <div class="content-parent-large">
+            <div class="content-parent-large" style="padding-bottom: 32px;">
 
                 <div class="licenses-div ripple_btn_low" onclick="window.location.href='https://fonts.google.com/specimen/Outfit?query=outfit'">
                     <h2 class="name-main">Outfit </h2>
