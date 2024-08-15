@@ -16,6 +16,42 @@
                 *{
             font-family: var(--outfit);
         }
+
+                .toast_version{
+            position: fixed;
+            border-radius: 10px;
+            font-size: 18px;
+            font-family: var(--outfit);
+            bottom: 15px;
+            left: 50%;
+            color: var(--On-Secondary-Container);
+            background-color: var(--Secondary-Container);
+            width: max-content;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateX(-50%);
+            padding: 10px;
+            animation: opacity 0.3s ease-out;
+            transition: opacity 0.2s ease-in;
+        }
+
+        @keyframes opacity {
+            0%{
+                opacity: 0;
+            }
+            100%{
+                opacity: 1;
+            }
+        }
+
+        .toast_version p{
+            margin: 0;
+        }
+
+        [hidden]{
+            display: none !important;
+        }
     </style>
 
 </head>
@@ -57,9 +93,10 @@
                         <div slot="headline">View source code</div>
                     </md-list-item>
 
-                    <md-list-item type="button" onclick="window.location.href='https://github.com/PranshulGG/CalcMaster_A_Calculator_App/releases'">
+                    <md-list-item type="button" id="checkUpdatesBtn">
                         <md-icon slot="start" icon-filled>system_update</md-icon>
                         <div slot="headline">Latest version</div>
+                        <md-circular-progress indeterminate slot="end" style="--md-circular-progress-size: 32px;" hidden id="version_check_loader"></md-circular-progress>
                     </md-list-item>
 
                     <md-list-item type="button" onclick="transitionToPage('aboutPages/licenses.html');">
@@ -71,7 +108,7 @@
                     <md-list-item type="button" id="show_time_toast">
                         <md-icon slot="start" icon-filled>info</md-icon>
                         <div slot="headline" style="margin-bottom: 2px;">Version</div>
-                        <div slot="supporting-text">1.1.5 (P)</div>
+                        <div slot="supporting-text">1.1.6 (P)</div>
                     </md-list-item>
 
                 </md-list>
@@ -83,7 +120,9 @@
                 <div id="show_time_toast_div">Hello :)</div>
 
 
+                <div class="toast_version" hidden>
 
+                    <p id="updateMessage"></p></div>
 
 
                 <!-- dialog -->
@@ -198,6 +237,56 @@ function showToast() {
 }
 
 
+document.getElementById('checkUpdatesBtn').addEventListener('click', async function() {
+    const currentVersion = 'v1.1.6';
+    const githubRepo = 'PranshulGG/CalcMaster-A-Calculator-App';
+    const releasesUrl = `https://api.github.com/repos/${githubRepo}/releases/latest`;
+
+    try {
+        const response = await fetch(releasesUrl);
+        if (!response.ok) throw new Error('Network response was not ok.');
+
+        const data = await response.json();
+        const latestVersion = data.tag_name;
+
+document.getElementById('version_check_loader').hidden = false;
+document.getElementById('checkUpdatesBtn').style.pointerEvents = 'none';
+
+        setTimeout(()=>{
+    if (latestVersion !== currentVersion) {
+        document.getElementById('updateMessage').innerText = 'New version available!';
+    document.getElementById('version_check_loader').hidden = true;
+    document.getElementById('checkUpdatesBtn').style.pointerEvents = '';
+    document.querySelector('.toast_version').hidden = false;
+
+    setTimeout(()=>{
+    window.location.href = 'https://github.com/PranshulGG/CalcMaster_A_Calculator_App/releases';
+}, 2500);
+
+
+        } else {
+            document.getElementById('updateMessage').innerText = 'You are using the latest version!';
+document.getElementById('version_check_loader').hidden = true;
+document.getElementById('checkUpdatesBtn').style.pointerEvents = '';
+            document.querySelector('.toast_version').hidden = false;
+        }
+
+}, 2000);
+
+
+setTimeout(()=>{
+    document.querySelector('.toast_version').style.opacity = '0';
+}, 3800);
+
+setTimeout(()=>{
+    document.querySelector('.toast_version').hidden = true;
+    document.querySelector('.toast_version').style.opacity = '';
+}, 4000);
+}catch (error) {
+        document.getElementById('updateMessage').innerText = 'Error checking for updates.';
+        console.error('Error:', error);
+    }
+});
 
 
 
