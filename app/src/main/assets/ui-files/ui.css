@@ -96,7 +96,9 @@ margin: 0;
   padding: 0;
 }
 
-
+[roundBTN="false"] .main_calc_btn{
+  border-radius: 25px !important;
+}
 
 .display{
   height: calc(100% - 20px);

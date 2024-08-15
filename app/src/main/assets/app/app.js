@@ -785,8 +785,3 @@ function recallSwapSwitches(){
  toggleIconsSwitches();
 
 
-
- document.documentElement.setAttribute('roundBTN', 'true');
-
-
-

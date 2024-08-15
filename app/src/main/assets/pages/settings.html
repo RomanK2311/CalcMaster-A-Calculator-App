@@ -198,6 +198,11 @@
                         <md-switch slot="end" id="noAnimtionSwitch"></md-switch>
                     </md-list-item>
 
+                    <md-list-item>
+                        <md-icon slot="start" icon-filled>crop_square</md-icon>
+                        <div slot="headline">Square keyboard buttons</div>
+                        <md-switch slot="end" id="squareCalcBtnsSwitch"></md-switch>
+                    </md-list-item>
 
                 </md-list>
 
@@ -361,6 +366,18 @@ function applyNoAnimations(){
     document.getElementById('pageAnimationSetting').style.pointerEvents = '';
 
 }
+}
+
+
+document.getElementById('squareCalcBtnsSwitch').addEventListener('change', ()=>{
+    localStorage.setItem('UseSquareKeyBtns', document.getElementById('squareCalcBtnsSwitch').selected)
+});
+
+
+if(localStorage.getItem('UseSquareKeyBtns') === 'true'){
+    document.getElementById('squareCalcBtnsSwitch').selected = true;
+} else{
+    document.getElementById('squareCalcBtnsSwitch').selected = false;
 }
 
 </script>

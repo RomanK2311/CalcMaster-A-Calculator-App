@@ -129,7 +129,12 @@
 
   <script>
 
+if(localStorage.getItem('UseSquareKeyBtns') === 'true'){
+    document.documentElement.setAttribute('roundBTN', 'false');
 
+ } else{
+    document.documentElement.setAttribute('roundBTN', 'true');
+ }
 
 
     setTimeout(() => {
